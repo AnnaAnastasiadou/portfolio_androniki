@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(response => response.text())
       .then(html => {
         // Inject at the top of <body>
-        document.body.insertAdjacentHTML('afterbegin', html);
+        document.getElementById('flex-container').insertAdjacentHTML('afterbegin', html);
       })
       .catch(error => console.error('Error loading header:', error));
   });
