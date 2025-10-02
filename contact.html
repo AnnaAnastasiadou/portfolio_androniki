@@ -9,14 +9,38 @@
         <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+25&family=Press+Start+2P&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
         <script src="load-header.js" defer></script>
+        <script src="load-footer.js" defer></script>
         <title>Androniki Charalambous - Contact </title>
     </head>
     <body>
-        <div id="flex-container">
-            <main id="main-content">
-                <div class="contact-container">
+        <div id="header-placeholder"></div>
+        
+        <div id="page-wrapper">
+            <div class="contact-container page">
+                <h1>Get In Touch</h1>
+                <p>I am available for new projects and opportunities. Send me a message, and let's collaborate!</p>
+                
+                <form action="[Form Submission Endpoint]" method="POST" class="contact-form">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="6" required></textarea>
+                    
+                    <button type="submit" class="cta-button">Send</button>
+                </form>
+                
+                <div class="social-links">
+                    <h2>Find Me On:</h2>
+                    <a href="#" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+                    <a href="#" target="_blank"><i class="fas fa-envelope fa-2x"></i></a>
                 </div>
-            </main>
+            </div>
+            <footer></footer>
         </div>
     </body>
 </html>
