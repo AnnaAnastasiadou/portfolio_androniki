@@ -6,10 +6,10 @@
 
 html {
     font-size: 16px;
-    font-family: "Press Start 2P",Georgia;
-    /* font-weight: 400; */
+    font-family: Domine ,Georgia; /*"Press Start 2P"*/
+    font-weight: 300;
     font-style: normal;
-    background-color: #c4c4c4;
+    background-color: #c3c3c3;
 }
 
 
@@ -19,12 +19,25 @@ body {
     flex-direction: column;
 }
 
+h1 {
+    font-size: 1.5rem;
+    margin: 1.2rem 0;
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin: 1.2rem 0;
+    font-weight: 600;
+}
+
 #page-wrapper {
     flex: 1; 
     display: flex;
     flex-direction: column; 
-    justify-content: space-between; /* Keeps main content and footer spaced */
-    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 1rem; */
 }
 
 /* --- DIALOGUE BOX STYLING --- */
@@ -93,6 +106,10 @@ body {
     transform: translateY(1px); /* Little press down effect */
 }
 
+.logo {
+    font-family: "Press Start 2P", Georgia;
+}
+
 #home-navigation {
     padding: 2rem;
     text-align: center;
@@ -119,6 +136,7 @@ body {
     flex-direction: row;
     gap: 3rem;
     padding: 3rem;
+    background-color: transparent;
 }
 
 #home-navigation .nav-links a {
@@ -169,6 +187,8 @@ nav {
     text-align: center;
     height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: row;
 }
 
 .logo {
@@ -187,11 +207,12 @@ nav {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
-    gap: 1rem;
+    justify-content: center;
+    gap: 2.5rem;
     list-style-type: none;
     padding: 1rem;
     font-size: 1rem;
+    background-color: #000080;
 }
 
 
@@ -200,6 +221,7 @@ nav {
     color: #000000;
     padding: 0.5rem 0.5rem;
     transition: all 0.3s ease;
+    color: #ffffff;
 }
 
 /* ---Standard Styling */
@@ -219,15 +241,164 @@ nav {
 }
 
 
-.page {
-    padding: 3rem 2rem;
+.window {
+    margin: 3rem 2rem;
+    padding: 0;
+    background-color: #ffffff;
+    /* Classic 3D window border */
+    border-style: solid;
+    border-width: 2px;
+    border-color: #DFDFDF #808080 #808080 #DFDFDF;
+    /* Outer shadow for the "raised" effect */
+    box-shadow: 4px 4px 0 0 #000000;
+    max-width: 1000px;
 }
 
-h2 {
-    font-size: 1.2rem;
-    margin: 1.2rem 0;
+.window-title {
+    width: 100%;
+    background-color: #ebebeb;
+    margin: 0;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
 }
 
+.window-intro {
+    padding: 1rem;
+    border-bottom: 1px dashed #C0C0C0;
+    margin: 0 1rem;
+}
+
+.window-body {
+    padding: 2rem;
+    /* display: flex;
+    flex-direction: row; */
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.projects-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    cursor: url("./assets/colour-picker3.png") 1 1, pointer;
+}
+
+.project-color-box {
+    width: 5rem;
+    height: 5rem;
+    border: 1px solid #949494;
+    /* border-radius: 5px; */
+    cursor: url("./assets/colour-picker3.png") 1 1, pointer;
+    position: relative; /* Needed for positioning the ::before overlay */
+
+    /* Ensure the image fills the box */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden; /* Ensure image doesn't bleed out */
+    filter: grayscale(0%);
+}
+
+.project-color-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Ensure the color layer is above the image */
+    
+    /* CRITICAL: Set the color using the data attribute */
+    background-color: var(--overlay-color);
+    
+    /* Controls how much the image shows through (adjust opacity for desired darkness) */
+    opacity: 0.1; 
+    
+    /* Ensure cursor interaction is on the main element, not the overlay */
+    pointer-events: none; 
+    filter: grayscale(0%);
+}
+
+.project-color-box:hover {
+    filter: grayscale(100%);
+}
+
+.project-color-box:hover::before {
+    opacity: 0; /* Lower opacity to show more of the architectural image */
+    /* background-color: none; */
+}
+
+.projects-preview {
+    width: 100%;
+    position: relative; 
+    min-height: 400px;
+    /* border: 1px solid #000000; */
+    background-color: transparent;
+    /* border: none; */
+}
+
+#project-details {
+    grid-area: 2/1/3/3;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+    transition: opacity 0.5s ease-in-out; 
+    opacity: 0;
+    visibility: hidden;
+    min-height: 5rem;
+}
+
+#project-details.visible-details {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Ensures the dedicated hover image and details start hidden */
+.hidden {
+    display: none !important;
+}
+
+/* Base style for all preview content */
+.projects-preview img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    /* border: 1px solid rgb(146, 146, 146); */
+    opacity: 0; 
+    transition: opacity 0.5s ease-in-out; /* Add a slight fade for smoothness */
+    z-index: 5;
+}
+
+/* This is how the screen saver images show */
+.projects-preview .active {
+    opacity: 1;
+    z-index: 10;;
+}
+
+/* This is how the dedicated hover image shows */
+.projects-preview #preview-image:not(.hidden) {
+    opacity: 1;
+    z-index: 20;
+}
+
+.projects-preview #preview-image.hidden {
+    z-index: -1;
+}
 
 .download-button {
     color: black;
