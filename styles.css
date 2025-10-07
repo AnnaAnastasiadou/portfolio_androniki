@@ -9,14 +9,48 @@ html {
     font-family: Domine ,Georgia; /*"Press Start 2P"*/
     font-weight: 300;
     font-style: normal;
-    background-color: #c3c3c3;
 }
-
 
 body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+body::before {
+    content: ""; /* Required for pseudo-elements */
+    position: fixed; /* Use 'fixed' to cover the whole viewport, regardless of scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* CRITICAL: Push the background image behind the content */
+    
+    /* Apply the image properties here */
+    /* background-image:
+        linear-gradient(rgba(37, 116, 195, 0.2), rgba(50, 115, 180, 0.2)),  
+        url("./assets/minecraft.jpg"); */
+    /* background-position: center; Use your existing desired position (I added 100px for the lower start)
+    background-repeat: no-repeat;
+    background-size: cover; */
+
+    background-image:
+        linear-gradient(rgba(37, 116, 195, 0.1), rgba(50, 115, 180, 0.1)),  
+        url("./assets/minecraft.jpg");
+
+    background-position: 
+        center,       /* Position for the color layer (doesn't matter) */
+        center;       /* Position for the image layer (your desired position) */
+        
+    background-repeat: 
+        no-repeat,    /* Repeat for the color layer (doesn't matter) */
+        no-repeat;    /* Repeat for the image layer */
+        
+    background-size: 
+        auto,         /* Size for the color layer (doesn't matter) */
+        cover;        /* Size for the image layer (your desired size) */
+    
+    /* opacity: 0.6; Adjust this value (0.0 to 1.0) for brightness */
 }
 
 h1 {
@@ -111,22 +145,27 @@ h2 {
 }
 
 #home-navigation {
+    width: 100%;
     padding: 2rem;
     text-align: center;
+    margin: 0 auto;
 }
 
 #home-navigation .logo {
+    min-width: 100%;
     font-size: 2.5rem; 
     margin-bottom: 1rem;
     text-shadow: 2px 2px #000000; 
     color: #000080; 
     background-color: transparent;
     text-align: center;
+    text-decoration: none;
+    text-align: center;
 }
 
 #home-navigation p {
     margin-top: 1rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #333333; 
 }
 
@@ -134,8 +173,11 @@ h2 {
     padding: 2rem; 
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
     gap: 3rem;
-    padding: 3rem;
+    padding: 2rem;
+    min-width: 100%;
     background-color: transparent;
 }
 
@@ -144,7 +186,7 @@ h2 {
     color: #000000 !important; 
     width: 250px; 
     text-align: center;
-    
+    padding: 0.5rem;
     /* 3D button border */
     border-style: solid;
     border-width: 3px;
@@ -176,10 +218,10 @@ h2 {
 
 header {
     /* Base navbar appearance */
-    margin-bottom: 1rem; 
-    height: 7.3rem;
+    /* margin-bottom: 1rem;  */
+    /* height: 7.3rem; */
     width: 100%;
-    transition: all 1.5s ease-in-out; 
+    /* transition: all 1.5s ease-in-out;  */
 }
 
 nav {
@@ -189,45 +231,55 @@ nav {
     width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000080;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
 }
 
 .logo {
-    background-color: #000080;
     color: #ffffff;
-    padding: 2rem;
-    /* margin-bottom: 1rem; */
-    font-size: 1.3rem;
     text-align: left;
-    width: 100%;
+    max-width: 50%;
     text-decoration: none;
     display: block;
+    transition: all 0.3s ease-in-out;
+    font-size: 0.8rem;
+}
+
+.logo:hover {
+    /* text-decoration: underline; */
+    transform: scale(1.02);
 }
 
 .nav-links {
+    max-width: 50%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     gap: 2.5rem;
     list-style-type: none;
-    padding: 1rem;
     font-size: 1rem;
-    background-color: #000080;
+    height: auto;
 }
 
+.nav-links a {
+    text-align: center;
+    transition: all 0.3s ease;
+}
 
 .nav-links a{
     text-decoration: none;
-    color: #000000;
-    padding: 0.5rem 0.5rem;
-    transition: all 0.3s ease;
     color: #ffffff;
+    padding: 0 0.5rem;
 }
 
 /* ---Standard Styling */
 .nav-links a:hover {
-    background-color: #000080; 
-    color: white !important;
+    background-color: #C0C0C0; 
+    color: black !important;
     
     /* Slightly more pronounced shadow/border on hover */
     border-color: #000080 #000000 #000000 #000080; 
@@ -295,7 +347,7 @@ nav {
 .project-color-box {
     width: 5rem;
     height: 5rem;
-    border: 1px solid #949494;
+    border: 1px solid rgb(207, 124, 124);
     /* border-radius: 5px; */
     cursor: url("./assets/colour-picker3.png") 1 1, pointer;
     position: relative; /* Needed for positioning the ::before overlay */
@@ -415,7 +467,7 @@ nav {
 footer {
     display: block;
     text-align: center;
-    height: 5rem;
+    padding: 0.5rem;
     background-color: #000080;
     color: #ffffff;
     display: flex;
@@ -444,16 +496,16 @@ footer {
     /* 3. Navigation Links (CRITICAL FIX) */
     #home-navigation .nav-links {
         /* Overrides the non-mobile row layout */
-        flex-direction: column; /* Stack buttons vertically */
-        gap: 3rem; /* Reduce gap between stacked buttons */
-        padding: 2rem 0; /* Adjust padding */
+        flex-direction: row; /* Stack buttons vertically */
+        gap: 1rem; /* Reduce gap between stacked buttons */
+        padding: 0.5rem 0; /* Adjust padding */
     }
 
     #home-navigation .nav-links a {
         /* Make buttons fluid to fit the container width */
-        width: 80%; 
-        max-width: 250px; /* Keep max-width limit */
-        padding: 0.5rem; /* Adjust padding */
+        /* width: 80%;  */
+        /* max-width: 250px; Keep max-width limit */
+        /* padding: 0.5rem; Adjust padding */
         font-size: 1rem;
     }
 
@@ -463,4 +515,28 @@ footer {
         padding: 0.5rem;
     }
 
+    nav {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-links {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .nav-links a {
+        min-width: 100px;
+    }
+
+    .logo {
+        min-width: 100vw;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+
 }
+
