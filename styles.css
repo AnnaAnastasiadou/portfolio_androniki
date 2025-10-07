@@ -279,12 +279,12 @@ nav {
 
 /* ---Standard Styling */
 .nav-links a:hover {
-    background-color: #C0C0C0; 
+    /* background-color: #C0C0C0; 
     color: black !important;
     
-    /* Slightly more pronounced shadow/border on hover */
     border-color: #000080 #000000 #000000 #000080; 
-    box-shadow: 2px 2px 0 0 black;
+    box-shadow: 2px 2px 0 0 black; */
+    text-decoration: underline;
     transform: translateY(-2px); /* Slight lift effect */
 }
 
