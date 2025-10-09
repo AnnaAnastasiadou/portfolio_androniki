@@ -1,108 +1,178 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const colorBoxes = document.querySelectorAll('.project-color-box');
-    const cycleImages = document.querySelectorAll('.preview-cycle-image');
-    
-    const previewImage = document.getElementById('preview-image');
-    const projectDetails = document.getElementById('project-details');
-    const detailTitle = document.getElementById('detail-title');
-    const detailLocation = document.getElementById('detail-location');
-    const detailType = document.getElementById('detail-type');
-
-    let cycleIndex = 0;
-    let cycleInterval;
-    const cycleDuration = 5000; 
-    const transitionDuration = 500; // Match CSS transition duration for images/opacity
-
-    // --- Screen Saver Logic ---
-    function startCycle() {
-        clearInterval(cycleInterval); // Clear any running interval
-        cycleIndex = 0; // Reset index
-
-        if (cycleImages.length > 0) {
-            cycleImages.forEach(img => {
-                img.style.opacity = '0'; // Ensure all are explicitly faded out first
-                img.classList.remove('active'); // Remove active class as it might interfere
-            });
-            
-            // Introduce a slight delay for the transition to work when reappearing
-            // This allows the browser to register opacity: 0 before opacity: 1
-            requestAnimationFrame(() => {
-                cycleImages[cycleIndex].classList.add('active'); // Make first image active
-                cycleImages[cycleIndex].style.opacity = '1'; // Explicitly set opacity to 1
-            });
-        }
-        
-        cycleInterval = setInterval(() => {
-            cycleImages[cycleIndex].classList.remove('active');
-            cycleImages[cycleIndex].style.opacity = '0'; // Fade out current
-
-            cycleIndex = (cycleIndex + 1) % cycleImages.length;
-            
-            // Fade in the next image
-            cycleImages[cycleIndex].classList.add('active');
-            cycleImages[cycleIndex].style.opacity = '1'; 
-        }, cycleDuration);
-    }
-    
-    function stopCycle() {
-        clearInterval(cycleInterval);
-        cycleImages.forEach(img => {
-            img.classList.remove('active');
-            img.style.opacity = '0'; // Explicitly set opacity to 0 when stopping
-        });
+const projects = [
+    {
+        id: 1,
+        title: "title1",
+        type: "type1",
+        location: "location1",
+        year: "year1",
+        color: "#FF0000",
+        image: "./assets/1.20 construction detail.png",
+        description: "Write description here"
+    },
+    {
+        id: 2,
+        title: "title2",
+        type: "type2",
+        location: "location2",
+        year: "year2",
+        color: "#4ECDC4",
+        image: "./assets/1.40 Detail Section.png",
+        description: "Write description here"
+    },
+    {
+        id: 3,
+        title: "title3",
+        type: "type1",
+        location: "location3",
+        year: "year3",
+        color: "#45B7D1",
+        image: "./assets/134846858_2471407886486792_986618414788423814_n.jpg",
+        description: "Write description here"
+    },
+    {
+        id: 4,
+        title: "title4",
+        type: "type4",
+        location: "location4",
+        year: "year4",
+        color: "#c5ce96ff",
+        image: "./assets/3c826ccd-7422-4084-b0c0-8ff7c81d6869.jpg",
+        description: "Write description here"
     }
 
-    // --- CORE HOVER FEATURE LOGIC ---
-    const handleHover = (event) => {
-        const box = event.currentTarget;
-        const imageUrl = box.dataset.imageUrl;
+];
+
+// Create the perfect ring depepnding on the numer of projects
+function createRing() {
+    const ringContainer = document.getElementById("projects-ring");
+    ringContainer.innerHTML = '';
+
+    const totalProjects = projects.length;
+    const angleStep = 360 / totalProjects;
+
+    // Ring dimensions
+    const innerRadius = 150;
+    const outerRadius = 250;
+    const centerX = 250;
+    const centerY = 250;
+
+    // Add center hub
+    const centerHub = document.createElement('div');
+    centerHub.className = 'ring-center';
+    centerHub.innerHTML = '<div class="center-text">Hover over projects<br>for preview</div>';
+    ringContainer.appendChild(centerHub);
+
+    projects.forEach((project, index) => {
+        const segment = document.createElement("div");
+        segment.className = "project-segment";
+
+        // Calculate angles 
+        const startAngle = index * angleStep;
+        const endAngle = startAngle + angleStep;
+        const midAngle = startAngle + (angleStep / 2);
+
+        // Convert angles to radians
+        const startRad = (startAngle * Math.PI) / 180;
+        const endRad = (endAngle * Math.PI) / 180;
+        const midRad = (midAngle * Math.PI) / 180;
+
+        // Calculate the four corner points
+        const innerStartX = centerX + innerRadius * Math.cos(startRad);
+        const innerStartY = centerY + innerRadius * Math.sin(startRad);
         
-        stopCycle(); // Stop the screen saver and fade out cycle images
-
-        // 1. Prepare hover image for transition
-        previewImage.src = imageUrl;
-        previewImage.classList.remove('hidden'); // Make it display: block (but still opacity:0 by default CSS)
+        const innerEndX = centerX + innerRadius * Math.cos(endRad);
+        const innerEndY = centerY + innerRadius * Math.sin(endRad);
         
-        // 2. Load and Show project details (text overlay)
-        detailTitle.textContent = box.dataset.title;
-        detailLocation.textContent = box.dataset.location;
-        detailType.textContent = box.dataset.type;
-        projectDetails.classList.add('visible-details');// Make it display: block
+        const outerStartX = centerX + outerRadius * Math.cos(startRad);
+        const outerStartY = centerY + outerRadius * Math.sin(startRad);
+        
+        const outerEndX = centerX + outerRadius * Math.cos(endRad);
+        const outerEndY = centerY + outerRadius * Math.sin(endRad);
 
-        // 3. Trigger opacity transitions for BOTH image and details
-        // Use requestAnimationFrame for a "next frame" update to allow CSS transition to run
-        requestAnimationFrame(() => {
-            previewImage.style.opacity = '1'; // Fade in the hover image
-            // If you want details to fade:
-            // projectDetails.style.opacity = '1'; 
-            // (You'd need to add opacity: 0 and transition to .project-details .hidden in CSS)
-        });
-    };
+        // Create the clip-path for the ring segment
+        const clipPath = `path("M ${innerStartX} ${innerStartY} L ${outerStartX} ${outerStartY} A ${outerRadius} ${outerRadius} 0 0 1 ${outerEndX} ${outerEndY} L ${innerEndX} ${innerEndY} A ${innerRadius} ${innerRadius} 0 0 0 ${innerStartX} ${innerStartY} Z")`;
+        // M : move to coordinate
+        // L: draw straight line
+        // A: draws an arc from the given coordinates, specifying size of arc(big/small) and direction(clockwise/anti-clockwise)
+        
+        // Set segment styles
+        segment.style.clipPath = clipPath;
+        segment.style.segmentColor = project.color;
+        segment.style.labelColor= `${midAngle}deg`;
 
-    const handleMouseLeave = () => {
-        // 1. Start fading out the hover image and details
-        previewImage.style.opacity = '0'; // Fade out the hover image
-        // If you want details to fade out:
-        projectDetails.classList.remove('visible-details');
+        // Create inner div for background
+        const innerDiv = document.createElement('div');
+        innerDiv.className = 'segment-inner';
+        innerDiv.style.backgroundColor = project.color;
+        segment.appendChild(innerDiv);
 
-        // 2. Once the fade-out transition is complete, set display: none and restart cycle
-        setTimeout(() => {
-            previewImage.classList.add('hidden'); // Hide completely after fade
-            previewImage.src = ""; // Clear source for next hover
-            
-            startCycle(); // Restart the screen saver cycle
-        }, transitionDuration); // Wait for the transition duration
-    };
+        // Add project image
+        const image = document.createElement('img');
+        image.className = 'project-image';
+        image.src = project.image;
+        image.alt = project.title;
+        segment.appendChild(image);
 
-    // --- Initialization ---
-    colorBoxes.forEach(box => {
-        const overlayColor = box.dataset.overlayColor;
-        if (overlayColor) {
-            box.style.setProperty('--overlay-color', overlayColor);
-        }
-        box.addEventListener('mouseenter', handleHover);
-        box.addEventListener('mouseleave', handleMouseLeave);
+        // Add the label element
+        // const label = document.createElement('div');
+        // label.className = 'project-label';
+        // label.textContent = project.title;
+        // label.style.setProperty('--label-angle', `${midAngle}deg`);
+        // segment.appendChild(label);
+
+        // Add event listeners
+        segment.addEventListener('mouseenter', () => showProjectPreview(project));
+        segment.addEventListener('click', () => showProjectDetails(project));
+
+        ringContainer.appendChild(segment);
+    
     });
+        // Initialize preview areas
+        initializePreviewAreas();
+}
+
+// Show project preview on hover
+function showProjectPreview(project) {
+    const preview = document.querySelector('.projects-preview');
+    preview.innerHTML = `
+        <div style="text-align: center; width: 100%;">
+            <img src="${project.image}" alt="${project.title}" style="max-width: 100%; max-height: 180px; border: 2px solid #808080;">
+            <h3 style="margin-top: 1rem; color: #000080;">${project.title}</h3>
+            <p style="color: #333;">${project.type} • ${project.location}</p>
+        </div>
+    `;
+}
+
+// Show project details on click
+function showProjectDetails(project) {
+    const details = document.getElementById('project-details');
+    details.innerHTML = `
+        <div class="project-detail-item">
+            <strong>Project:</strong> ${project.title}
+        </div>
+        <div class="project-detail-item">
+            <strong>Type:</strong> ${project.type}
+        </div>
+        <div class="project-detail-item">
+            <strong>Location:</strong> ${project.location}
+        </div>
+        <div class="project-detail-item">
+            <strong>Year:</strong> ${project.year}
+        </div>
+        <div class="project-detail-item" style="margin-top: 1rem;">
+            <strong>Description:</strong> ${project.description}
+        </div>
+    `;
+}
+
+// Initialize preview and details areas
+function initializePreviewAreas() {
+    const preview = document.querySelector('.projects-preview');
+    const details = document.getElementById('project-details');
     
-    startCycle(); // Start the screen saver on page load
-});
+    preview.innerHTML = '<div class="preview-placeholder">Hover over a project to see preview</div>';
+    details.innerHTML = '<div class="preview-placeholder">Click on a project to see details</div>';
+}
+
+
+document.addEventListener('DOMContentLoaded', createRing);
