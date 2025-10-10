@@ -5,7 +5,7 @@ const projects = [
         type: "type1",
         location: "location1",
         year: "year1",
-        color: "#FF0000",
+        color: "rgba(144, 0, 0, 0.2)",
         image: "./assets/1.20 construction detail.png",
         description: "Write description here"
     },
@@ -15,7 +15,7 @@ const projects = [
         type: "type2",
         location: "location2",
         year: "year2",
-        color: "#4ECDC4",
+        color: "rgba(0, 0, 144, 0.2)",
         image: "./assets/1.40 Detail Section.png",
         description: "Write description here"
     },
@@ -25,7 +25,7 @@ const projects = [
         type: "type1",
         location: "location3",
         year: "year3",
-        color: "#45B7D1",
+        color: "rgba(0, 144, 96, 0.2)",
         image: "./assets/134846858_2471407886486792_986618414788423814_n.jpg",
         description: "Write description here"
     },
@@ -35,7 +35,7 @@ const projects = [
         type: "type4",
         location: "location4",
         year: "year4",
-        color: "#c5ce96ff",
+        color: "rgba(144, 137, 0, 0.2)",
         image: "./assets/3c826ccd-7422-4084-b0c0-8ff7c81d6869.jpg",
         description: "Write description here"
     }
@@ -97,21 +97,36 @@ function createRing() {
         
         // Set segment styles
         segment.style.clipPath = clipPath;
-        segment.style.segmentColor = project.color;
+        segment.id = project.title;
+        segment.style.backgroundColor = project.color;
         segment.style.labelColor= `${midAngle}deg`;
-
         // Create inner div for background
-        const innerDiv = document.createElement('div');
-        innerDiv.className = 'segment-inner';
-        innerDiv.style.backgroundColor = project.color;
-        segment.appendChild(innerDiv);
+        // const innerDiv = document.createElement('div');
+        // innerDiv.className = 'segment-inner';
+        // innerDiv.style.backgroundColor = project.color;
+        // segment.appendChild(innerDiv);
+
+        // Set project color for the ::before overlay (if you use it in CSS)
+        segment.style.setProperty('--segment-color', project.color); 
 
         // Add project image
-        const image = document.createElement('img');
-        image.className = 'project-image';
-        image.src = project.image;
-        image.alt = project.title;
-        segment.appendChild(image);
+        segment.style.backgroundImage = `url("${project.image}")`;
+        // if (startAngle >= 0 && startAngle < 90) {
+        //     segment.style.backgroundPosition = "center bottom";
+        // } else if (startAngle >= 90 && startAngle < 180) {
+        //     segment.style.backgroundPosition = "center top";
+        // } else if (startAngle >= 180 && startAngle < 270) {
+        //     segment.style.backgroundPosition = "right top";
+        // } else if (startAngle >= 270 && startAngle <= 360) {
+        //     segment.style.backgroundPosition = "left center";
+        // }
+
+        // const image = document.createElement('img');
+        // image.className = 'project-image';
+        // image.src = project.image;
+        // image.alt = project.title;
+        // segment.appendChild(image);
+        
 
         // Add the label element
         // const label = document.createElement('div');
