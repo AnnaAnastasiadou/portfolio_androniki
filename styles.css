@@ -463,11 +463,10 @@ footer {
     width: 500px;
     height: 500px;
     margin: 2rem auto;
-    background: transparent;
-    /* border: 2px solid #808080; */
     border-radius: 50%;
-    /* box-shadow: inset 2px 2px 0px #FFFFFF, inset -2px -2px 0px #000000; */
     z-index: 1;
+    box-shadow: 0 0 0.8rem rgb(50, 50, 50),
+                0 0 0.8rem rgb(50, 50, 50);
 }
 
 .project-segment {
@@ -481,8 +480,8 @@ footer {
     background-size: cover;
     background-blend-mode: multiply;
     transform-origin: center;
-    cursor: url("./assets/colour-picker2.png") 16 16, pointer;
-    transition: all 0.2s ease;
+    cursor: url("./assets/colour-picker3.png") 16 16, pointer;
+    transition: all 0.3s ease;
     overflow: hidden;
 }
 
@@ -504,15 +503,6 @@ footer {
     background-position: 0% 40%;
 }
 
-.segment-inner {
-    width: 100%;
-    height: 100%;
-    background: var(--segment-color);
-    position: relative;
-    transition: all 0.2s ease;
-    opacity: 0.9;
-}
-
 .project-segment:hover {
     filter: grayscale(100%);
     background-blend-mode: normal;
@@ -529,7 +519,6 @@ footer {
     background-size: cover;
     background-position: bottom;
 }
-
 
 .project-segment:hover .project-image {
     opacity: 0.9;
@@ -555,35 +544,61 @@ footer {
     transform: translate(-50%, -50%);
     width: 200px;
     height: 200px;
-    background: #C0C0C0;
+    /* background: #C0C0C0; */
     border-radius: 50%;
+    box-shadow: 0 0 0.2rem rgb(136, 136, 136),
+                0 0 0.2rem rgb(136, 136, 136);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: inset 2px 2px 0px #FFFFFF, inset -2px -2px 0px #000000;
+    /* box-shadow: inset 2px 2px 0px #FFFFFF, inset -2px -2px 0px #000000; */
     z-index: 100;
     border: 2px solid #808080;
     text-align: center;
     padding: 1rem;
+    /* transition: all 0.5s ease-in-out; */
+}
+
+.center-image-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    opacity: 0; 
+    z-index: 1;
+    transition: opacity 0.5s ease-in-out; 
+}
+
+
+.ring-center:after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0); 
+    opacity: 0.4;
 }
 
 .center-text {
     font-weight: bold;
-    color: #000000;
     font-size: 0.8rem;
     line-height: 1.2;
+    color: #ffffff;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
+    z-index: 1;
+    transition: all 0.5s ease-in-out;
 }
 
-.preview-placeholder {
-    color: #808080;
-    font-style: italic;
-    text-align: center;
-}
 
-.project-detail-item {
+/* .project-detail-item {
     margin-bottom: 0.5rem;
 }
 
 .project-detail-item strong {
     color: #000080;
-}
+} */

@@ -58,8 +58,24 @@ function createRing() {
 
     // Add center hub
     const centerHub = document.createElement('div');
-    centerHub.className = 'ring-center';
+    centerHub.className = 'ring-center project-preview';
     centerHub.innerHTML = '<div class="center-text">Hover over projects<br>for preview</div>';
+
+    const centerImageLayer = document.createElement('div');
+    centerImageLayer.className = 'center-image-layer'; 
+    centerHub.appendChild(centerImageLayer);
+
+
+    centerHub.style.backgroundImage = `conic-gradient(
+                                            from 0deg,
+                                            rgba(255, 0, 0, 0.2),
+                                            rgba(255, 255, 0, 0.2), 
+                                            rgba(0, 255, 0, 0.2), 
+                                            rgba(0, 255, 255, 0.2), 
+                                            rgba(0, 0, 255, 0.2),
+                                            rgba(255, 0, 255, 0.2),
+                                            rgba(255, 0, 0, 0.2)
+                                        )`;
     ringContainer.appendChild(centerHub);
 
     projects.forEach((project, index) => {
@@ -100,43 +116,57 @@ function createRing() {
         segment.id = project.title;
         segment.style.backgroundColor = project.color;
         segment.style.labelColor= `${midAngle}deg`;
-        // Create inner div for background
-        // const innerDiv = document.createElement('div');
-        // innerDiv.className = 'segment-inner';
-        // innerDiv.style.backgroundColor = project.color;
-        // segment.appendChild(innerDiv);
 
         // Set project color for the ::before overlay (if you use it in CSS)
         segment.style.setProperty('--segment-color', project.color); 
 
         // Add project image
         segment.style.backgroundImage = `url("${project.image}")`;
-        // if (startAngle >= 0 && startAngle < 90) {
-        //     segment.style.backgroundPosition = "center bottom";
-        // } else if (startAngle >= 90 && startAngle < 180) {
-        //     segment.style.backgroundPosition = "center top";
-        // } else if (startAngle >= 180 && startAngle < 270) {
-        //     segment.style.backgroundPosition = "right top";
-        // } else if (startAngle >= 270 && startAngle <= 360) {
-        //     segment.style.backgroundPosition = "left center";
-        // }
-
-        // const image = document.createElement('img');
-        // image.className = 'project-image';
-        // image.src = project.image;
-        // image.alt = project.title;
-        // segment.appendChild(image);
-        
-
-        // Add the label element
-        // const label = document.createElement('div');
-        // label.className = 'project-label';
-        // label.textContent = project.title;
-        // label.style.setProperty('--label-angle', `${midAngle}deg`);
-        // segment.appendChild(label);
 
         // Add event listeners
-        segment.addEventListener('mouseenter', () => showProjectPreview(project));
+        segment.addEventListener('mouseenter', () => {
+            const centerImageLayer = centerHub.querySelector('.center-image-layer');
+            const centerText = centerHub.querySelector(".center-text");
+
+            centerImageLayer.style.backgroundImage = `url("${project.image}")`;
+            centerImageLayer.style.backgroundSize = "cover";
+            centerImageLayer.style.backgroundPosition = "center";
+            centerImageLayer.style.backgroundRepeat = "no-repeat";
+
+            centerImageLayer.style.opacity = 1; 
+
+            centerText.style.opacity = 0; 
+
+            centerText.style.color = 'transparent';
+
+            centerHub.style.border = "none";
+            centerHub.style.boxShadow = "none";
+            showProjectPreview(project);
+        });
+
+        segment.addEventListener('mouseleave', () => {
+            const centerImageLayer = centerHub.querySelector('.center-image-layer');
+            const centerText = centerHub.querySelector(".center-text");
+            centerImageLayer.style.opacity = 0; 
+            centerText.style.opacity = 1; 
+
+            centerText.style.opacity = 1; 
+            centerText.style.color = '#ffffff';
+            centerHub.style.border = ''; 
+            centerHub.style.boxShadow = ''; 
+            centerHub.style.backgroundImage = `conic-gradient(
+                                            from 0deg,
+                                            rgba(255, 0, 0, 0.2),
+                                            rgba(255, 255, 0, 0.2), 
+                                            rgba(0, 255, 0, 0.2), 
+                                            rgba(0, 255, 255, 0.2), 
+                                            rgba(0, 0, 255, 0.2),
+                                            rgba(255, 0, 255, 0.2),
+                                            rgba(255, 0, 0, 0.2)
+                                        )`;
+            centerText.textContent = 'Hover over projects<br>for preview';
+        });
+
         segment.addEventListener('click', () => showProjectDetails(project));
 
         ringContainer.appendChild(segment);
@@ -148,14 +178,7 @@ function createRing() {
 
 // Show project preview on hover
 function showProjectPreview(project) {
-    const preview = document.querySelector('.projects-preview');
-    preview.innerHTML = `
-        <div style="text-align: center; width: 100%;">
-            <img src="${project.image}" alt="${project.title}" style="max-width: 100%; max-height: 180px; border: 2px solid #808080;">
-            <h3 style="margin-top: 1rem; color: #000080;">${project.title}</h3>
-            <p style="color: #333;">${project.type} • ${project.location}</p>
-        </div>
-    `;
+    
 }
 
 // Show project details on click
