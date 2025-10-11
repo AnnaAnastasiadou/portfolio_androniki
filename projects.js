@@ -1,12 +1,12 @@
 const projects = [
     {
         id: 1,
-        title: "title1",
+        title: "title3",
         type: "type1",
-        location: "location1",
-        year: "year1",
-        color: "rgba(144, 0, 0, 0.2)",
-        image: "./assets/1.20 construction detail.png",
+        location: "location3",
+        year: "year3",
+        color: "rgba(0, 144, 96, 0.2)",
+        image: "./assets/134846858_2471407886486792_986618414788423814_n.jpg",
         description: "Write description here"
     },
     {
@@ -21,12 +21,12 @@ const projects = [
     },
     {
         id: 3,
-        title: "title3",
+        title: "title1dfbhhfnfg rddghsrtryjdyj",
         type: "type1",
-        location: "location3",
-        year: "year3",
-        color: "rgba(0, 144, 96, 0.2)",
-        image: "./assets/134846858_2471407886486792_986618414788423814_n.jpg",
+        location: "location1",
+        year: "year1",
+        color: "rgba(144, 0, 0, 0.2)",
+        image: "./assets/1.20 construction detail.png",
         description: "Write description here"
     },
     {
@@ -39,7 +39,6 @@ const projects = [
         image: "./assets/3c826ccd-7422-4084-b0c0-8ff7c81d6869.jpg",
         description: "Write description here"
     }
-
 ];
 
 // Create the perfect ring depepnding on the numer of projects
@@ -50,16 +49,23 @@ function createRing() {
     const totalProjects = projects.length;
     const angleStep = 360 / totalProjects;
 
+    const ringSize = ringContainer.offsetWidth; 
+    const innerRadiusRatio = 0.30;
+    const outerRadiusRatio = 0.50; 
+    const innerRadius = ringSize * innerRadiusRatio;
+    const outerRadius = ringSize * outerRadiusRatio;
+    const centerX = ringSize / 2;
+    const centerY = ringSize / 2; 
     // Ring dimensions
-    const innerRadius = 150;
-    const outerRadius = 250;
-    const centerX = 250;
-    const centerY = 250;
+    // const innerRadius = 150;
+    // const outerRadius = 250;
+    // const centerX = 250;
+    // const centerY = 250;
 
     // Add center hub
     const centerHub = document.createElement('div');
     centerHub.className = 'ring-center project-preview';
-    centerHub.innerHTML = '<div class="center-text">Hover over projects<br>for preview</div>';
+    centerHub.innerHTML = '<div class="center-text"><span class="bold">Hover</span> over projects for a preview. <span class="bold">Click</span> for more details!</div>';
 
     const centerImageLayer = document.createElement('div');
     centerImageLayer.className = 'center-image-layer'; 
@@ -163,7 +169,7 @@ function createRing() {
                                             rgba(255, 0, 255, 0.2),
                                             rgba(255, 0, 0, 0.2)
                                         )`;
-            centerText.textContent = 'Hover over projects for preview';
+            centerText.innerHTML = '<span class="bold">Hover</span> over projects for a preview. <span class="bold">Click</span> for more details!';
         });
 
         segment.addEventListener('click', () => showProjectDetails(project));
@@ -171,44 +177,36 @@ function createRing() {
         ringContainer.appendChild(segment);
     
     });
-        // Initialize preview areas
-        initializePreviewAreas();
+
 }
 
 // Show project preview on hover
 function showProjectPreview(project) {
+    const details = document.getElementById('project-details');
+    details.innerHTML = `
+        <div class="left">
+            <div class="project-detail-item">
+                <span class="bold">Project:</span> ${project.title}
+            </div>
+            <div class="project-detail-item">
+                <span class="bold">Type:</span> ${project.type}
+            </div>
+        </div>
+        <div class = "right">
+            <div class="project-detail-item">
+                <span class="bold">Location:</span> ${project.location}
+            </div>
+            <div class="project-detail-item">
+                <span class="bold">Year:</span> ${project.year}
+            </div>
+        </div>
+    `;
     
 }
 
 // Show project details on click
 function showProjectDetails(project) {
-    const details = document.getElementById('project-details');
-    details.innerHTML = `
-        <div class="project-detail-item">
-            <strong>Project:</strong> ${project.title}
-        </div>
-        <div class="project-detail-item">
-            <strong>Type:</strong> ${project.type}
-        </div>
-        <div class="project-detail-item">
-            <strong>Location:</strong> ${project.location}
-        </div>
-        <div class="project-detail-item">
-            <strong>Year:</strong> ${project.year}
-        </div>
-        <div class="project-detail-item" style="margin-top: 1rem;">
-            <strong>Description:</strong> ${project.description}
-        </div>
-    `;
-}
-
-// Initialize preview and details areas
-function initializePreviewAreas() {
-    const preview = document.querySelector('.projects-preview');
-    const details = document.getElementById('project-details');
-    
-    preview.innerHTML = '<div class="preview-placeholder">Hover over a project to see preview</div>';
-    details.innerHTML = '<div class="preview-placeholder">Click on a project to see details</div>';
+    alert(`Opening project ${project.title}`);
 }
 
 
