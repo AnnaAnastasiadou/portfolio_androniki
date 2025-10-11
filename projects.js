@@ -132,7 +132,6 @@ function createRing() {
             centerImageLayer.style.backgroundSize = "cover";
             centerImageLayer.style.backgroundPosition = "center";
             centerImageLayer.style.backgroundRepeat = "no-repeat";
-
             centerImageLayer.style.opacity = 1; 
 
             centerText.style.opacity = 0; 
@@ -140,7 +139,7 @@ function createRing() {
             centerText.style.color = 'transparent';
 
             centerHub.style.border = "none";
-            centerHub.style.boxShadow = "none";
+            // centerHub.style.boxShadow = "none";
             showProjectPreview(project);
         });
 
@@ -153,7 +152,7 @@ function createRing() {
             centerText.style.opacity = 1; 
             centerText.style.color = '#ffffff';
             centerHub.style.border = ''; 
-            centerHub.style.boxShadow = ''; 
+            // centerHub.style.boxShadow = ''; 
             centerHub.style.backgroundImage = `conic-gradient(
                                             from 0deg,
                                             rgba(255, 0, 0, 0.2),
@@ -164,7 +163,7 @@ function createRing() {
                                             rgba(255, 0, 255, 0.2),
                                             rgba(255, 0, 0, 0.2)
                                         )`;
-            centerText.textContent = 'Hover over projects<br>for preview';
+            centerText.textContent = 'Hover over projects for preview';
         });
 
         segment.addEventListener('click', () => showProjectDetails(project));
