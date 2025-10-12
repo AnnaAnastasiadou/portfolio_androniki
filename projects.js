@@ -45,6 +45,8 @@ const projects = [
 // Create the perfect ring depending on the number of projects
 function createRing() {
     const ringContainer = document.getElementById("projects-ring");
+    if (!ringContainer) return;
+
     ringContainer.innerHTML = '';
 
     const totalProjects = projects.length;
@@ -53,8 +55,12 @@ function createRing() {
     const ringSize = ringContainer.offsetWidth; 
     const innerRadiusRatio = 0.30;
     const outerRadiusRatio = 0.50; 
+    const centerHubRatio = 0.20;
+
     const innerRadius = ringSize * innerRadiusRatio;
     const outerRadius = ringSize * outerRadiusRatio;
+    const centerHubRadius = ringSize * centerHubRatio;
+
     const centerX = ringSize / 2;
     const centerY = ringSize / 2;
 
@@ -76,6 +82,8 @@ function createRing() {
         );
         ringContainer.appendChild(segment);
     });
+
+    updateCenterHubSize(centerHub, centerHubRadius);
 }
 
 function createCenterHub() {
@@ -101,6 +109,12 @@ function createCenterHub() {
     return centerHub;
 }
 
+function updateCenterHubSize(centerHub, centerHubRadius) {
+    const centerSize = centerHubRadius * 2;
+    centerHub.style.width = `${centerSize}px`;
+    centerHub.style.height = `${centerSize}px`;
+}
+
 function createProjectSegment(project, index, angleStep, innerRadius, outerRadius, centerX, centerY, centerHub) {
     const segment = document.createElement("div");
     segment.className = "project-segment";
@@ -108,7 +122,6 @@ function createProjectSegment(project, index, angleStep, innerRadius, outerRadiu
     // Calculate angles 
     const startAngle = index * angleStep;
     const endAngle = startAngle + angleStep;
-    const midAngle = startAngle + (angleStep / 2);
 
     // Convert angles to radians
     const startRad = (startAngle * Math.PI) / 180;
@@ -228,4 +241,7 @@ function showProjectDetails(project) {
     alert(`Opening project ${project.title}`);
 }
 
-document.addEventListener('DOMContentLoaded', createRing);
+document.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('resize', createRing);
+    createRing();
+});
