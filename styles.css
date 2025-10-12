@@ -18,6 +18,17 @@ body {
     max-width: 100%;
     display: flex;
     flex-direction: column;
+    animation: fadeIn 0.6s ease-in-out;
+
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 body::before {
@@ -117,6 +128,23 @@ h2 {
     padding: 0 0.5rem;
     text-align: center;
     transition: all 0.3s ease;
+    animation: slideInFromRight 0.6s ease-out var(--delay, 0.2s) both;
+}
+
+.nav-links a:nth-child(1) { --delay: 0.3s; }
+.nav-links a:nth-child(2) { --delay: 0.4s; }
+.nav-links a:nth-child(3) { --delay: 0.5s; }
+.nav-links a:nth-child(4) { --delay: 0.6s; }
+
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .nav-links a:hover {
@@ -259,19 +287,38 @@ h2 {
     box-shadow: 4px 4px 0 0 #000000;
     max-width: 1000px;
     width: 80%;
-    /* transition: slideUp 0.3s ease-out forwards; */
+    animation: slideUp 0.6s ease-out forwards;
 }
 
-/* @keyframes slideUp {
-    0% {
+.left {
+    animation: slideInLeft 0.4s forwards;
+}
+
+.right {
+    animation: slideInRight 0.4s 0.4s both;
+}
+
+@keyframes slideInLeft {
+    from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateX(-20px);
     }
-    100% {
+    to {
         opacity: 1;
-        transform: translateY(0px);
+        transform: translateX(0);
     }
-} */
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
 
 .window-title {
     width: 100%;
@@ -294,17 +341,31 @@ h2 {
 
 #projects-ring {
     position: relative;
-    width: 60vw;   /* Example: 60% of the viewport width */
-    height: 60vw;  /* Keep aspect ratio square */
-    max-width: 500px; /* Optional: Sets a maximum size */
-    max-height: 500px;
-    /* width: 500px;
-    height: 500px; */
+    width: 60vw;   
+    height: 60vw;
+    max-width: 600px;
+    max-height: 600px;
     margin: 2rem auto;
     border-radius: 50%;
     z-index: 1;
     box-shadow: 0 0 0.8rem rgb(50, 50, 50),
                 0 0 0.8rem rgb(50, 50, 50);
+    animation: smoothSpin 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes smoothSpin {
+    0% {
+        opacity: 0;
+        transform: scale(0.7) rotate(-360deg);
+    }
+    60% {
+        opacity: 1;
+        transform: scale(1.02) rotate(20deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
 }
 
 .project-segment {
@@ -322,7 +383,6 @@ h2 {
     transition: all 0.3s ease;
     overflow: hidden;
 }
-
 
 /* Position each image in the ring seperately */
 #title1 {
@@ -342,8 +402,9 @@ h2 {
 }
 
 .project-segment:hover {
-    filter: grayscale(100%);
+    filter: grayscale(100%) brightness(1.1);
     background-blend-mode: normal;
+    transform: scale(1.01);
 }
 
 .project-image {
@@ -446,9 +507,15 @@ h2 {
     color: rgb(133, 133, 133);
     font-size: 0.9rem;
     min-height: 100px;
-    transition: all 0.3s ease-in-out;
 }
 
+.left .project-detail-item {
+    animation: slideUp 0.4s forwards;
+}
+
+.right .project-detail-item {
+    animation: slideUp 0.4s forwards 0.3s;
+}
 
 .download-button {
     color: black;
@@ -483,22 +550,36 @@ footer {
     font-size: 0.9rem;
 }
 
+.footer-content {
+    animation: slideInFromBottom 0.6s ease-out;
+}
+
+@keyframes slideInFromBottom {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .social-icons a{
     font-size: 1.1rem;
     margin: 0 0.3rem;
-    color: #ffffff
-}
-
-.social-icons a:hover {
-    color: grey;
-
-    cursor: pointer;
+    color: #ffffff;
+    transition: all 0.3s ease;
 }
 
 .social-icons a:visited {
     color: lightblue; 
 }
 
+.social-icons a:hover {
+    color: grey;
+    cursor: pointer;
+}
 
     /* Mobile Responsive */
 @media screen and (max-width: 600px) {
