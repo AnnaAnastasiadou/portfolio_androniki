@@ -675,9 +675,6 @@ footer {
 
 /* For mobiles and tablets */
 @media screen and (max-width: 1023px) {
-    #project-details {
-        display: none;
-    }
     .dialog-hint-big-screens {
         display: none; 
     }
