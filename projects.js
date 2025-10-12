@@ -6,7 +6,7 @@ const projects = [
         location: "location3",
         year: "year3",
         color: "rgba(0, 144, 96, 0.2)",
-        image: "./assets/134846858_2471407886486792_986618414788423814_n.jpg",
+        image: "./compressed/project-image1.jpg",
         description: "Write description here"
     },
     {
@@ -16,7 +16,7 @@ const projects = [
         location: "location2",
         year: "year2",
         color: "rgba(0, 0, 144, 0.2)",
-        image: "./assets/1.40 Detail Section.png",
+        image: "./compressed/1.40 Detail Section.jpg",
         description: "Write description here"
     },
     {
@@ -26,7 +26,7 @@ const projects = [
         location: "location1",
         year: "year1",
         color: "rgba(144, 0, 0, 0.2)",
-        image: "./assets/1.20 construction detail.png",
+        image: "./compressed/1.20 construction detail.jpg",
         description: "Write description here"
     },
     {
@@ -36,7 +36,7 @@ const projects = [
         location: "location4",
         year: "year4",
         color: "rgba(144, 137, 0, 0.2)",
-        image: "./assets/3c826ccd-7422-4084-b0c0-8ff7c81d6869.jpg",
+        image: "./compressed/project-image1.jpg",
         description: "Write description here"
     }
 ];
