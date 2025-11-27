@@ -38,7 +38,7 @@ body::before {
     width: 100%;
     height: 100%;
     z-index: -1;
-    background-image: url('./assets/drawing6.png');
+    background-image: url('./assets/backgroundDrawing.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -46,11 +46,10 @@ body::before {
 }
 
 body.home::before {
-    background-image: linear-gradient(
+    background-image: /* linear-gradient(
             rgba(37, 116, 195, 0.1),
             rgba(50, 115, 180, 0.1)
-        ),
-        url('./compressed/minecraft.jpg');
+        ), */ url('./assets/minecraftBackground.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -584,6 +583,7 @@ h2 {
 #contact-form {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 15px;
     width: 100%;
 }
@@ -591,6 +591,7 @@ h2 {
 .form-group {
     margin-bottom: 0;
     position: relative;
+    width: 100%;
 }
 
 label {
@@ -606,19 +607,27 @@ input[type='email'],
 textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #808080 #ffffff #ffffff #808080;
+    background-color: #f0f0f0;
     font-size: 1em;
-    transition: border-color 0.3s, box-shadow 0.3s;
     outline: none;
+    box-shadow: inset 1px 1px 0px #000000, inset -1px -1px 0px #dfdfdf;
+    transition: all 0.2s ease;
+}
+
+textarea {
+    border-color: #808080 #ffffff #ffffff #808080;
+    box-shadow: inset 1px 1px 0px #000000, inset -1px -1px 0px #dfdfdf;
 }
 
 /* Focus State */
 input[type='text']:focus,
 input[type='email']:focus,
 textarea:focus {
-    border-color: #000080;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    border: none;
+    box-shadow: 2px 2px 0px #000000;
 }
 
 textarea {
@@ -629,7 +638,7 @@ textarea {
 #submit-form-button {
     background-color: #dfdfdf;
     color: #000000 !important;
-    width: auto;
+    width: fit-content;
     padding: 0.5rem 1.5rem;
     border-style: solid;
     border-width: 3px;
@@ -637,6 +646,11 @@ textarea {
     box-shadow: 1px 1px 0 0 black;
     transition: all 0.1s ease-out;
     cursor: pointer;
+}
+
+#submit-form-button i {
+    font-size: 1rem;
+    margin-right: 0.5rem;
 }
 
 #submit-form-button:hover:not([disabled]) {
@@ -684,13 +698,13 @@ textarea {
     text-align: center;
 
     opacity: 0;
-    visibility: hidden;
+    display: none;
     transition: opacity 0.5s, visibility 0.5s;
 }
 
 #form-success.show {
     opacity: 1;
-    visibility: visible;
+    display: block;
 }
 
 .social-links-section {
@@ -701,6 +715,16 @@ textarea {
     gap: 0.5rem;
 }
 
+.social-links-section h3 {
+    color: #000080;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
 .social-links {
     display: flex;
     align-items: center;
@@ -708,16 +732,17 @@ textarea {
 }
 
 .social-links a {
-    color: #000080;
+    font-size: 1.5rem;
+    color: #414141;
     cursor: pointer;
 }
 
 .social-links a:hover {
-    color: #414141;
+    color: #808080;
 }
 
-.social-links:visited {
-    color: purple;
+.social-links a:visited {
+    color: #000080;
 }
 
 footer {
@@ -846,6 +871,57 @@ footer {
 
 /* About me page */
 /* Enhanced Windows 98 styling for About page */
+#page-wrapper-draggable {
+    position: static !important;
+    overflow: hidden !important;
+    transform: none !important;
+}
+
+.profile-container {
+    top: 5rem;
+    left: 3rem;
+    max-width: 350px;
+    height: 450px;
+}
+
+.about-container {
+    max-width: 450px;
+}
+.profile-container {
+    max-width: 350px;
+}
+
+.image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.profile-image {
+    width: 100%; /* fills the width of the column/window */
+    max-width: 250px; /* prevents it from becoming too large */
+    aspect-ratio: 4 / 5; /* keeps proportions (same as 200x250) */
+    background-color: #e0e0e0;
+    border: 2px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #808080;
+    font-size: 0.9rem;
+}
+
+.image-caption {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #000080;
+    font-weight: bold;
+}
+
 .aboutme-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -892,14 +968,6 @@ footer {
     flex-direction: column;
     gap: 1.5rem;
 }
-
-/* .caption {
-    padding: 0.5rem;
-    background-color: #c0c0c0;
-    font-size: 0.9rem;
-    text-align: center;
-    color: #000000;
-} */
 
 .interests-grid {
     display: grid;
@@ -952,6 +1020,15 @@ footer {
     transform: translateY(1px);
     background-color: #000080;
     color: #ffffff;
+}
+
+.window.draggable {
+    position: absolute !important;
+    margin-bottom: 20px;
+    /* left: 50%;
+    top: 50%; */
+    /* width: 90% !important; */
+    height: auto !important;
 }
 
 /* Mobile Responsive Design */

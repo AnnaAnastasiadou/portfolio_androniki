@@ -15,15 +15,36 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
         />
         <script src="load-header.js" defer></script>
-        <script src="load-footer.js" defer></script>
+        <!-- <script src="load-footer.js" defer></script> -->
+        <script src="about.js" defer></script>
         <title>Androniki Charalambous - About</title>
     </head>
     <body>
         <div id="header-placeholder"></div>
 
-        <div id="page-wrapper">
-            <div class="about-container window">
-                <h1 class="window-title">About Me</h1>
+        <div id="page-wrapper-draggable">
+            <!-- Image window -->
+            <div class="profile-container window active draggable">
+                <div class="window-title-bar">
+                    <span>Profile Image</span>
+                    <span class="close-button">[ X ]</span>
+                </div>
+                <div class="window-body">
+                    <div class="image-container">
+                        <div class="profile-image">[Your Photo Here]</div>
+                        <div class="image-caption">
+                            Androniki Charalambous<br />
+                            Architect
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Text window -->
+            <div class="about-container window draggable">
+                <div class="window-title-bar">
+                    <span>About Me</span>
+                    <span class="close-button">[ X ]</span>
+                </div>
                 <div class="window-body">
                     <div class="about-text-section">
                         <div class="text-card">
@@ -118,6 +139,7 @@
                     </a>
                 </div>
             </div>
+
             <footer></footer>
         </div>
     </body>
