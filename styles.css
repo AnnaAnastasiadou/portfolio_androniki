@@ -871,6 +871,13 @@ footer {
 
 /* About me page */
 /* Enhanced Windows 98 styling for About page */
+body:has(#page-wrapper-draggable) {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
 #page-wrapper-draggable {
     position: static !important;
     overflow: hidden !important;
