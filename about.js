@@ -5,18 +5,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     console.log('Found draggable windows:', draggableWindows.length);
 
+    // Helper functions for touch/mouse
+    function getClientX(e) {
+        return e.touches ? e.touches[0].clientX : e.clientX;
+    }
+    function getClientY(e) {
+        return e.touches ? e.touches[0].clientY : e.clientY;
+    }
+
     draggableWindows.forEach((window, index) => {
         const titleBar = window.querySelector('.window-title-bar');
         let isDragging = false;
         let offsetX, offsetY;
 
-        // Remove ALL conflicting styles
+        // Remove conflicting styles
         window.style.position = 'absolute';
         window.style.margin = '0';
-        // window.style.width = index === 0 ? '350px' : '450px';
-        // window.style.height = index === 0 ? '400px' : '500px';
-        // window.style.maxWidth = 'none';
-        // window.style.animation = 'none';
         window.style.transform = 'none';
 
         // Set initial positions
@@ -28,78 +32,75 @@ document.addEventListener('DOMContentLoaded', function () {
             window.style.left = '20%';
         }
 
-        // Make sure z-index is set
         window.style.zIndex = index === 0 ? '100' : '10';
 
-        // Make title bar draggable
+        // Style title bar
         titleBar.style.cursor = 'move';
         titleBar.style.userSelect = 'none';
 
-        // Start dragging when clicking on title bar ONLY
-        titleBar.addEventListener('mousedown', function (e) {
+        // Start dragging (mouse + touch)
+        titleBar.addEventListener('mousedown', startDrag);
+        titleBar.addEventListener('touchstart', startDrag, { passive: false });
+
+        function startDrag(e) {
             if (e.target.classList.contains('close-button')) return;
+            e.preventDefault();
 
             isDragging = true;
 
-            // Calculate the offset between mouse position and window position
             const rect = window.getBoundingClientRect();
-            offsetX = e.clientX - rect.left;
-            offsetY = e.clientY - rect.top;
+            offsetX = getClientX(e) - rect.left;
+            offsetY = getClientY(e) - rect.top;
 
-            // Bring to front
-            document.querySelectorAll('.window.draggable').forEach((w) => {
-                w.style.zIndex = '10';
-            });
+            // Bring window to front
+            draggableWindows.forEach((w) => (w.style.zIndex = '10'));
             window.style.zIndex = '100';
 
             window.classList.add('dragging');
-            e.preventDefault();
-        });
+        }
 
-        // During dragging
-        document.addEventListener('mousemove', function (e) {
+        // Drag movement (mouse + touch)
+        document.addEventListener('mousemove', dragMove);
+        document.addEventListener('touchmove', dragMove, { passive: false });
+
+        function dragMove(e) {
             if (!isDragging) return;
+            e.preventDefault();
 
-            // Calculate new position based on mouse position minus the offset
-            const newX = e.clientX - offsetX;
-            const newY = e.clientY - offsetY;
+            const newX = getClientX(e) - offsetX;
+            const newY = getClientY(e) - offsetY;
 
-            // Apply new position
             window.style.left = `${newX}px`;
             window.style.top = `${newY}px`;
-        });
+        }
 
         // End dragging
-        document.addEventListener('mouseup', function () {
-            if (isDragging) {
-                isDragging = false;
-                window.classList.remove('dragging');
-            }
-        });
+        document.addEventListener('mouseup', endDrag);
+        document.addEventListener('touchend', endDrag);
 
-        // Close button functionality
-        const closeBtn = window.querySelector('.close-button');
-        closeBtn.addEventListener('click', function () {
-            window.style.display = 'none';
-        });
+        function endDrag() {
+            isDragging = false;
+            window.classList.remove('dragging');
+        }
 
-        // Bring to front when clicking anywhere on window (but don't drag)
+        // Close button
+        // const closeBtn = window.querySelector('.close-button');
+        // closeBtn.addEventListener('click', function () {
+        //     window.style.display = 'none';
+        // });
+
+        // Bring to front on click
         window.addEventListener('mousedown', function (e) {
             if (e.target === window || window.contains(e.target)) {
-                // Don't bring to front if clicking on title bar (already handled)
                 if (!titleBar.contains(e.target)) {
-                    document
-                        .querySelectorAll('.window.draggable')
-                        .forEach((w) => {
-                            w.style.zIndex = '10';
-                        });
+                    draggableWindows.forEach((w) => (w.style.zIndex = '10'));
                     window.style.zIndex = '100';
                 }
             }
         });
     });
 
-    // Add minimal CSS via JavaScript for visual feedback
+    // Minimal CSS for visual feedback
     const style = document.createElement('style');
     style.textContent = `
         .window.draggable .window-title-bar {
