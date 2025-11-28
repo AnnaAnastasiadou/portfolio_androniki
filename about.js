@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
             window.style.left = '20%';
         }
 
-        window.style.zIndex = index === 0 ? '100' : '10';
+        window.style.zIndex = index === 0 ? '11' : '10';
 
         // Style title bar
         titleBar.style.cursor = 'move';
