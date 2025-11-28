@@ -19,6 +19,9 @@ body {
     display: flex;
     flex-direction: column;
     animation: fadeIn 0.6s ease-in-out;
+    /* overflow-x: hidden;
+    overflow-y: scroll; */
+    overflow: hidden !important;
 }
 
 @keyframes fadeIn {
@@ -871,17 +874,21 @@ footer {
 }
 
 /* About me page */
-/* Enhanced Windows 98 styling for About page */
-body:has(#page-wrapper-draggable) {
+/* body:has(#page-wrapper-draggable) {
     overflow: hidden !important;
     position: fixed !important;
     width: 100% !important;
     height: 100% !important;
-}
+    overflow-x: hidden;
+} */
 
 #page-wrapper-draggable {
-    position: static !important;
-    overflow: hidden !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden !important;
     transform: none !important;
 }
 
@@ -894,8 +901,8 @@ body:has(#page-wrapper-draggable) {
 
 .about-container {
     max-width: 450px;
-    max-height: 80vh;
-    overflow-y: scroll;
+    /* max-height: 80vh;
+    overflow-y: scroll; */
 }
 .profile-container {
     max-width: 350px;
