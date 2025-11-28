@@ -922,6 +922,11 @@ body:has(#page-wrapper-draggable) {
     justify-content: center;
     color: #808080;
     font-size: 0.9rem;
+    overflow: hidden;
+}
+
+.profile-image img {
+    height: 100%;
 }
 
 .image-caption {
