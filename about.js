@@ -140,13 +140,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function updateNavHeight() {
     const nav = document.querySelector('nav');
-    const pageWrapper = document.querySelector('#page-wrapper-draggable');
-    if (!nav || !pageWrapper) return; // exit if nav or wrapper doesn't exist
+    const pageWrapper = document.getElementById('page-wrapper-draggable');
 
-    const navHeight = nav.offsetHeight + 'px';
-    pageWrapper.style.setProperty('--nav-height', navHeight);
+    // If nav isn't found yet, wait 50ms and try again
+    if (!nav) {
+        setTimeout(updateNavHeight, 50);
+        return;
+    }
+
+    if (pageWrapper) {
+        const navHeight = nav.offsetHeight;
+
+        // Safety check: if height is 0, image/styles might not be loaded yet. Retry.
+        if (navHeight === 0) {
+            setTimeout(updateNavHeight, 50);
+            return;
+        }
+
+        pageWrapper.style.setProperty('--nav-height', navHeight + 'px');
+        console.log('Nav height updated to:', navHeight);
+    }
 }
 
-// Run on load and on resize
+// Run immediately
 document.addEventListener('DOMContentLoaded', updateNavHeight);
+
+// Run when window fully loads (images etc)
+window.addEventListener('load', updateNavHeight);
+
+// Run on resize
 window.addEventListener('resize', updateNavHeight);
+
+// EXTRA SAFETY: If you use a load-header.js script, listen for a custom event
+// or just poll for it briefly to ensure it catches the injection.
+setTimeout(updateNavHeight, 100);
+setTimeout(updateNavHeight, 500);
