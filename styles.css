@@ -82,7 +82,7 @@ nav {
     background-color: #000080;
     font-size: 1rem;
     padding: 0.5rem 1rem;
-    position: relative;
+    position: sticky;
     z-index: 100000;
 }
 
