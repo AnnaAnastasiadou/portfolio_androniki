@@ -19,8 +19,8 @@ body {
     display: flex;
     flex-direction: column;
     animation: fadeIn 0.6s ease-in-out;
-    /* overflow-x: hidden;
-    overflow-y: scroll; */
+    /* overflow-x: hidden; */
+    /* overflow-y: scroll; */
     overflow-x: hidden !important;
 }
 
@@ -82,8 +82,8 @@ nav {
     background-color: #000080;
     font-size: 1rem;
     padding: 0.5rem 1rem;
-    position: sticky;
-    z-index: 100000;
+    /* position: sticky;
+    z-index: 100000; */
 }
 
 h1 {
@@ -886,10 +886,10 @@ footer {
 
 #page-wrapper-draggable {
     position: fixed !important;
-    top: 0;
+    top: calc(var(--nav-height));
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    min-height: 100vh;
     overflow-x: hidden !important;
     transform: none !important;
 }

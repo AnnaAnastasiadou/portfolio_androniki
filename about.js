@@ -17,6 +17,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const titleBar = window.querySelector('.window-title-bar');
         let isDragging = false;
         let offsetX, offsetY;
+        const navHeight =
+            parseInt(
+                getComputedStyle(document.documentElement).getPropertyValue(
+                    '--nav-height'
+                )
+            ) || 0;
 
         // Remove conflicting styles
         window.style.position = 'absolute';
@@ -25,10 +31,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Set initial positions
         if (index === 0) {
-            window.style.top = '40%';
+            window.style.top = `${navHeight + 50}px`;
             window.style.left = '10%';
         } else {
-            window.style.top = '20%';
+            window.style.top = `${navHeight + 20}px`;
             window.style.left = '20%';
         }
 
@@ -131,3 +137,16 @@ document.addEventListener('DOMContentLoaded', function () {
     `;
     document.head.appendChild(style);
 });
+
+function updateNavHeight() {
+    const nav = document.querySelector('nav');
+    const pageWrapper = document.querySelector('#page-wrapper-draggable');
+    if (!nav || !pageWrapper) return; // exit if nav or wrapper doesn't exist
+
+    const navHeight = nav.offsetHeight + 'px';
+    pageWrapper.style.setProperty('--nav-height', navHeight);
+}
+
+// Run on load and on resize
+document.addEventListener('DOMContentLoaded', updateNavHeight);
+window.addEventListener('resize', updateNavHeight);
