@@ -159,6 +159,8 @@ function updateNavHeight() {
 
         pageWrapper.style.setProperty('--nav-height', navHeight + 'px');
         console.log('Nav height updated to:', navHeight);
+
+        updateWrapperHeight();
     }
 }
 
@@ -175,3 +177,53 @@ window.addEventListener('resize', updateNavHeight);
 // or just poll for it briefly to ensure it catches the injection.
 setTimeout(updateNavHeight, 100);
 setTimeout(updateNavHeight, 500);
+
+function updateWrapperHeight() {
+    const wrapper = document.getElementById('page-wrapper-draggable');
+    const windows = document.querySelectorAll('.window.draggable');
+    const nav = document.querySelector('nav');
+
+    // Get the height of the navigation bar to determine the minimum content area.
+    // Use 0 as a fallback if the nav isn't found yet.
+    const navHeight = nav ? nav.offsetHeight : 0;
+
+    // Initialize the maximum bottom point relative to the wrapper.
+    let maxBottomRelativeToWrapper = 0;
+
+    // 1. Find the lowest point among all draggable windows
+    windows.forEach((win) => {
+        // win.offsetTop: distance from the top of the *wrapper*
+        // win.offsetHeight: height of the window element
+        const windowBottom = win.offsetTop + win.offsetHeight;
+
+        if (windowBottom > maxBottomRelativeToWrapper) {
+            maxBottomRelativeToWrapper = windowBottom;
+        }
+    });
+
+    // 2. Determine the required height
+
+    // The required height for the wrapper itself needs to cover the maxBottomRelativeToWrapper.
+    const requiredWrapperHeight = maxBottomRelativeToWrapper;
+
+    // Define a minimum visible height based on the viewport, using a fixed pixel value
+    // (e.g., 600px) instead of unstable vh, or calculating the required space.
+    // Let's use 600px as a reliable baseline minimum height for screen visibility.
+    const safetyMinHeight = 600;
+
+    // Add padding (100px) to prevent content from touching the very bottom.
+    const padding = 100;
+
+    // The final height is the greater of (Content height + padding) OR (Minimum safety height).
+    const finalHeight = Math.max(
+        requiredWrapperHeight + padding,
+        safetyMinHeight
+    );
+
+    // 3. Apply the calculated height to the wrapper
+    // This forces the absolute container to grow, pushing the footer down.
+    if (wrapper) {
+        wrapper.style.height = `${finalHeight}px`;
+        // console.log(`Wrapper height set to: ${finalHeight}px (Max window bottom: ${maxBottomRelativeToWrapper}px)`);
+    }
+}
