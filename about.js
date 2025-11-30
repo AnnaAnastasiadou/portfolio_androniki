@@ -181,11 +181,6 @@ setTimeout(updateNavHeight, 500);
 function updateWrapperHeight() {
     const wrapper = document.getElementById('page-wrapper-draggable');
     const windows = document.querySelectorAll('.window.draggable');
-    const nav = document.querySelector('nav');
-
-    // Get the height of the navigation bar to determine the minimum content area.
-    // Use 0 as a fallback if the nav isn't found yet.
-    const navHeight = nav ? nav.offsetHeight : 0;
 
     // Initialize the maximum bottom point relative to the wrapper.
     let maxBottomRelativeToWrapper = 0;

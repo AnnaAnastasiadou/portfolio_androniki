@@ -969,11 +969,10 @@ footer {
     transition: all 0.2s ease;
 }
 
-.text-card:hover {
-    /* border: none; */
+/* .text-card:hover {
     transform: translate(2px, 2px);
     box-shadow: none;
-}
+} */
 
 .text-card h3 {
     color: #000080;
@@ -1011,9 +1010,9 @@ footer {
     transition: all 0.2s ease;
 }
 
-.interest-item:hover {
+/* .interest-item:hover {
     border-color: #000080;
-}
+} */
 
 .download-button {
     text-decoration: none;
