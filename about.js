@@ -1,165 +1,209 @@
-// about.js - Make windows with 'draggable' class draggable
-
-function getNavConstraint() {
-    const navHeight =
-        parseInt(
-            getComputedStyle(document.documentElement).getPropertyValue(
-                '--nav-height'
-            )
-        ) || 0;
-    return navHeight + 5; // small buffer
+// --- Function to get the current height of the navigation bar ---
+function getNavHeight() {
+    const header = document.querySelector('nav, header, .navbar, .header');
+    return header ? header.offsetHeight : 80;
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const draggableWindows = document.querySelectorAll('.window.draggable');
-    const container = document.getElementById('page-wrapper-draggable');
+// --- Helper function to get the constraint (bottom edge of the navbar) ---
+function getNavConstraint() {
+    const header = document.querySelector('nav, header, .navbar, .header');
+    const navBottomPosition = header
+        ? header.offsetTop + header.offsetHeight
+        : 85;
+    const buffer = 5;
+    return navBottomPosition + buffer;
+}
 
-    if (!container) return;
-
-    // Force GPU layer for smoother repaint
-    container.style.willChange = 'transform, height';
-
-    // Set wrapper to relative for better mobile behavior
-    container.style.position = 'relative';
-    container.style.minHeight = '100vh';
-    container.style.overflowX = 'hidden';
-
-    function getClientX(e) {
-        return e.touches ? e.touches[0].clientX : e.clientX;
+// --- Helper function to get the correct clientX/clientY from mouse or touch event ---
+function getClientCoords(e) {
+    if (e.touches && e.touches.length) {
+        return {
+            clientX: e.touches[0].clientX,
+            clientY: e.touches[0].clientY,
+        };
     }
-    function getClientY(e) {
-        return e.touches ? e.touches[0].clientY : e.clientY;
-    }
+    return {
+        clientX: e.clientX,
+        clientY: e.clientY,
+    };
+}
 
-    draggableWindows.forEach((window, index) => {
-        const titleBar = window.querySelector('.window-title-bar');
-        let isDragging = false;
-        let offsetX, offsetY;
+// --- Function to update container height without excessive growth ---
+function updateContainerHeight() {
+    const container = document.querySelector('#page-wrapper');
+    const windows = document.querySelectorAll('.window');
 
-        // Remove conflicting styles
-        window.style.position = 'absolute';
-        window.style.margin = '0';
-        window.style.transform = 'none';
+    let maxBottom = 0;
+    const viewportHeight = window.innerHeight;
 
-        // Set initial positions
-        const navHeight =
-            parseInt(
-                getComputedStyle(document.documentElement).getPropertyValue(
-                    '--nav-height'
-                )
-            ) || 0;
+    windows.forEach((window) => {
+        const rect = window.getBoundingClientRect();
+        const bottom = rect.bottom + window.scrollY;
 
-        if (index === 0) {
-            window.style.top = `${navHeight + 50}px`;
-            window.style.left = '10%';
-        } else {
-            window.style.top = `${navHeight + 20}px`;
-            window.style.left = '20%';
+        // Only consider windows that are within reasonable bounds
+        if (bottom > maxBottom && bottom < viewportHeight * 2) {
+            maxBottom = bottom;
         }
-
-        window.style.zIndex = index === 0 ? '11' : '10';
-        titleBar.style.cursor = 'move';
-        titleBar.style.userSelect = 'none';
-
-        titleBar.addEventListener('mousedown', startDrag);
-        titleBar.addEventListener('touchstart', startDrag, { passive: false });
-
-        function startDrag(e) {
-            if (e.target.classList.contains('close-button')) return;
-            e.preventDefault();
-
-            isDragging = true;
-            const rect = window.getBoundingClientRect();
-            offsetX = getClientX(e) - rect.left;
-            offsetY = getClientY(e) - rect.top;
-
-            draggableWindows.forEach((w) => (w.style.zIndex = '10'));
-            window.style.zIndex = '100';
-            window.classList.add('dragging');
-        }
-
-        document.addEventListener('mousemove', dragMove);
-        document.addEventListener('touchmove', dragMove, { passive: false });
-
-        function dragMove(e) {
-            if (!isDragging) return;
-            e.preventDefault();
-
-            let newX = getClientX(e) - offsetX;
-            let newY = getClientY(e) - offsetY;
-
-            const headerConstraint = getNavConstraint();
-            newY = Math.max(newY, headerConstraint);
-
-            window.style.left = `${newX}px`;
-            window.style.top = `${newY}px`;
-
-            updateWrapperHeight();
-        }
-
-        document.addEventListener('mouseup', endDrag);
-        document.addEventListener('touchend', endDrag);
-
-        function endDrag() {
-            isDragging = false;
-            window.classList.remove('dragging');
-            updateWrapperHeight();
-        }
-
-        window.addEventListener('mousedown', function (e) {
-            if (!titleBar.contains(e.target)) {
-                draggableWindows.forEach((w) => (w.style.zIndex = '10'));
-                window.style.zIndex = '100';
-            }
-        });
     });
 
-    updateWrapperHeight();
+    // Don't let container grow more than 150% of viewport height
+    const maxAllowedHeight = viewportHeight * 1.5;
+    const newContainerHeight = Math.min(
+        Math.max(maxBottom + 50, viewportHeight),
+        maxAllowedHeight
+    );
 
-    // Add style for visual feedback
-    const style = document.createElement('style');
-    style.textContent = `
-        .window.draggable .window-title-bar { cursor: move !important; user-select: none !important; }
-        .window.draggable.dragging { box-shadow: 6px 6px 0 0 #000000; cursor: move !important; }
-    `;
-    document.head.appendChild(style);
+    container.style.minHeight = newContainerHeight + 'px';
+    document.body.style.minHeight = newContainerHeight + 100 + 'px';
+}
 
-    // Update wrapper on scroll/touchmove for mobile smoothness
-    document.addEventListener('scroll', updateWrapperHeight, { passive: true });
-    document.addEventListener('touchmove', updateWrapperHeight, {
-        passive: true,
+// --- Debounce function to prevent too many rapid updates ---
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Create a debounced version for performance
+const debouncedUpdateContainerHeight = debounce(updateContainerHeight, 50);
+
+// --- 1. Set Initial Position Below Navbar (Load Logic) ---
+window.addEventListener('load', () => {
+    const navHeight = getNavHeight();
+    const windowPadding = 20;
+
+    document.querySelectorAll('.window').forEach((win, index) => {
+        const centerX = window.innerWidth / 2 - win.offsetWidth / 2;
+        const startY = getNavConstraint() + windowPadding + index * 20;
+
+        win.style.position = 'absolute';
+        win.style.left = centerX + 'px';
+        win.style.top = startY + 'px';
+        win.style.zIndex = '10';
+
+        const bar = win.querySelector('.window-title-bar');
+        if (bar) {
+            bar.style.touchAction = 'none';
+        }
     });
+
+    setTimeout(updateContainerHeight, 100);
 });
 
-function updateNavHeight() {
-    const nav = document.querySelector('nav');
-    const wrapper = document.getElementById('page-wrapper-draggable');
-    if (!nav || !wrapper) return;
+// --- 2. Scroll-Aware Dragging Logic with Complete Boundary Constraints ---
 
-    const navHeight = nav.offsetHeight || 0;
-    wrapper.style.setProperty('--nav-height', navHeight + 'px');
-    updateWrapperHeight();
+let draggingWindow = null;
+let startDocumentX = 0;
+let startDocumentY = 0;
+let originWindowLeft = 0;
+let originWindowTop = 0;
+
+function startDrag(e) {
+    const bar = e.target.closest('.window-title-bar');
+    if (!bar) return;
+
+    draggingWindow = bar.parentElement;
+    e.preventDefault();
+
+    const coords = getClientCoords(e);
+
+    originWindowLeft = parseFloat(draggingWindow.style.left) || 0;
+    originWindowTop = parseFloat(draggingWindow.style.top) || 0;
+
+    startDocumentX = coords.clientX + window.scrollX;
+    startDocumentY = coords.clientY + window.scrollY;
+
+    draggingWindow.style.zIndex =
+        Math.max(
+            ...Array.from(document.querySelectorAll('.window')).map(
+                (w) => parseInt(w.style.zIndex) || 0
+            )
+        ) + 1;
+
+    draggingWindow.classList.add('dragging');
 }
 
-document.addEventListener('DOMContentLoaded', updateNavHeight);
-window.addEventListener('load', updateNavHeight);
-window.addEventListener('resize', updateNavHeight);
-setTimeout(updateNavHeight, 100);
-setTimeout(updateNavHeight, 500);
+function handleMove(e) {
+    if (!draggingWindow) return;
+    e.preventDefault();
 
-function updateWrapperHeight() {
-    const wrapper = document.getElementById('page-wrapper-draggable');
-    if (!wrapper) return;
+    const coords = getClientCoords(e);
 
-    const windows = document.querySelectorAll('.window.draggable');
-    let maxBottom = 0;
+    const currentDocumentX = coords.clientX + window.scrollX;
+    const currentDocumentY = coords.clientY + window.scrollY;
 
-    windows.forEach((win) => {
-        const bottom = win.offsetTop + win.offsetHeight;
-        if (bottom > maxBottom) maxBottom = bottom;
-    });
+    const dx = currentDocumentX - startDocumentX;
+    const dy = currentDocumentY - startDocumentY;
 
-    const padding = 100;
-    const minHeight = 600;
-    wrapper.style.height = Math.max(maxBottom + padding, minHeight) + 'px';
+    // Calculate the new absolute position
+    let newLeft = originWindowLeft + dx;
+    let newTop = originWindowTop + dy;
+
+    // --- COMPLETE BOUNDARY CONSTRAINTS ---
+    const minTopConstraint = getNavConstraint();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const windowWidth = draggingWindow.offsetWidth;
+    const windowHeight = draggingWindow.offsetHeight;
+
+    // Apply constraints
+    newTop = Math.max(minTopConstraint, newTop); // Don't go above nav
+    newLeft = Math.max(0, newLeft); // Don't go beyond left edge
+    newLeft = Math.min(viewportWidth - windowWidth, newLeft); // Don't go beyond right edge
+    newTop = Math.min(viewportHeight - 100, newTop); // Don't go too far down
+
+    draggingWindow.style.left = newLeft + 'px';
+    draggingWindow.style.top = newTop + 'px';
+
+    // Update container height (debounced for performance)
+    debouncedUpdateContainerHeight();
 }
+
+function endDrag() {
+    if (draggingWindow) {
+        draggingWindow.classList.remove('dragging');
+    }
+    draggingWindow = null;
+
+    // Final container height update
+    updateContainerHeight();
+}
+
+// --- Event Listeners Setup ---
+document.addEventListener('mousedown', startDrag);
+document.addEventListener('mousemove', handleMove);
+document.addEventListener('mouseup', endDrag);
+
+document.addEventListener('touchstart', startDrag, { passive: false });
+document.addEventListener('touchmove', handleMove, { passive: false });
+document.addEventListener('touchend', endDrag);
+document.addEventListener('touchcancel', endDrag);
+
+// Update on window resize
+window.addEventListener('resize', updateContainerHeight);
+
+// Add CSS for visual feedback (optional)
+const style = document.createElement('style');
+style.textContent = `
+    .window.draggable .window-title-bar {
+        cursor: move !important;
+        user-select: none !important;
+    }
+    
+    .window.draggable.dragging {
+        box-shadow: 6px 6px 0 0 #000000;
+        cursor: move !important;
+    }
+    
+    /* Smooth transition for container height changes */
+    #page-wrapper {
+        transition: min-height 0.3s ease;
+    }
+`;
+document.head.appendChild(style);
