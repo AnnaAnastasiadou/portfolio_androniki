@@ -30,31 +30,28 @@ function getClientCoords(e) {
 
 // --- Function to update container height without excessive growth ---
 function updateContainerHeight() {
-    const container = document.querySelector('#page-wrapper');
     const windows = document.querySelectorAll('.window');
 
     let maxBottom = 0;
-    const viewportHeight = window.innerHeight;
 
-    windows.forEach((window) => {
-        const rect = window.getBoundingClientRect();
+    windows.forEach((win) => {
+        const rect = win.getBoundingClientRect();
         const bottom = rect.bottom + window.scrollY;
 
-        // Only consider windows that are within reasonable bounds
-        if (bottom > maxBottom && bottom < viewportHeight * 2) {
+        if (bottom > maxBottom) {
             maxBottom = bottom;
         }
     });
 
-    // Don't let container grow more than 150% of viewport height
-    const maxAllowedHeight = viewportHeight * 1.5;
-    const newContainerHeight = Math.min(
-        Math.max(maxBottom + 50, viewportHeight),
-        maxAllowedHeight
-    );
+    // This ensures the page height always covers the lowest window
+    const requiredHeight = maxBottom; // extra breathing room
 
-    container.style.minHeight = newContainerHeight + 'px';
-    document.body.style.minHeight = newContainerHeight + 100 + 'px';
+    document.body.style.minHeight = requiredHeight + 'px';
+
+    const wrapper = document.querySelector('#page-wrapper');
+    if (wrapper) {
+        wrapper.style.minHeight = requiredHeight + 'px';
+    }
 }
 
 // --- Debounce function to prevent too many rapid updates ---
@@ -233,25 +230,6 @@ style.textContent = `
     #page-wrapper {
         transition: min-height 0.3s ease;
     }
-    
-    /* Ensure windows have appropriate sizes */
-    .profile-container {
-        width: 350px;
-        max-width: 90vw;
-    }
-    
-    .about-container {
-        width: 450px;
-        max-width: 90vw;
-    }
-    
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .profile-container,
-        .about-container {
-            width: 95vw !important;
-            max-width: 95vw !important;
-        }
-    }
+
 `;
 document.head.appendChild(style);
