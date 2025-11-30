@@ -77,15 +77,43 @@ const debouncedUpdateContainerHeight = debounce(updateContainerHeight, 50);
 window.addEventListener('load', () => {
     const navHeight = getNavHeight();
     const windowPadding = 20;
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    const MOBILE_BREAKPOINT = 769;
 
     document.querySelectorAll('.window').forEach((win, index) => {
-        const centerX = window.innerWidth / 2 - win.offsetWidth / 2;
-        const startY = getNavConstraint() + windowPadding + index * 20;
+        let leftPosition, topPosition;
+
+        if (index === 0) {
+            if (viewportWidth <= MOBILE_BREAKPOINT) {
+                // Mobile: 5% from left (using viewport percentage)
+                leftPosition = 10;
+            } else {
+                // Laptop/Desktop: 20% from left
+                leftPosition = viewportWidth * 0.2;
+            }
+
+            topPosition = getNavConstraint() + 120;
+        } else {
+            const windowWidth = win.offsetWidth;
+
+            // You can also make this position responsive:
+            if (viewportWidth <= MOBILE_BREAKPOINT) {
+                // Mobile: Start closer to the left edge
+                leftPosition = 1;
+            } else {
+                // Desktop: Set a fixed/percentage offset
+                leftPosition = viewportWidth * 0.1;
+            }
+
+            topPosition = getNavConstraint() + 50;
+        }
 
         win.style.position = 'absolute';
-        win.style.left = centerX + 'px';
-        win.style.top = startY + 'px';
-        win.style.zIndex = '10';
+        win.style.left = leftPosition + 'px';
+        win.style.top = topPosition + 'px';
+        win.style.zIndex = (10 - index).toString();
 
         const bar = win.querySelector('.window-title-bar');
         if (bar) {
@@ -188,7 +216,7 @@ document.addEventListener('touchcancel', endDrag);
 // Update on window resize
 window.addEventListener('resize', updateContainerHeight);
 
-// Add CSS for visual feedback (optional)
+// Add CSS for visual feedback and window sizing
 const style = document.createElement('style');
 style.textContent = `
     .window.draggable .window-title-bar {
@@ -204,6 +232,26 @@ style.textContent = `
     /* Smooth transition for container height changes */
     #page-wrapper {
         transition: min-height 0.3s ease;
+    }
+    
+    /* Ensure windows have appropriate sizes */
+    .profile-container {
+        width: 350px;
+        max-width: 90vw;
+    }
+    
+    .about-container {
+        width: 450px;
+        max-width: 90vw;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .profile-container,
+        .about-container {
+            width: 95vw !important;
+            max-width: 95vw !important;
+        }
     }
 `;
 document.head.appendChild(style);

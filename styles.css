@@ -901,19 +901,13 @@ footer {
 }
 
 .profile-container {
-    top: 5rem;
-    left: 3rem;
     max-width: 350px;
-    height: 450px;
+    width: 50vw !important;
 }
 
 .about-container {
     max-width: 450px;
-    /* max-height: 80vh;
-    overflow-y: scroll; */
-}
-.profile-container {
-    max-width: 350px;
+    width: 70vw !important;
 }
 
 .image-container {
@@ -1085,5 +1079,26 @@ footer {
 @media screen and (max-width: 480px) {
     .interests-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 480px) and (max-width: 769) {
+    .about-container {
+        /* Text window takes 50% of the screen width */
+        width: 50vw;
+    }
+
+    .profile-container {
+        /* Image window takes 30% of the screen width */
+        width: 30vw;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-container {
+        width: 90vw !important;
+    }
+    .profile-container {
+        width: 70vw !important;
     }
 }
