@@ -44,7 +44,7 @@ function updateContainerHeight() {
     });
 
     // This ensures the page height always covers the lowest window
-    const requiredHeight = maxBottom; // extra breathing room
+    const requiredHeight = maxBottom + 20; // extra breathing room
 
     document.body.style.minHeight = requiredHeight + 'px';
 
