@@ -229,11 +229,21 @@ function endDrag() {
 }
 
 // --- Event Listeners Setup ---
-
+document.addEventListener('mousedown', (e) => {
+    bringToFront(e);
+    startDrag(e);
+});
 document.addEventListener('mousedown', startDrag);
 document.addEventListener('mousemove', handleMove);
 document.addEventListener('mouseup', endDrag);
-
+document.addEventListener(
+    'touchstart',
+    (e) => {
+        bringToFront(e);
+        startDrag(e);
+    },
+    { passive: false }
+);
 document.addEventListener('touchstart', startDrag, { passive: false });
 document.addEventListener('touchmove', handleMove, { passive: false });
 document.addEventListener('touchend', endDrag);

@@ -2,19 +2,53 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+25&family=Press+Start+2P&display=swap"
+            rel="stylesheet"
+        />
         <title>Project Details</title>
-        <link rel="stylesheet" href="styles.css" />
-        <!-- your Win98 style -->
+        <!-- In a single file, we embed CSS -->
         <style>
-            /* PAGE CONTAINER */
+            html {
+                scroll-behavior: smooth;
+                font-size: 16px;
+                font-family: Domine, Georgia; /*"Press Start 2P"*/
+                font-weight: 300;
+                font-style: normal;
+            }
+
+            body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 1rem;
+                height: 100%;
+                min-height: 100vh;
+                width: 100%;
+            }
             .project-details-window {
-                width: 80%;
-                margin: 40px auto;
-                background: #c0c0c0;
+                margin: 0.5rem auto;
+                max-width: 700px;
+                background: #ffffff;
                 border: 2px solid #000;
                 box-shadow: 4px 4px 0 #000;
                 padding: 1.5rem;
-                font-family: 'MS Sans Serif', sans-serif;
+                font-family: 'MS Sans Serif', 'Arial', sans-serif;
+                animation: windowAppear 0.5s ease-out forwards;
+            }
+
+            @keyframes windowAppear {
+                from {
+                    opacity: 0;
+                    transform: scale(0.95) translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1) translateY(0);
+                }
             }
 
             /* TITLE BAR */
@@ -25,21 +59,33 @@
                 font-weight: bold;
                 margin: -1.5rem -1.5rem 1rem -1.5rem;
                 border-bottom: 2px solid #000;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
             }
 
-            /* LAYOUT */
+            /* LAYOUT - FORCING STACKING */
             .project-layout {
                 display: grid;
-                grid-template-columns: 1fr 1fr;
+                /* --- MODIFIED: Forces a single column layout on all screens --- */
+                grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
 
             .project-img {
                 width: 100%;
+                height: auto; /* Ensure image scales correctly */
                 max-height: 400px;
                 object-fit: cover;
                 background: #000;
                 border: 2px solid #000;
+                /* Ensuring the image is the first element to fill the single column */
+                grid-column: 1 / -1;
+            }
+
+            .project-meta {
+                /* The metadata will naturally flow below the image in the single column grid */
+                padding-top: 0.5rem; /* Small buffer */
             }
 
             .project-meta div {
@@ -53,7 +99,7 @@
             /* DESCRIPTION */
             .project-description {
                 margin-top: 2rem;
-                background: #fff;
+                background: #f0f0f0;
                 padding: 1rem;
                 border: 2px solid #000;
             }
@@ -66,33 +112,36 @@
                 background: #e0e0e0;
                 border: 2px solid #000;
                 cursor: pointer;
+                box-shadow: inset -1px -1px #000, inset 1px 1px #fff,
+                    inset -2px -2px #808080, inset 2px 2px #dfdfdf;
+                font-weight: bold;
             }
 
-            .back-btn:hover {
-                background: #fff;
+            .back-btn:active {
+                box-shadow: inset -1px -1px #fff, inset 1px 1px #000,
+                    inset -2px -2px #dfdfdf, inset 2px 2px #808080;
             }
 
-            @media (max-width: 800px) {
-                .project-layout {
-                    grid-template-columns: 1fr;
-                }
-            }
+            /* Removed the media query as the layout is now always 1 column */
         </style>
     </head>
     <body>
+        <!-- The entire content is wrapped in the "window" structure -->
         <div class="project-details-window">
             <div class="project-title-bar" id="project-title-bar">
                 Loading Project…
             </div>
 
             <div class="project-layout">
+                <!-- 1. IMAGE (Always top in the single-column grid) -->
                 <img
                     id="project-img"
                     class="project-img"
-                    src=""
+                    src="https://placehold.co/600x400/000000/FFFFFF?text=Project+Mockup"
                     alt="Project Image"
                 />
 
+                <!-- 2. METADATA (Flows directly below the image) -->
                 <div class="project-meta">
                     <div>
                         <span class="bold">Type:</span>
@@ -109,18 +158,33 @@
                 </div>
             </div>
 
+            <!-- 3. DESCRIPTION (Flows below the entire .project-layout block) -->
             <div class="project-description" id="project-description"></div>
 
             <button class="back-btn" onclick="window.history.back()">
-                ← Back
+                <span style="font-size: 1.2em; vertical-align: middle"
+                    >&#x2190;</span
+                >
+                Back
             </button>
         </div>
 
         <script>
-            // Load the selected project
-            const project = JSON.parse(
-                sessionStorage.getItem('selectedProject')
-            );
+            // Mock data for testing since sessionStorage is empty on first load
+            const mockProject = {
+                title: 'Retro UI Portfolio Site',
+                image: 'https://placehold.co/600x400/555555/FFFFFF?text=Website+Screenshot',
+                type: 'Web Application',
+                location: 'Remote, Internet',
+                year: 2024,
+                description:
+                    '<p>This project was built to explore vintage operating system aesthetics, specifically the look and feel of Windows 98 and classic MacOS. It utilizes modern HTML and pure CSS to recreate the distinct visual elements like shaded borders, blue title bars, and pixel fonts.</p>' +
+                    '<p>The main challenge was creating a fluid, responsive layout that maintained the rigid, fixed-style appearance of older operating systems.</p>',
+            };
+
+            // Load the selected project from sessionStorage or use mock data
+            const projectJson = sessionStorage.getItem('selectedProject');
+            const project = projectJson ? JSON.parse(projectJson) : mockProject;
 
             if (project) {
                 document.getElementById('project-title-bar').textContent =
@@ -136,7 +200,7 @@
                     project.description;
             } else {
                 document.getElementById('project-description').textContent =
-                    'Error: No project found.';
+                    'Error: No project found. Please navigate back and select a project.';
             }
         </script>
     </body>
