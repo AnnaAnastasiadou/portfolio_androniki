@@ -73,6 +73,24 @@ function debounce(func, wait) {
 // Create a debounced version for performance
 const debouncedUpdateContainerHeight = debounce(updateContainerHeight, 50);
 
+// --- Function to bring window to front on click ---
+function bringToFront(e) {
+    const clickedWindow = e.target.closest('.window');
+    if (!clickedWindow) return;
+
+    // Get the highest current z-index
+    const maxZIndex = Math.max(
+        ...Array.from(document.querySelectorAll('.window')).map(
+            (w) => parseInt(w.style.zIndex) || 0
+        )
+    );
+
+    // Only update if this window isn't already on top
+    if (parseInt(clickedWindow.style.zIndex) < maxZIndex) {
+        clickedWindow.style.zIndex = maxZIndex + 1;
+    }
+}
+
 window.addEventListener('load', () => {
     const navConstraint = getNavConstraint();
     const viewportWidth = window.innerWidth;
@@ -211,6 +229,7 @@ function endDrag() {
 }
 
 // --- Event Listeners Setup ---
+
 document.addEventListener('mousedown', startDrag);
 document.addEventListener('mousemove', handleMove);
 document.addEventListener('mouseup', endDrag);
