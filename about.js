@@ -28,29 +28,6 @@ function getClientCoords(e) {
     };
 }
 
-// --- Function to update container height without excessive growth ---
-// function updateContainerHeight() {
-//     const windows = document.querySelectorAll('.window');
-
-//     let maxBottom = 0;
-
-//     windows.forEach((win) => {
-//         const rect = win.getBoundingClientRect();
-//         const bottom = rect.bottom + window.scrollY;
-
-//         if (bottom > maxBottom) {
-//             maxBottom = bottom;
-//         }
-//     });
-
-//     // This ensures the page height always covers the lowest window
-//     const requiredHeight = maxBottom + 100; // extra breathing room
-
-//     document.body.style.minHeight = requiredHeight + 'px';
-//     const wrapper = document.querySelector('#page-wrapper');
-//     wrapper.style.minHeight = requiredHeight + 'px';
-
-// }
 function updateContainerHeight() {
     const windows = document.querySelectorAll('.window');
 
@@ -77,7 +54,7 @@ function updateContainerHeight() {
         wrapper.style.minHeight = requiredHeight + 'px';
     }
 
-    document.body.style.minHeight = maxBottom + 'px';
+    // document.body.style.minHeight = requiredHeight + navHeight + 'px';
 }
 
 // --- Debounce function to prevent too many rapid updates ---
