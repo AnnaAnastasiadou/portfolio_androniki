@@ -29,8 +29,32 @@ function getClientCoords(e) {
 }
 
 // --- Function to update container height without excessive growth ---
+// function updateContainerHeight() {
+//     const windows = document.querySelectorAll('.window');
+
+//     let maxBottom = 0;
+
+//     windows.forEach((win) => {
+//         const rect = win.getBoundingClientRect();
+//         const bottom = rect.bottom + window.scrollY;
+
+//         if (bottom > maxBottom) {
+//             maxBottom = bottom;
+//         }
+//     });
+
+//     // This ensures the page height always covers the lowest window
+//     const requiredHeight = maxBottom + 100; // extra breathing room
+
+//     document.body.style.minHeight = requiredHeight + 'px';
+//     const wrapper = document.querySelector('#page-wrapper');
+//     wrapper.style.minHeight = requiredHeight + 'px';
+
+// }
 function updateContainerHeight() {
     const windows = document.querySelectorAll('.window');
+
+    const navHeight = getNavHeight();
 
     let maxBottom = 0;
 
@@ -43,15 +67,17 @@ function updateContainerHeight() {
         }
     });
 
-    // This ensures the page height always covers the lowest window
-    const requiredHeight = maxBottom + 100; // extra breathing room
+    const verticalSpan = maxBottom - navHeight;
 
-    document.body.style.minHeight = requiredHeight + 'px';
+    const breathingRoom = 100;
+    const requiredHeight = Math.max(0, verticalSpan) + breathingRoom;
 
     const wrapper = document.querySelector('#page-wrapper');
     if (wrapper) {
         wrapper.style.minHeight = requiredHeight + 'px';
     }
+
+    document.body.style.minHeight = maxBottom + 'px';
 }
 
 // --- Debounce function to prevent too many rapid updates ---
@@ -69,57 +95,6 @@ function debounce(func, wait) {
 
 // Create a debounced version for performance
 const debouncedUpdateContainerHeight = debounce(updateContainerHeight, 50);
-
-// --- 1. Set Initial Position Below Navbar (Load Logic) ---
-// window.addEventListener('load', () => {
-//     const navHeight = getNavHeight();
-//     const windowPadding = 20;
-//     const viewportWidth = window.innerWidth;
-//     const viewportHeight = window.innerHeight;
-
-//     const MOBILE_BREAKPOINT = 769;
-
-//     document.querySelectorAll('.window').forEach((win, index) => {
-//         let leftPosition, topPosition;
-
-//         if (index === 0) {
-//             if (viewportWidth <= MOBILE_BREAKPOINT) {
-//                 // Mobile: 5% from left (using viewport percentage)
-//                 leftPosition = 10;
-//             } else {
-//                 // Laptop/Desktop: 20% from left
-//                 leftPosition = viewportWidth * 0.2;
-//             }
-
-//             topPosition = getNavConstraint() + 120;
-//         } else {
-//             const windowWidth = win.offsetWidth;
-
-//             // You can also make this position responsive:
-//             if (viewportWidth <= MOBILE_BREAKPOINT) {
-//                 // Mobile: Start closer to the left edge
-//                 leftPosition = 1;
-//             } else {
-//                 // Desktop: Set a fixed/percentage offset
-//                 leftPosition = viewportWidth * 0.1;
-//             }
-
-//             topPosition = getNavConstraint() + 50;
-//         }
-
-//         win.style.position = 'absolute';
-//         win.style.left = leftPosition + 'px';
-//         win.style.top = topPosition + 'px';
-//         win.style.zIndex = (10 - index).toString();
-
-//         const bar = win.querySelector('.window-title-bar');
-//         if (bar) {
-//             bar.style.touchAction = 'none';
-//         }
-//     });
-
-//     setTimeout(updateContainerHeight, 100);
-// });
 
 window.addEventListener('load', () => {
     const navConstraint = getNavConstraint();
