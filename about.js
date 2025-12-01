@@ -243,3 +243,11 @@ style.textContent = `
 
 `;
 document.head.appendChild(style);
+
+window.addEventListener(
+    'scroll',
+    () => {
+        updateContainerHeight();
+    },
+    { passive: true }
+);
