@@ -901,15 +901,15 @@ footer {
     cursor: move;
 }
 
-.profile-container {
+/* .profile-container {
     width: 50vw;
-    max-width: 450px !important;
+    max-width: 350px !important;
 }
 
 .about-container {
     width: 70vw;
     max-width: 600px !important;
-}
+} */
 
 .image-container {
     width: 100%;
@@ -1083,11 +1083,11 @@ footer {
     }
 }
 
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
     .about-container {
         width: 90vw !important;
     }
     .profile-container {
         width: 70vw !important;
     }
-}
+} */

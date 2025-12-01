@@ -71,53 +71,111 @@ function debounce(func, wait) {
 const debouncedUpdateContainerHeight = debounce(updateContainerHeight, 50);
 
 // --- 1. Set Initial Position Below Navbar (Load Logic) ---
+// window.addEventListener('load', () => {
+//     const navHeight = getNavHeight();
+//     const windowPadding = 20;
+//     const viewportWidth = window.innerWidth;
+//     const viewportHeight = window.innerHeight;
+
+//     const MOBILE_BREAKPOINT = 769;
+
+//     document.querySelectorAll('.window').forEach((win, index) => {
+//         let leftPosition, topPosition;
+
+//         if (index === 0) {
+//             if (viewportWidth <= MOBILE_BREAKPOINT) {
+//                 // Mobile: 5% from left (using viewport percentage)
+//                 leftPosition = 10;
+//             } else {
+//                 // Laptop/Desktop: 20% from left
+//                 leftPosition = viewportWidth * 0.2;
+//             }
+
+//             topPosition = getNavConstraint() + 120;
+//         } else {
+//             const windowWidth = win.offsetWidth;
+
+//             // You can also make this position responsive:
+//             if (viewportWidth <= MOBILE_BREAKPOINT) {
+//                 // Mobile: Start closer to the left edge
+//                 leftPosition = 1;
+//             } else {
+//                 // Desktop: Set a fixed/percentage offset
+//                 leftPosition = viewportWidth * 0.1;
+//             }
+
+//             topPosition = getNavConstraint() + 50;
+//         }
+
+//         win.style.position = 'absolute';
+//         win.style.left = leftPosition + 'px';
+//         win.style.top = topPosition + 'px';
+//         win.style.zIndex = (10 - index).toString();
+
+//         const bar = win.querySelector('.window-title-bar');
+//         if (bar) {
+//             bar.style.touchAction = 'none';
+//         }
+//     });
+
+//     setTimeout(updateContainerHeight, 100);
+// });
+
 window.addEventListener('load', () => {
-    const navHeight = getNavHeight();
-    const windowPadding = 20;
+    const navConstraint = getNavConstraint();
     const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
+    const MOBILE_BREAKPOINT = 1024;
 
-    const MOBILE_BREAKPOINT = 769;
+    const windows = document.querySelectorAll('.window.draggable');
+    const portraitWin = windows[0]; // first window (profile/portrait)
+    const textWin = windows[1]; // second window (about/text)
+    let portraitLeft;
+    let textLeft;
+    let portraitTop;
+    let textTop;
 
-    document.querySelectorAll('.window').forEach((win, index) => {
-        let leftPosition, topPosition;
+    if (!portraitWin || !textWin) return;
 
-        if (index === 0) {
-            if (viewportWidth <= MOBILE_BREAKPOINT) {
-                // Mobile: 5% from left (using viewport percentage)
-                leftPosition = 10;
-            } else {
-                // Laptop/Desktop: 20% from left
-                leftPosition = viewportWidth * 0.2;
-            }
+    // === MOBILE LAYOUT (portrait stacked above text) ===
+    if (viewportWidth <= MOBILE_BREAKPOINT) {
+        const portraitWidth = Math.min(viewportWidth * 0.7, 350); // Using 90vw for better mobile fill
+        const textWidth = Math.min(viewportWidth * 0.9, 600);
 
-            topPosition = getNavConstraint() + 120;
-        } else {
-            const windowWidth = win.offsetWidth;
+        portraitWin.style.width = portraitWidth + 'px';
+        textWin.style.width = textWidth + 'px';
 
-            // You can also make this position responsive:
-            if (viewportWidth <= MOBILE_BREAKPOINT) {
-                // Mobile: Start closer to the left edge
-                leftPosition = 1;
-            } else {
-                // Desktop: Set a fixed/percentage offset
-                leftPosition = viewportWidth * 0.1;
-            }
+        portraitLeft = (viewportWidth - portraitWidth) / 2;
+        portraitTop = navConstraint + 20;
 
-            topPosition = getNavConstraint() + 50;
-        }
+        textTop = portraitTop + portraitWin.offsetHeight - 100;
+        textLeft = (viewportWidth - textWidth) / 2;
+    }
 
-        win.style.position = 'absolute';
-        win.style.left = leftPosition + 'px';
-        win.style.top = topPosition + 'px';
-        win.style.zIndex = (10 - index).toString();
+    // === DESKTOP / LAPTOP LAYOUT (portrait left, text right) ===
+    else {
+        const portraitWidth = Math.min(viewportWidth * 0.5, 350); // Using 90vw for better mobile fill
+        const textWidth = Math.min(viewportWidth * 0.7, 600);
+        const windowsSpace = 50;
+        const bothWindowsWidth = portraitWidth + windowsSpace + textWidth;
 
-        const bar = win.querySelector('.window-title-bar');
-        if (bar) {
-            bar.style.touchAction = 'none';
-        }
-    });
+        portraitWin.style.width = portraitWidth + 'px';
+        textWin.style.width = textWidth + 'px';
 
+        portraitLeft = (viewportWidth - bothWindowsWidth) / 2;
+        portraitTop = navConstraint + 30;
+
+        // Text on right
+        textLeft = portraitLeft + portraitWidth + windowsSpace;
+        textTop = navConstraint + 30;
+    }
+    portraitWin.style.position = 'absolute';
+    portraitWin.style.left = portraitLeft + 'px';
+    portraitWin.style.top = portraitTop + 'px';
+    portraitWin.style.zIndex = '20';
+    textWin.style.position = 'absolute';
+    textWin.style.left = textLeft + 'px';
+    textWin.style.top = textTop + 'px';
+    textWin.style.zIndex = '19';
     setTimeout(updateContainerHeight, 100);
 });
 
