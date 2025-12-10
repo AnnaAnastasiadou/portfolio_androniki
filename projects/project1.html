@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./projectStyles.css" />
+    <title>Project 1 Details</title>
+</head>
+<body>
+    <div class="center-wrapper">
+        <div class="project-details-window">
+            <div class="project-title-bar" id="project-title-bar"></div>
+
+            <div class="project-layout">
+                <!-- Carousel -->
+                <div class="carousel">
+                    <div class="carousel-track"></div>
+                    <div class="slide-counter" id="slide-counter"></div>
+                    <button class="carousel-btn left">&#10094;</button>
+                    <button class="carousel-btn right">&#10095;</button>
+                </div>
+
+                <!-- Project Metadata -->
+                <div class="project-meta">
+                    <div><span class="bold">Type:</span> <span id="project-type"></span></div>
+                    <div><span class="bold">Location:</span> <span id="project-location"></span></div>
+                    <div><span class="bold">Year:</span> <span id="project-year"></span></div>
+                </div>
+            </div>
+
+            <!-- Project Description -->
+            <div class="project-description" id="project-description"></div>
+
+            <button class="back-btn" onclick="window.history.back()">&#x2190; Back</button>
+        </div>
+    </div>
+
+    <script>
+        // 1. Metadata for this project
+        const project = {
+            title: "The Silent Epidemic: Playful Living Environments & Loneliness",
+            type: "Master's Thesis Design Project",
+            location: "Pendrecht, Rotterdam Zuid, NL",
+            year: "2024-2025 (10 months)",
+            description: `<p>A comprehensive study and design proposal exploring how playful, community-focused architectural interventions can alleviate feelings of urban loneliness and foster social resilience in the Pendrecht neighbourhood.</p>`,
+            imageFolder: "../assets/projectImages/Project1_Thesis/", // Folder for carousel images
+            totalImages: 16 // Number of images in the folder
+        };
+
+        // 2. Populate metadata
+        document.getElementById('project-title-bar').textContent = project.title;
+        document.getElementById('project-type').textContent = project.type;
+        document.getElementById('project-location').textContent = project.location;
+        document.getElementById('project-year').textContent = project.year;
+        document.getElementById('project-description').innerHTML = project.description;
+
+        // 3. Carousel
+        const track = document.querySelector('.carousel-track');
+        const leftBtn = document.querySelector('.carousel-btn.left');
+        const rightBtn = document.querySelector('.carousel-btn.right');
+        const counter = document.getElementById('slide-counter');
+        let currentIndex = 0;
+
+        // Add images with clones for infinite loop
+        const images = [];
+        for (let i = 1; i <= project.totalImages; i++) {
+            const img = document.createElement('img');
+            img.src = `${project.imageFolder}${i}.png`;
+            images.push(img);
+        }
+
+        // Clone last and first for infinite effect
+        const firstClone = images[0].cloneNode();
+        const lastClone = images[images.length - 1].cloneNode();
+
+        track.appendChild(lastClone); // add last clone at beginning
+        images.forEach(img => track.appendChild(img)); // add real images
+        track.appendChild(firstClone); // add first clone at end
+
+        const totalSlides = images.length + 2; // include clones
+
+        function updateCarousel(animate = true) {
+            if (animate) {
+                track.style.transition = 'transform 0.5s ease';
+            } else {
+                track.style.transition = 'none';
+            }
+            const width = track.offsetWidth / totalSlides * (totalSlides - 2); // width of each slide
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+            // Update counter (1-indexed for real slides only)
+            let displayIndex = currentIndex;
+            if (displayIndex === 0) displayIndex = project.totalImages;
+            else if (displayIndex === project.totalImages + 1) displayIndex = 1;
+            counter.textContent = `${displayIndex} / ${project.totalImages}`;
+        }
+
+        rightBtn.addEventListener('click', () => {
+            if (currentIndex >= project.totalImages + 1) return;
+            currentIndex++;
+            updateCarousel();
+        });
+
+        leftBtn.addEventListener('click', () => {
+            if (currentIndex <= 0) return;
+            currentIndex--;
+            updateCarousel();
+        });
+
+        // Loop reset after transition ends
+        track.addEventListener('transitionend', () => {
+            if (currentIndex === 0) {
+                currentIndex = project.totalImages;
+                updateCarousel(false);
+            }
+            if (currentIndex === project.totalImages + 1) {
+                currentIndex = 1;
+                updateCarousel(false);
+            }
+        });
+
+        window.addEventListener('resize', updateCarousel);
+        
+        updateCarousel();
+    </script>
+</body>
+</html>

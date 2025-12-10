@@ -7,8 +7,9 @@ const projects = [
         type: "Master's Thesis Design Project",
         location: 'Pendrecht, Rotterdam Zuid, NL',
         year: '2024-2025 (10 months)',
-        color: 'rgba(0, 144, 19, 0.2)', // Green/Teal
-        image: './compressed/project-image1.jpg', // Placeholder image
+        link: './projects/project1.html',
+        colouredImage: './assets/ringImages/cover1.png',
+        image: './assets/ringImagesHover/hover1.png',
         description:
             'A comprehensive study and design proposal exploring how **playful, community-focused architectural interventions** can be used as a therapeutic tool to alleviate feelings of **urban loneliness** and foster social resilience in the Pendrecht neighbourhood. **[Youtube Animation Link 1] [Youtube Animation Link 2]** **[Research Diagrams]** **[Full Academic Paper]**',
     },
@@ -18,8 +19,9 @@ const projects = [
         type: 'Honours Research Project',
         location: 'TU Delft Campus, NL',
         year: '2024-2025 (15 months)',
-        color: 'rgba(0, 144, 96, 0.2)', // Blue
-        image: './compressed/1.40 Detail Section.jpg', // Placeholder image
+        link: './projects/project2.html',
+        colouredImage: './assets/ringImages/cover2.png',
+        image: './assets/ringImagesHover/hover2.png',
         description:
             'Research investigating the **applicability of the Mental Mapping Methodology** to understand and visualize students’ collective and individual perceptions of the **learning-scape** and its impact on their sense of place and well-being.',
     },
@@ -29,8 +31,9 @@ const projects = [
         type: 'History Research Project',
         location: 'Nicosia, CY',
         year: '2024 (1.5 months)',
-        color: 'rgba(0, 96, 144, 0.2)', // Red
-        image: './compressed/1.20 construction detail.jpg', // Placeholder image
+        link: './projects/project3.html',
+        colouredImage: './assets/ringImages/cover3.png',
+        image: './assets/ringImagesHover/hover3.jpeg',
         description:
             'Critical analysis of the architect’s ethical and design role when intervening in **sites marked by political conflict or contested heritage**, using Nicosia as a primary case study for reconciliation through design.',
     },
@@ -42,8 +45,9 @@ const projects = [
         type: 'Design Group Project',
         location: 'Medina of Rabat, MA',
         year: '2024 (1.5 months)',
-        color: 'rgba(0, 14, 144, 0.32)', // Yellow/Olive
-        image: './compressed/project-image1.jpg', // Placeholder image
+        link: './projects/project4.html',
+        colouredImage: './assets/ringImages/cover4.png',
+        image: './assets/ringImagesHover/hover4.png',
         description:
             'A design exploration focusing on the **Hammam as an architectural space for emotional cleansing and communal ritual**, reinterpreting traditional Moroccan structures for contemporary urban life in the historic Medina.',
     },
@@ -53,8 +57,9 @@ const projects = [
         type: 'Design Project',
         location: 'Korte Voorhout, Den Haag, NL',
         year: '2023-2024 (3 months)',
-        color: 'rgba(94, 0, 144, 0.2)', // Purple
-        image: './compressed/project-image1.jpg',
+        link: './projects/project5.html',
+        colouredImage: './assets/ringImages/cover5.png',
+        image: './assets/ringImagesHover/hover5.png',
         description:
             'An architectural design project that re-imagines the iconic American Embassy site in The Hague, focusing on **adaptive reuse and public interface** to create a dynamic cultural and civic hub.',
     },
@@ -66,8 +71,9 @@ const projects = [
         type: "Bachelor's Thesis Design Project",
         location: 'Colston Parade 1-5, Bristol, UK',
         year: '2023 (6 months)',
-        color: 'rgba(118, 0, 144, 0.22)', // Cyan
-        image: './compressed/project-image1.jpg',
+        link: './projects/project6.html',
+        colouredImage: './assets/ringImages/cover6.png',
+        image: './assets/ringImagesHover/hover6.png',
         description:
             'A design for a **rehabilitation center situated within a site of historical contention**, exploring how architecture can facilitate healing and dialogue while acknowledging a complex past.',
     },
@@ -77,8 +83,9 @@ const projects = [
         type: 'Design Project',
         location: 'Hay on Wye, Wales, UK',
         year: '2022 (3 months)',
-        color: 'rgba(144, 34, 0, 0.2)', // Orange
-        image: './compressed/project-image1.jpg',
+        link: './projects/project7.html',
+        colouredImage: './assets/ringImages/cover7.png',
+        image: './assets/ringImagesHover/hover7.png',
         description:
             'Design and conceptualization of a **public playground** using narratives and characters from local Welsh folk tales to inspire spatial organization and interactive elements for children.',
     },
@@ -88,8 +95,9 @@ const projects = [
         type: 'Design Project',
         location: 'Hay on Wye, Wales, UK',
         year: '2021-2022 (3 months)',
-        color: 'rgba(0, 72, 144, 0.2)', // Dark Blue
-        image: './compressed/project-image1.jpg',
+        link: './projects/project8.html',
+        colouredImage: './assets/ringImages/cover8.png',
+        image: './assets/ringImagesHover/hover8.png',
         description:
             'Proposal for a **social housing development** adjacent to the historic Hay Castle, focusing on sensitive integration with the heritage context and promoting communal living.',
     },
@@ -99,23 +107,11 @@ const projects = [
         type: 'Design Project',
         location: 'River Taff, Cardiff, UK',
         year: '2020-2021 (3 months)',
-        color: 'rgba(72, 72, 72, 0.2)', // Grey
-        image: './compressed/project-image1.jpg',
+        link: './projects/project9.html',
+        colouredImage: './assets/ringImages/cover9.png',
+        image: './assets/ringImagesHover/hover9.png',
         description:
             'Design of a **small, sustainable live/work space** providing a shelter and studio for a photographer, maximizing views and interaction with the riparian environment of the River Taff.',
-    },
-
-    // --- NON-ARCHITECTURE CREATIVE WORK (Project 10) ---
-    {
-        id: 10,
-        title: 'Non-Architecture Creative Tales',
-        type: 'Paintings, Collages, Drawings',
-        location: 'Cyprus',
-        year: 'Ongoing',
-        color: 'rgba(144, 0, 72, 0.2)', // Pink
-        image: './compressed/project-image1.jpg',
-        description:
-            'A continuous personal body of **creative work** exploring themes of human experience, culture, and memory through various artistic media outside of traditional architectural practice.',
     },
 ];
 
@@ -233,9 +229,12 @@ function createProjectSegment(
     // Set segment styles
     segment.style.clipPath = clipPath;
     segment.id = project.title;
-    segment.style.backgroundColor = project.color;
-    segment.style.setProperty('--segment-color', project.color);
-    segment.style.backgroundImage = `url("${project.image}")`;
+    // segment.style.backgroundColor = project.color;
+    // segment.style.setProperty('--segment-color', project.color);
+    segment.style.backgroundImage = `url("${project.colouredImage}")`;
+    segment.style.backgroundSize = 'cover';
+    segment.style.backgroundPosition = 'center';
+    segment.style.backgroundRepeat = 'no-repeat';
 
     // Add event listeners
     addSegmentEventListeners(segment, project, centerHub);
@@ -327,7 +326,7 @@ function showProjectPreview(project) {
 // Show project details on click
 function showProjectDetails(project) {
     sessionStorage.setItem('selectedProject', JSON.stringify(project));
-    window.location.href = `project-details.html?id=${project.id}`;
+    window.location.href = project.link;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
