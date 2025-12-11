@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./projectStyles.css" />
+    <title>Project 2 Details</title>
+    <style>
+        /* Additional styles for PDF viewer */
+        .pdf-container {
+            width: 100%;
+            height: 70vh;
+            min-height: 500px;
+            border: 2px solid #808080;
+            background-color: #f0f0f0;
+            margin: 1rem 0;
+            position: relative;
+            border-color: #808080 #ffffff #ffffff #808080;
+            box-shadow: inset 1px 1px 0px #000000, inset -1px -1px 0px #dfdfdf;
+        }
+
+        .pdf-embed {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .pdf-fallback {
+            display: none;
+            padding: 2rem;
+            text-align: center;
+            background-color: #fff7d6;
+            border: 1px solid #ffd700;
+            margin: 1rem;
+        }
+
+        .pdf-fallback.show {
+            display: block;
+        }
+
+        .download-pdf-btn {
+            background-color: #dfdfdf;
+            color: #000000;
+            padding: 0.5rem 1.5rem;
+            border-style: solid;
+            border-width: 3px;
+            border-color: #dfdfdf #000000 #000000 #dfdfdf;
+            box-shadow: 1px 1px 0 0 black;
+            transition: all 0.1s ease-out;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .download-pdf-btn:hover {
+            background-color: #000080;
+            color: white;
+            border-color: #000080 #000000 #000000 #000080;
+            box-shadow: 2px 2px 0 0 black;
+            transform: translateY(-2px);
+        }
+
+        .download-pdf-btn:active {
+            border-color: #000000 #dfdfdf #dfdfdf #000000;
+            box-shadow: none;
+            transform: translateY(1px);
+        }
+
+        .pdf-info {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Mobile responsive */
+        @media screen and (max-width: 768px) {
+            .pdf-container {
+                height: 60vh;
+                min-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="center-wrapper">
+        <div class="project-details-window">
+            <div class="project-title-bar" id="project-title-bar"></div>
+
+            
+            <!-- PDF Viewer -->
+            <div class="pdf-container">
+                <iframe 
+                    id="pdf-viewer"
+                    class="pdf-embed" 
+                    src="" 
+                    type="application/pdf"
+                    title="Project PDF Document">
+                </iframe>
+                
+                <!-- Fallback for browsers that don't support PDF embedding -->
+                <div class="pdf-fallback" id="pdf-fallback">
+                    <p>⚠️ Your browser cannot display this PDF directly.</p>
+                    <a id="pdf-download-link" class="download-pdf-btn" href="" download>
+                        📄 Download PDF
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-layout">
+                <!-- Project Metadata -->
+                <div class="project-meta">
+                    <div><span class="bold">Type:</span> <span id="project-type"></span></div>
+                    <div><span class="bold">Location:</span> <span id="project-location"></span></div>
+                    <div><span class="bold">Year:</span> <span id="project-year"></span></div>
+                </div>
+            </div>
+
+            <!-- Project Description -->
+            <div class="project-description" id="project-description"></div>
+
+            <button class="back-btn" onclick="window.history.back()">&#x2190; Back</button>
+        </div>
+    </div>
+
+    <script>
+        // 1. Metadata for this project
+        const project = {
+            title: 'Mental Mapping the University Campus',
+            type: 'Honours Research Project',
+            location: 'TU Delft Campus, NL',
+            year: '2024-2025 (15 months)',
+            description: `<p>Research investigating the <strong>applicability of the Mental Mapping Methodology</strong> to understand and visualize students' collective and individual perceptions of the <strong>learning-scape</strong> and its impact on their sense of place and well-being.</p>`,
+            imageFolder: "../assets/projectImages/Project2_MasterThesisPaper/",
+            pdfPath: "../assets/projectImages/Project2_MasterThesisPaper/masterThesisPaper.pdf" // PDF in same folder as images
+        };
+
+        // 2. Populate metadata
+        document.getElementById('project-title-bar').textContent = project.title;
+        document.getElementById('project-type').textContent = project.type;
+        document.getElementById('project-location').textContent = project.location;
+        document.getElementById('project-year').textContent = project.year;
+        document.getElementById('project-description').innerHTML = project.description;
+
+        // 3. Load PDF
+        const pdfViewer = document.getElementById('pdf-viewer');
+        const pdfFallback = document.getElementById('pdf-fallback');
+        const pdfDownloadLink = document.getElementById('pdf-download-link');
+        const pdfOpenNewTab = document.getElementById('pdf-open-new-tab');
+
+        // Set PDF source
+        pdfViewer.src = project.pdfPath;
+        pdfDownloadLink.href = project.pdfPath;
+        pdfOpenNewTab.href = project.pdfPath;
+
+        // Check if PDF loaded successfully
+        pdfViewer.addEventListener('error', () => {
+            console.error('PDF failed to load');
+            pdfFallback.classList.add('show');
+        });
+
+        // Detect if browser doesn't support PDF viewing
+        let pdfLoadTimeout = setTimeout(() => {
+            // If after 3 seconds nothing happened, might be an issue
+            console.log('PDF viewer initialized');
+        }, 3000);
+
+        pdfViewer.addEventListener('load', () => {
+            clearTimeout(pdfLoadTimeout);
+        });
+    </script>
+</body>
+</html>
