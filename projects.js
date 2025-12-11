@@ -9,7 +9,7 @@ const projects = [
         year: '2024-2025 (10 months)',
         link: './projects/project1.html',
         colouredImage: './assets/ringImages/cover1.png',
-        image: './assets/ringImagesHover/hover1.png',
+        image: './assets/compressedHover/hover1.jpg',
         description:
             'A comprehensive study and design proposal exploring how **playful, community-focused architectural interventions** can be used as a therapeutic tool to alleviate feelings of **urban loneliness** and foster social resilience in the Pendrecht neighbourhood. **[Youtube Animation Link 1] [Youtube Animation Link 2]** **[Research Diagrams]** **[Full Academic Paper]**',
     },
@@ -21,7 +21,7 @@ const projects = [
         year: '2024-2025 (15 months)',
         link: './projects/project2.html',
         colouredImage: './assets/ringImages/cover2.png',
-        image: './assets/ringImagesHover/hover2.png',
+        image: './assets/compressedHover/hover2.jpg',
         description:
             'Research investigating the **applicability of the Mental Mapping Methodology** to understand and visualize students’ collective and individual perceptions of the **learning-scape** and its impact on their sense of place and well-being.',
     },
@@ -33,7 +33,7 @@ const projects = [
         year: '2024 (1.5 months)',
         link: './projects/project3.html',
         colouredImage: './assets/ringImages/cover3.png',
-        image: './assets/ringImagesHover/hover3.jpeg',
+        image: './assets/compressedHover/hover3.jpg',
         description:
             'Critical analysis of the architect’s ethical and design role when intervening in **sites marked by political conflict or contested heritage**, using Nicosia as a primary case study for reconciliation through design.',
     },
@@ -47,7 +47,7 @@ const projects = [
         year: '2024 (1.5 months)',
         link: './projects/project4.html',
         colouredImage: './assets/ringImages/cover4.png',
-        image: './assets/ringImagesHover/hover4.png',
+        image: './assets/compressedHover/hover4.jpg',
         description:
             'A design exploration focusing on the **Hammam as an architectural space for emotional cleansing and communal ritual**, reinterpreting traditional Moroccan structures for contemporary urban life in the historic Medina.',
     },
@@ -59,7 +59,7 @@ const projects = [
         year: '2023-2024 (3 months)',
         link: './projects/project5.html',
         colouredImage: './assets/ringImages/cover5.png',
-        image: './assets/ringImagesHover/hover5.png',
+        image: './assets/compressedHover/hover5.jpg',
         description:
             'An architectural design project that re-imagines the iconic American Embassy site in The Hague, focusing on **adaptive reuse and public interface** to create a dynamic cultural and civic hub.',
     },
@@ -73,7 +73,7 @@ const projects = [
         year: '2023 (6 months)',
         link: './projects/project6.html',
         colouredImage: './assets/ringImages/cover6.png',
-        image: './assets/ringImagesHover/hover6.png',
+        image: './assets/compressedHover/hover6.jpg',
         description:
             'A design for a **rehabilitation center situated within a site of historical contention**, exploring how architecture can facilitate healing and dialogue while acknowledging a complex past.',
     },
@@ -85,7 +85,7 @@ const projects = [
         year: '2022 (3 months)',
         link: './projects/project7.html',
         colouredImage: './assets/ringImages/cover7.png',
-        image: './assets/ringImagesHover/hover7.png',
+        image: './assets/compressedHover/hover7.jpg',
         description:
             'Design and conceptualization of a **public playground** using narratives and characters from local Welsh folk tales to inspire spatial organization and interactive elements for children.',
     },
@@ -97,7 +97,7 @@ const projects = [
         year: '2021-2022 (3 months)',
         link: './projects/project8.html',
         colouredImage: './assets/ringImages/cover8.png',
-        image: './assets/ringImagesHover/hover8.png',
+        image: './assets/compressedHover/hover8.jpg',
         description:
             'Proposal for a **social housing development** adjacent to the historic Hay Castle, focusing on sensitive integration with the heritage context and promoting communal living.',
     },
@@ -109,13 +109,122 @@ const projects = [
         year: '2020-2021 (3 months)',
         link: './projects/project9.html',
         colouredImage: './assets/ringImages/cover9.png',
-        image: './assets/ringImagesHover/hover9.png',
+        image: './assets/compressedHover/hover9.jpg',
         description:
             'Design of a **small, sustainable live/work space** providing a shelter and studio for a photographer, maximizing views and interaction with the riparian environment of the River Taff.',
     },
 ];
 
-// Create the perfect ring depending on the number of projects
+// SOLUTION: Create separate image layers for each project
+// This way we just fade between pre-loaded layers instead of changing backgrounds
+
+function createCenterHub() {
+    const centerHub = document.createElement('div');
+    centerHub.className = 'ring-center project-preview';
+
+    // Create the text layer
+    const centerText = document.createElement('div');
+    centerText.className = 'center-text';
+    centerText.innerHTML =
+        '<span class="bold">Hover</span> over projects for a preview. <span class="bold">Click</span> for more details!';
+
+    // Create an image layer for EACH project
+    projects.forEach((project, index) => {
+        const imageLayer = document.createElement('div');
+        imageLayer.className = 'center-image-layer';
+        imageLayer.dataset.projectId = project.id;
+        imageLayer.style.backgroundImage = `url("${project.image}")`;
+        imageLayer.style.backgroundSize = 'cover';
+        imageLayer.style.backgroundPosition = 'center';
+        imageLayer.style.backgroundRepeat = 'no-repeat';
+        imageLayer.style.opacity = '0';
+        centerHub.appendChild(imageLayer);
+    });
+
+    // Add text layer on top
+    centerHub.appendChild(centerText);
+
+    // Set gradient background
+    centerHub.style.backgroundImage = `conic-gradient(
+        from 0deg,
+        rgba(255, 0, 0, 0.2),
+        rgba(255, 255, 0, 0.2), 
+        rgba(0, 255, 0, 0.2), 
+        rgba(0, 255, 255, 0.2), 
+        rgba(0, 0, 255, 0.2),
+        rgba(255, 0, 255, 0.2),
+        rgba(255, 0, 0, 0.2)
+    )`;
+
+    return centerHub;
+}
+
+function updateCenterHubSize(centerHub, centerHubRadius) {
+    const centerSize = centerHubRadius * 2;
+    centerHub.style.width = `${centerSize}px`;
+    centerHub.style.height = `${centerSize}px`;
+}
+
+// Optimized hover - just change opacity of the correct layer
+function handleSegmentHover(project, centerHub) {
+    const centerText = centerHub.querySelector('.center-text');
+    const allImageLayers = centerHub.querySelectorAll('.center-image-layer');
+
+    // Hide text
+    centerText.style.opacity = '0';
+
+    // Hide all image layers
+    allImageLayers.forEach((layer) => {
+        layer.style.opacity = '0';
+    });
+
+    // Show only the hovered project's layer
+    const activeLayer = centerHub.querySelector(
+        `[data-project-id="${project.id}"]`
+    );
+    if (activeLayer) {
+        activeLayer.style.opacity = '1';
+    }
+
+    centerHub.style.border = 'none';
+
+    showProjectPreview(project);
+}
+
+function handleSegmentLeave(centerHub) {
+    const centerText = centerHub.querySelector('.center-text');
+    const allImageLayers = centerHub.querySelectorAll('.center-image-layer');
+
+    // Hide all image layers
+    allImageLayers.forEach((layer) => {
+        layer.style.opacity = '0';
+    });
+
+    // Show text
+    centerText.style.opacity = '1';
+    centerText.style.color = '#ffffff';
+    centerHub.style.border = '';
+
+    centerHub.style.backgroundImage = `conic-gradient(
+        from 0deg,
+        rgba(255, 0, 0, 0.2),
+        rgba(255, 255, 0, 0.2), 
+        rgba(0, 255, 0, 0.2), 
+        rgba(0, 255, 255, 0.2), 
+        rgba(0, 0, 255, 0.2),
+        rgba(255, 0, 255, 0.2),
+        rgba(255, 0, 0, 0.2)
+    )`;
+
+    centerText.innerHTML =
+        '<span class="bold">Hover</span> over projects for a preview. <span class="bold">Click</span> for more details!';
+
+    // Clear project details
+    const details = document.getElementById('project-details');
+    details.innerHTML = '';
+}
+
+// Keep your existing functions
 function createRing() {
     const ringContainer = document.getElementById('projects-ring');
     if (!ringContainer) return;
@@ -137,7 +246,7 @@ function createRing() {
     const centerX = ringSize / 2;
     const centerY = ringSize / 2;
 
-    // Create center hub
+    // Create center hub with all image layers
     const centerHub = createCenterHub();
     ringContainer.appendChild(centerHub);
 
@@ -157,36 +266,6 @@ function createRing() {
     });
 
     updateCenterHubSize(centerHub, centerHubRadius);
-}
-
-function createCenterHub() {
-    const centerHub = document.createElement('div');
-    centerHub.className = 'ring-center project-preview';
-    centerHub.innerHTML =
-        '<div class="center-text"><span class="bold">Hover</span> over projects for a preview. <span class="bold">Click</span> for more details!</div>';
-
-    const centerImageLayer = document.createElement('div');
-    centerImageLayer.className = 'center-image-layer';
-    centerHub.appendChild(centerImageLayer);
-
-    centerHub.style.backgroundImage = `conic-gradient(
-        from 0deg,
-        rgba(255, 0, 0, 0.2),
-        rgba(255, 255, 0, 0.2), 
-        rgba(0, 255, 0, 0.2), 
-        rgba(0, 255, 255, 0.2), 
-        rgba(0, 0, 255, 0.2),
-        rgba(255, 0, 255, 0.2),
-        rgba(255, 0, 0, 0.2)
-    )`;
-
-    return centerHub;
-}
-
-function updateCenterHubSize(centerHub, centerHubRadius) {
-    const centerSize = centerHubRadius * 2;
-    centerHub.style.width = `${centerSize}px`;
-    centerHub.style.height = `${centerSize}px`;
 }
 
 function createProjectSegment(
@@ -229,8 +308,6 @@ function createProjectSegment(
     // Set segment styles
     segment.style.clipPath = clipPath;
     segment.id = project.title;
-    // segment.style.backgroundColor = project.color;
-    // segment.style.setProperty('--segment-color', project.color);
     segment.style.backgroundImage = `url("${project.colouredImage}")`;
     segment.style.backgroundSize = 'cover';
     segment.style.backgroundPosition = 'center';
@@ -256,51 +333,6 @@ function addSegmentEventListeners(segment, project, centerHub) {
     });
 }
 
-function handleSegmentHover(project, centerHub) {
-    const centerImageLayer = centerHub.querySelector('.center-image-layer');
-    const centerText = centerHub.querySelector('.center-text');
-
-    centerImageLayer.style.backgroundImage = `url("${project.image}")`;
-    centerImageLayer.style.backgroundSize = 'cover';
-    centerImageLayer.style.backgroundPosition = 'center';
-    centerImageLayer.style.backgroundRepeat = 'no-repeat';
-    centerImageLayer.style.opacity = 1;
-
-    centerText.style.opacity = 0;
-    centerText.style.color = 'transparent';
-    centerHub.style.border = 'none';
-
-    showProjectPreview(project);
-}
-
-function handleSegmentLeave(centerHub) {
-    const centerImageLayer = centerHub.querySelector('.center-image-layer');
-    const centerText = centerHub.querySelector('.center-text');
-
-    centerImageLayer.style.opacity = 0;
-    centerText.style.opacity = 1;
-    centerText.style.color = '#ffffff';
-    centerHub.style.border = '';
-
-    centerHub.style.backgroundImage = `conic-gradient(
-        from 0deg,
-        rgba(255, 0, 0, 0.2),
-        rgba(255, 255, 0, 0.2), 
-        rgba(0, 255, 0, 0.2), 
-        rgba(0, 255, 255, 0.2), 
-        rgba(0, 0, 255, 0.2),
-        rgba(255, 0, 255, 0.2),
-        rgba(255, 0, 0, 0.2)
-    )`;
-    centerText.innerHTML =
-        '<span class="bold">Hover</span> over projects for a preview. <span class="bold">Click</span> for more details!';
-
-    // Clear project details
-    const details = document.getElementById('project-details');
-    details.innerHTML = '';
-}
-
-// Show project preview on hover
 function showProjectPreview(project) {
     const details = document.getElementById('project-details');
     details.innerHTML = `
@@ -323,13 +355,23 @@ function showProjectPreview(project) {
     `;
 }
 
-// Show project details on click
 function showProjectDetails(project) {
     sessionStorage.setItem('selectedProject', JSON.stringify(project));
     window.location.href = project.link;
 }
 
+// Preload images
+function preloadImages() {
+    projects.forEach((project) => {
+        const img = new Image();
+        img.src = project.image;
+        const coloredImg = new Image();
+        coloredImg.src = project.colouredImage;
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    preloadImages();
     window.addEventListener('resize', createRing);
     createRing();
 });
