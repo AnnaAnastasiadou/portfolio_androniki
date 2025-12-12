@@ -4,124 +4,191 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./projectStyles.css" />
-    <title>Project 1 Details</title>
+    <title>Project Details - Groups</title>
+    <style>
+        /* Carousel & group styling */
+        .group {
+            margin-bottom: 2rem;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border: 2px solid black;
+            background: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-track img {
+            width: 100%;
+            object-fit: cover;
+            display: block;
+            border-bottom: 2px solid black;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #c0c0c0;
+            border: 2px solid black;
+            font-size: 1.4em;
+            width: 32px;
+            height: 40px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .carousel-btn.left { left: 5px; }
+        .carousel-btn.right { right: 5px; }
+        .carousel-btn:hover { background: #e0e0e0; }
+
+        .slide-counter {
+            position: absolute;
+            bottom: 5px;
+            right: 10px;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            padding: 2px 6px;
+            font-size: 0.9em;
+            border-radius: 4px;
+            z-index: 5;
+            font-family: monospace;
+        }
+
+        .group-description {
+            margin-top: 0.5rem;
+            background: #f0f0f0;
+            padding: 0.5rem;
+            border: 2px solid #000;
+        }
+    </style>
 </head>
 <body>
     <div class="center-wrapper">
         <div class="project-details-window">
-            <div class="project-title-bar" id="project-title-bar"></div>
+            <div class="project-title-bar">Project Details</div>
 
-            <div class="project-layout">
-                <!-- Carousel -->
-                <div class="carousel">
-                    <div class="carousel-track"></div>
-                    <div class="slide-counter" id="slide-counter"></div>
-                    <button class="carousel-btn left">&#10094;</button>
-                    <button class="carousel-btn right">&#10095;</button>
-                </div>
-
-                <!-- Project Metadata -->
-                <div class="project-meta">
-                    <div><span class="bold">Type:</span> <span id="project-type"></span></div>
-                    <div><span class="bold">Location:</span> <span id="project-location"></span></div>
-                    <div><span class="bold">Year:</span> <span id="project-year"></span></div>
-                </div>
-            </div>
-
-            <!-- Project Description -->
-            <div class="project-description" id="project-description"></div>
+            <!-- Groups Container -->
+            <div id="groups-container"></div>
 
             <button class="back-btn" onclick="window.history.back()">&#x2190; Back</button>
         </div>
     </div>
 
     <script>
-        // 1. Metadata for this project
-        const project = {
-            title: "The Silent Epidemic: Playful Living Environments & Loneliness",
-            type: "Master's Thesis Design Project",
-            location: "Pendrecht, Rotterdam Zuid, NL",
-            year: "2024-2025 (10 months)",
-            description: `<p>A comprehensive study and design proposal exploring how playful, community-focused architectural interventions can alleviate feelings of urban loneliness and foster social resilience in the Pendrecht neighbourhood.</p>`,
-            imageFolder: "../assets/projectImages/Project1_Thesis/", // Folder for carousel images
-            totalImages: 16 // Number of images in the folder
-        };
+        const groups = [
+            { title: "Group 1", folder: "../assets/projectImages/Project1_Thesis/Group1/", totalImages: 2, description: "Description for group 1." },
+            { title: "Group 2", folder: "../assets/projectImages/Project1_Thesis/Group2/", totalImages: 1, description: "Description for group 2." },
+            { title: "Group 3", folder: "../assets/projectImages/Project1_Thesis/Group3/", totalImages: 4, description: "Description for group 3." },
+            { title: "Group 4", folder: "../assets/projectImages/Project1_Thesis/Group4/", totalImages: 3, description: "Description for group 4." },
+            { title: "Group 5", folder: "../assets/projectImages/Project1_Thesis/Group5/", totalImages: 5, description: "Description for group 5." },
+            { title: "Group 6", folder: "../assets/projectImages/Project1_Thesis/Group6/", totalImages: 2, description: "Description for group 6." },
+            { title: "Group 7", folder: "../assets/projectImages/Project1_Thesis/Group7/", totalImages: 1, description: "Description for group 7." },
+            { title: "Group 8", folder: "../assets/projectImages/Project1_Thesis/Group8/", totalImages: 1, description: "Description for group 8." },
+        ];
 
-        // 2. Populate metadata
-        document.getElementById('project-title-bar').textContent = project.title;
-        document.getElementById('project-type').textContent = project.type;
-        document.getElementById('project-location').textContent = project.location;
-        document.getElementById('project-year').textContent = project.year;
-        document.getElementById('project-description').innerHTML = project.description;
+        const groupsContainer = document.getElementById('groups-container');
 
-        // 3. Carousel
-        const track = document.querySelector('.carousel-track');
-        const leftBtn = document.querySelector('.carousel-btn.left');
-        const rightBtn = document.querySelector('.carousel-btn.right');
-        const counter = document.getElementById('slide-counter');
-        let currentIndex = 1;
+        groups.forEach(group => {
+            const groupDiv = document.createElement('div');
+            groupDiv.className = 'group';
 
-        // Add images with clones for infinite loop
-        const images = [];
-        for (let i = 1; i <= project.totalImages; i++) {
-            const img = document.createElement('img');
-            img.src = `${project.imageFolder}${i}.png`;
-            images.push(img);
-        }
+            // Description
+            const description = document.createElement('div');
+            description.className = 'group-description';
+            description.innerHTML = `<strong>${group.title}</strong><br>${group.description}`;
 
-        // Clone last and first for infinite effect
-        const firstClone = images[0].cloneNode();
-        const lastClone = images[images.length - 1].cloneNode();
+            groupDiv.appendChild(description);
+            groupsContainer.appendChild(groupDiv);
 
-        track.appendChild(lastClone); // add last clone at beginning
-        images.forEach(img => track.appendChild(img)); // add real images
-        track.appendChild(firstClone); // add first clone at end
-
-        const totalSlides = images.length + 2; // include clones
-
-        function updateCarousel(animate = true) {
-            if (animate) {
-                track.style.transition = 'transform 0.5s ease';
+            if (group.totalImages === 1) {
+                // Single image, no carousel
+                const img = document.createElement('img');
+                img.src = `${group.folder}1.png`;
+                img.style.width = '100%';
+                img.style.objectFit = 'cover';
+                img.style.border = '2px solid black';
+                groupDiv.insertBefore(img, description);
             } else {
-                track.style.transition = 'none';
+                // Carousel for multiple images
+                const carousel = document.createElement('div');
+                carousel.className = 'carousel';
+
+                const track = document.createElement('div');
+                track.className = 'carousel-track';
+                carousel.appendChild(track);
+
+                const counter = document.createElement('div');
+                counter.className = 'slide-counter';
+                carousel.appendChild(counter);
+
+                const leftBtn = document.createElement('button');
+                leftBtn.className = 'carousel-btn left';
+                leftBtn.innerHTML = '&#10094;';
+                carousel.appendChild(leftBtn);
+
+                const rightBtn = document.createElement('button');
+                rightBtn.className = 'carousel-btn right';
+                rightBtn.innerHTML = '&#10095;';
+                carousel.appendChild(rightBtn);
+
+                groupDiv.insertBefore(carousel, description);
+
+                const images = [];
+                for (let i = 1; i <= group.totalImages; i++) {
+                    const img = document.createElement('img');
+                    img.src = `${group.folder}${i}.png`;
+                    images.push(img);
+                }
+
+                const firstClone = images[0].cloneNode();
+                const lastClone = images[images.length - 1].cloneNode();
+
+                track.appendChild(lastClone);
+                images.forEach(img => track.appendChild(img));
+                track.appendChild(firstClone);
+
+                let currentIndex = 1;
+
+                function updateCarousel(animate = true) {
+                    if (animate) track.style.transition = 'transform 0.5s ease';
+                    else track.style.transition = 'none';
+                    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+                    let displayIndex = currentIndex;
+                    if (displayIndex === 0) displayIndex = group.totalImages;
+                    else if (displayIndex === group.totalImages + 1) displayIndex = 1;
+                    counter.textContent = `${displayIndex} / ${group.totalImages}`;
+                }
+
+                leftBtn.addEventListener('click', () => {
+                    if (currentIndex <= 0) return;
+                    currentIndex--;
+                    updateCarousel();
+                });
+
+                rightBtn.addEventListener('click', () => {
+                    if (currentIndex >= group.totalImages + 1) return;
+                    currentIndex++;
+                    updateCarousel();
+                });
+
+                track.addEventListener('transitionend', () => {
+                    if (currentIndex === 0) currentIndex = group.totalImages;
+                    if (currentIndex === group.totalImages + 1) currentIndex = 1;
+                    updateCarousel(false);
+                });
+
+                window.addEventListener('resize', updateCarousel);
+                updateCarousel();
             }
-            const width = track.offsetWidth / totalSlides * (totalSlides - 2); // width of each slide
-            track.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-            // Update counter (1-indexed for real slides only)
-            let displayIndex = currentIndex;
-            if (displayIndex === 0) displayIndex = project.totalImages;
-            else if (displayIndex === project.totalImages + 1) displayIndex = 1;
-            counter.textContent = `${displayIndex} / ${project.totalImages}`;
-        }
-
-        rightBtn.addEventListener('click', () => {
-            if (currentIndex >= project.totalImages + 1) return;
-            currentIndex++;
-            updateCarousel();
         });
-
-        leftBtn.addEventListener('click', () => {
-            if (currentIndex <= 0) return;
-            currentIndex--;
-            updateCarousel();
-        });
-
-        // Loop reset after transition ends
-        track.addEventListener('transitionend', () => {
-            if (currentIndex === 0) {
-                currentIndex = project.totalImages;
-                updateCarousel(false);
-            }
-            if (currentIndex === project.totalImages + 1) {
-                currentIndex = 1;
-                updateCarousel(false);
-            }
-        });
-
-        window.addEventListener('resize', updateCarousel);
-        
-        updateCarousel();
     </script>
 </body>
 </html>

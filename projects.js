@@ -1,81 +1,14 @@
 // Projects Data
 const projects = [
-    // --- MASTERS LEVEL THESES & RESEARCH (Project 1, 9, 8) ---
     {
-        id: 1,
-        title: 'The Silent Epidemic: Playful Living Environments & Loneliness',
-        type: "Master's Thesis Design Project",
-        location: 'Pendrecht, Rotterdam Zuid, NL',
-        year: '2024-2025 (10 months)',
-        link: './projects/project1.html',
-        colouredImage: './assets/ringImages/cover1.png',
-        image: './assets/compressedHover/hover1.jpg',
-        description:
-            'A comprehensive study and design proposal exploring how **playful, community-focused architectural interventions** can be used as a therapeutic tool to alleviate feelings of **urban loneliness** and foster social resilience in the Pendrecht neighbourhood. **[Youtube Animation Link 1] [Youtube Animation Link 2]** **[Research Diagrams]** **[Full Academic Paper]**',
-    },
-    {
-        id: 2,
-        title: 'Mental Mapping the University Campus',
-        type: 'Honours Research Project',
-        location: 'TU Delft Campus, NL',
-        year: '2024-2025 (15 months)',
-        link: './projects/project2.html',
-        colouredImage: './assets/ringImages/cover2.png',
-        image: './assets/compressedHover/hover2.jpg',
-        description:
-            'Research investigating the **applicability of the Mental Mapping Methodology** to understand and visualize students’ collective and individual perceptions of the **learning-scape** and its impact on their sense of place and well-being.',
-    },
-    {
-        id: 3,
-        title: 'The Role of the Architect in Spaces of Contested History',
-        type: 'History Research Project',
-        location: 'Nicosia, CY',
-        year: '2024 (1.5 months)',
-        link: './projects/project3.html',
-        colouredImage: './assets/ringImages/cover3.png',
-        image: './assets/compressedHover/hover3.jpg',
-        description:
-            'Critical analysis of the architect’s ethical and design role when intervening in **sites marked by political conflict or contested heritage**, using Nicosia as a primary case study for reconciliation through design.',
-    },
-
-    // --- MASTERS LEVEL DESIGN PROJECTS (Project 2, 3) ---
-    {
-        id: 4,
-        title: 'Hammam as Carrier of Emotions',
-        type: 'Design Group Project',
-        location: 'Medina of Rabat, MA',
-        year: '2024 (1.5 months)',
-        link: './projects/project4.html',
-        colouredImage: './assets/ringImages/cover4.png',
-        image: './assets/compressedHover/hover4.jpg',
-        description:
-            'A design exploration focusing on the **Hammam as an architectural space for emotional cleansing and communal ritual**, reinterpreting traditional Moroccan structures for contemporary urban life in the historic Medina.',
-    },
-    {
-        id: 5,
-        title: 'Re-scaffolding the American Embassy',
+        id: 8,
+        title: 'Social Housing by the Castle',
         type: 'Design Project',
-        location: 'Korte Voorhout, Den Haag, NL',
-        year: '2023-2024 (3 months)',
-        link: './projects/project5.html',
-        colouredImage: './assets/ringImages/cover5.png',
-        image: './assets/compressedHover/hover5.jpg',
-        description:
-            'An architectural design project that re-imagines the iconic American Embassy site in The Hague, focusing on **adaptive reuse and public interface** to create a dynamic cultural and civic hub.',
-    },
-
-    // --- BACHELOR LEVEL THESIS & PROJECTS (Project 4, 5, 6, 7) ---
-    {
-        id: 6,
-        title: 'Rehabilitation Center within Contested History',
-        type: "Bachelor's Thesis Design Project",
-        location: 'Colston Parade 1-5, Bristol, UK',
-        year: '2023 (6 months)',
-        link: './projects/project6.html',
-        colouredImage: './assets/ringImages/cover6.png',
-        image: './assets/compressedHover/hover6.jpg',
-        description:
-            'A design for a **rehabilitation center situated within a site of historical contention**, exploring how architecture can facilitate healing and dialogue while acknowledging a complex past.',
+        location: 'Hay on Wye, Wales, UK',
+        year: '2021-2022 (3 months)',
+        link: './projects/project8.html',
+        colouredImage: './assets/ringImages/cover8.png',
+        image: './assets/compressedHover/hover8.jpg',
     },
     {
         id: 7,
@@ -86,20 +19,88 @@ const projects = [
         link: './projects/project7.html',
         colouredImage: './assets/ringImages/cover7.png',
         image: './assets/compressedHover/hover7.jpg',
-        description:
-            'Design and conceptualization of a **public playground** using narratives and characters from local Welsh folk tales to inspire spatial organization and interactive elements for children.',
     },
     {
-        id: 8,
-        title: 'Social Housing by the Castle',
+        id: 6,
+        title: 'Rehabilitation Center within Contested History',
+        type: "Bachelor's Thesis Design Project",
+        location: 'Colston Parade 1-5, Bristol, UK',
+        year: '2023 (6 months)',
+        link: './projects/project6.html',
+        colouredImage: './assets/ringImages/cover6.png',
+        image: './assets/compressedHover/hover6.jpg',
+    },
+    {
+        id: 3,
+        title: 'Hammam as Carrier of Emotions',
+        type: 'Design Group Project',
+        location: 'Medina of Rabat, MA',
+        year: '2024 (1.5 months)',
+        link: './projects/project3.html',
+        colouredImage: './assets/ringImages/cover3.png',
+        image: './assets/compressedHover/hover3.jpg',
+    },
+    {
+        id: 4,
+        title: 'Re-scaffolding the American Embassy',
         type: 'Design Project',
-        location: 'Hay on Wye, Wales, UK',
-        year: '2021-2022 (3 months)',
-        link: './projects/project8.html',
-        colouredImage: './assets/ringImages/cover8.png',
-        image: './assets/compressedHover/hover8.jpg',
-        description:
-            'Proposal for a **social housing development** adjacent to the historic Hay Castle, focusing on sensitive integration with the heritage context and promoting communal living.',
+        location: 'Korte Voorhout, Den Haag, NL',
+        year: '2023-2024 (3 months)',
+        link: './projects/project4.html',
+        colouredImage: './assets/ringImages/cover4.png',
+        image: './assets/compressedHover/hover4.jpg',
+    },
+    {
+        id: 5,
+        title: 'The Role of the Architect in Spaces of Contested History',
+        type: 'History Research Project',
+        location: 'Nicosia, CY',
+        year: '2024 (1.5 months)',
+        link: './projects/project5.html',
+        colouredImage: './assets/ringImages/cover5.png',
+        image: './assets/compressedHover/hover5.jpg',
+    },
+    {
+        id: 2,
+        title: 'Master Thesis Paper',
+        type: 'Research Project',
+        location: '—',
+        year: '—',
+        link: './projects/project2.html',
+        colouredImage: './assets/ringImages/cover2.png',
+        image: './assets/compressedHover/hover2.jpg',
+    },
+
+    {
+        id: 1,
+        title: 'The Silent Epidemic: Playful Living Environments & Loneliness',
+        type: "Master's Thesis Design Project",
+        location: 'Pendrecht, Rotterdam Zuid, NL',
+        year: '2024-2025 (10 months)',
+        link: './projects/project1.html',
+        colouredImage: './assets/ringImages/cover1.png',
+        image: './assets/compressedHover/hover1.jpg',
+    },
+
+    {
+        id: 11,
+        title: 'Non-architecture creative tales in the form of paintings and collages',
+        type: 'Paintings, Collages, Drawings',
+        location: 'Cyprus',
+        year: 'ongoing',
+        link: './projects/project11.html',
+        colouredImage: './assets/ringImages/cover11.png',
+        image: './assets/ringImagesHover/hover11.jpg',
+    },
+    {
+        id: 10,
+        title: 'Mental Mapping the University Campus',
+        type: 'Honours Research Project',
+        location: 'TU Delft Campus, NL',
+        year: '2024-2025 (15 months)',
+        link: './projects/project10.html',
+        colouredImage: './assets/ringImages/cover10.png',
+        image: './assets/ringImagesHover/hover10.jpg',
     },
     {
         id: 9,
@@ -109,14 +110,9 @@ const projects = [
         year: '2020-2021 (3 months)',
         link: './projects/project9.html',
         colouredImage: './assets/ringImages/cover9.png',
-        image: './assets/compressedHover/hover9.jpg',
-        description:
-            'Design of a **small, sustainable live/work space** providing a shelter and studio for a photographer, maximizing views and interaction with the riparian environment of the River Taff.',
+        image: './assets/ringImagesHover/hover9.png',
     },
 ];
-
-// SOLUTION: Create separate image layers for each project
-// This way we just fade between pre-loaded layers instead of changing backgrounds
 
 function createCenterHub() {
     const centerHub = document.createElement('div');
@@ -147,13 +143,13 @@ function createCenterHub() {
     // Set gradient background
     centerHub.style.backgroundImage = `conic-gradient(
         from 0deg,
-        rgba(255, 0, 0, 0.2),
-        rgba(255, 255, 0, 0.2), 
-        rgba(0, 255, 0, 0.2), 
-        rgba(0, 255, 255, 0.2), 
-        rgba(0, 0, 255, 0.2),
-        rgba(255, 0, 255, 0.2),
-        rgba(255, 0, 0, 0.2)
+        rgba(0, 0, 255, 0.3),
+        rgba(255, 0, 255, 0.3),
+        rgba(255, 0, 0, 0.3),
+        rgba(255, 255, 0, 0.3), 
+        rgba(0, 255, 0, 0.3), 
+        rgba(0, 255, 255, 0.3), 
+        rgba(0, 0, 255, 0.3)
     )`;
 
     return centerHub;
@@ -207,13 +203,13 @@ function handleSegmentLeave(centerHub) {
 
     centerHub.style.backgroundImage = `conic-gradient(
         from 0deg,
-        rgba(255, 0, 0, 0.2),
-        rgba(255, 255, 0, 0.2), 
-        rgba(0, 255, 0, 0.2), 
-        rgba(0, 255, 255, 0.2), 
-        rgba(0, 0, 255, 0.2),
-        rgba(255, 0, 255, 0.2),
-        rgba(255, 0, 0, 0.2)
+        rgba(0, 0, 255, 0.3),
+        rgba(255, 0, 255, 0.3),
+        rgba(255, 0, 0, 0.3),
+        rgba(255, 255, 0, 0.3), 
+        rgba(0, 255, 0, 0.3), 
+        rgba(0, 255, 255, 0.3), 
+        rgba(0, 0, 255, 0.3)
     )`;
 
     centerText.innerHTML =
