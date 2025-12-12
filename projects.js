@@ -303,8 +303,8 @@ function createProjectSegment(
     segment.style.clipPath = clipPath;
     segment.id = project.title;
     segment.style.backgroundImage = `url("${project.colouredImage}")`;
-    segment.style.backgroundSize = 'cover';
-    segment.style.backgroundPosition = 'center';
+    // segment.style.backgroundSize = '30%';
+    // segment.style.backgroundPosition = 'center';
     segment.style.backgroundRepeat = 'no-repeat';
 
     // Add event listeners
