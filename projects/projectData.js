@@ -128,17 +128,64 @@ const projects = [
     {
         title: 'The Role of the Architect in Spaces of Contested History',
         id: 2,
-        groups: [],
+        groups: [
+            {
+                type: 'pdf',
+                path: '../assets/projectImages/Project5_TheRoleOfTheArchitectInSpacesOfContestedHistory/History_Thesis.pdf',
+                description:
+                    'This thesis examines how the role of architects and urban planning professionals evolves in spaces of contested history, using the bi-communal Nicosia Master Plan as a case study. The research argues that the architect’s role is not fixed but shifts in response to changing socio-political conditions. Through analysis of academic literature from both sides of Cyprus, primary planning documents, drawings, and interviews with key members of the bi-communal team, the study identifies four evolving roles: architects as providers of practical solutions, deployers of politicians’ visions, producers of political vision, and potentially as facilitators of public participation. The thesis concludes that while early technical collaboration helped build trust and enable cooperation, later political divergence limited the plan’s unifying potential. Nevertheless, the Nicosia Master Plan demonstrates how architecture and planning can act as critical tools in navigating conflict, fostering dialogue, and imagining shared futures in divided cities.',
+            },
+        ],
     },
     {
         title: 'Rehabilitation Center within Contested History',
         id: 3,
-        groups: [],
+        groups: [
+            {
+                type: 'carousel',
+                folder: '../assets/projectImages/Project6_AlternativeRehabitationCenter/Group1/',
+                totalImages: 3,
+                description:
+                    'Colston Parade, is a row of Georgian houses in Redcliffe Bristol, named after the so-called philanthropist Edward Colston, who was involved in the transatlantic slave trade. Because of his donations to the city of Bristol he has  been memorialised in the city on street signs, statues etc. However, the project questions who gets to decide who and how someone is remembered? This comes after noticing that this row of houses falls on a socio-economic fault line where the wealth of the North and the economic and social struggle of the South are clearly separated along this line, through architecture as well as opportunity.',
+            },
+            {
+                type: 'carousel',
+                folder: '../assets/projectImages/Project6_AlternativeRehabitationCenter/Group2/',
+                totalImages: 4,
+                description:
+                    '<p>Looking into Georgian construction, the core of the project lies in deconstructing symbols of wealth of the Georgian construction. This is in an effort to alter the fact that this row of houses turn their back to the people that experience social challenges in the South, and are stigmatised for drug use. Instead, it decides to turn its back to the North and focus on giving a non-institutional path through rehabilitation to the people living in the South.</p><p>The project focuses on deconstructing the institutional elements of the circulation, such as corridors, and creating spaces that can hold and help people engage through the use of light, and cozy atmospheres. It uses more rough textures, and exposes the brick underneath.</p>',
+            },
+            {
+                type: 'carousel',
+                folder: '../assets/projectImages/Project6_AlternativeRehabitationCenter/Group3/',
+                totalImages: 3,
+                description:
+                    'Light, soft but also familiar materiality where important architectural considerations. Nooks for conversations with professionals are extruded from the South facade, and bigger glass openings on the ground floor to signal the new entrance into the building. The facades are stripped of their symbols of wealth in terms of their finishing, windows and doors.',
+            },
+            {
+                type: 'carousel',
+                folder: '../assets/projectImages/Project6_AlternativeRehabitationCenter/Group4/',
+                totalImages: 5,
+                description:
+                    'The basement provides a performance space that is double ceiling, and can be accessed directly from the Northern side. It can also be accessed by a descending garden from the South. The ground floor invites more social engagement through its cafe and spaces to sit around the fireplace in the form of a communal living room, that opens up to the garden. On the upper two floors, openings for light to enter from the roof down to the ground floor are created with seating around. Cozy nooks are created for meetings with specialists whilst avoiding an institutional feel. The cornices from the ceiling, and the marble mantel around the fireplace are removed and are repurposed in the scheme in the form of terrazzo elements etc.',
+            },
+            {
+                type: 'carousel',
+                folder: '../assets/projectImages/Project6_AlternativeRehabitationCenter/Group5/',
+                totalImages: 3,
+                description:
+                    'There is a hierarchy of privacy as you go up, where light and warmth are prioritised, together with harsher, yet more familiar textures, paired with warm colours and atmospheres. The scheme creates moments of social connection, spaces of creative expression and moments of solitude and reflection. All of this, in a space that was once designed in a way to showcase wealth, to limit access and to socially suppress those with less access to these facilities. Now, the dynamic shifts where priorities change, turning towards those it seeks to comfort and mitigating this socio-economic fault line.',
+            },
+        ],
     },
     {
         title: 'Playground Inspired by Local Folk Tales',
         id: 4,
-        groups: [],
+        groups: [
+            {
+                folder: '../assets/projectImages/Project7_Playground/',
+            },
+        ],
     },
     {
         title: 'Social Housing by the Castle',
@@ -148,16 +195,28 @@ const projects = [
     {
         title: 'Shelter for a Photographer by the River',
         id: 6,
-        groups: [],
+        groups: [
+            {
+                folder: '../assets/projectImages/Project8_SocialHousingByTheCastle/',
+            },
+        ],
     },
     {
         title: 'Mental Mapping the University Campus',
         id: 7,
-        groups: [],
+        groups: [
+            {
+                folder: '../assets/projectImages/Project10_HonoursProject/',
+            },
+        ],
     },
     {
         title: 'Non-architecture creative tales in the form of paintings and collages',
         id: 8,
-        groups: [],
+        groups: [
+            {
+                folder: '../assets/projectImages/Project11_Other/',
+            },
+        ],
     },
 ];
