@@ -9,7 +9,7 @@
 <body>
     <div class="center-wrapper">
         <div class="project-details-window">
-            <div class="project-title-bar" id="project-title-bar"></div>
+            <div class="project-title-bar" id="project-title-bar">The Role of the Architect in Spaces of Contested History</div>
 
             
             <!-- PDF Viewer -->
@@ -48,12 +48,8 @@
     </div>
 
     <script>
-        // 1. Metadata for this project
+        // Metadata for this project
         const project = {
-            title: 'The Role of the Architect in Spaces of Contested History',
-            type: 'History Research Project',
-            location: 'Nicosia, CY',
-            year: '2024 (1.5 months)',
             description: `<p>This thesis traces how playful, sensory-rich environments can soften the quiet weight of loneliness. This is situated in Pendrecht, a post-war landscape shaped by fragmentation and distance. Inspired by Homo Ludens, play is understood not as structured activity but as spontaneous, sensory encounters that invite connection. Through literature, ethnography, interviews, and spatial analysis, the study reveals how different generations feel isolation differently—and how the spaces around them quietly shape these experiences.</p>
                 <p>In response, it proposes a series of design principles and imagines a “playful periphery”: a network of accessible, inclusive, and health-supporting spaces that spark curiosity and draw people into gentle interaction. Ultimately, the thesis frames loneliness as inseparable from environmental conditions, suggesting that when cities weave play, sensory richness, and care into their fabric, they create places where belonging can slowly take root again.
                 </p>`,
@@ -61,14 +57,7 @@
             pdfPath: "../assets/projectImages/Project2_MasterThesisPaper/masterThesisPaper.pdf"
         }
 
-        // 2. Populate metadata
-        document.getElementById('project-title-bar').textContent = project.title;
-        document.getElementById('project-type').textContent = project.type;
-        document.getElementById('project-location').textContent = project.location;
-        document.getElementById('project-year').textContent = project.year;
-        document.getElementById('project-description').innerHTML = project.description;
-
-        // 3. Load PDF
+        // Load PDF
         const pdfViewer = document.getElementById('pdf-viewer');
         const pdfFallback = document.getElementById('pdf-fallback');
         const pdfDownloadLink = document.getElementById('pdf-download-link');
