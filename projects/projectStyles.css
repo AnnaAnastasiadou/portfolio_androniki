@@ -129,8 +129,9 @@ body {
 .bold { font-weight: bold; }
 
 /* Description */
-.project-description {
-    margin-top: 2rem;
+.project-description,
+.group-description {
+    margin: 2rem 0;
     background: #f0f0f0;
     padding: 1rem;
     border: 2px solid #000;
@@ -151,4 +152,93 @@ body {
 .back-btn:active {
     box-shadow: inset -1px -1px #fff, inset 1px 1px #000,
                 inset -2px -2px #dfdfdf, inset 2px 2px #808080;
+}
+
+/* Additional styles for PDF viewer */
+.pdf-container {
+    width: 100%;
+    height: 70vh;
+    min-height: 500px;
+    border: 2px solid #808080;
+    background-color: #f0f0f0;
+    margin: 1rem 0;
+    position: relative;
+    border-color: #808080 #ffffff #ffffff #808080;
+    box-shadow: inset 1px 1px 0px #000000, inset -1px -1px 0px #dfdfdf;
+}
+
+.pdf-embed {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.pdf-fallback {
+    display: none;
+    padding: 2rem;
+    text-align: center;
+    background-color: #fff7d6;
+    border: 1px solid #ffd700;
+    margin: 1rem;
+}
+
+.pdf-fallback.show {
+    display: block;
+}
+
+.download-pdf-btn {
+    background-color: #dfdfdf;
+    color: #000000;
+    padding: 0.5rem 1.5rem;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #dfdfdf #000000 #000000 #dfdfdf;
+    box-shadow: 1px 1px 0 0 black;
+    transition: all 0.1s ease-out;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.download-pdf-btn:hover {
+    background-color: #000080;
+    color: white;
+    border-color: #000080 #000000 #000000 #000080;
+    box-shadow: 2px 2px 0 0 black;
+    transform: translateY(-2px);
+}
+
+.download-pdf-btn:active {
+    border-color: #000000 #dfdfdf #dfdfdf #000000;
+    box-shadow: none;
+    transform: translateY(1px);
+}
+
+.pdf-info {
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* Mobile responsive */
+@media screen and (max-width: 768px) {
+    .pdf-container {
+        height: 60vh;
+        min-height: 400px;
+    }
+}
+
+.video-frame {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+
+.video-frame iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
 }

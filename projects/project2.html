@@ -5,85 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./projectStyles.css" />
     <title>Project 2 Details</title>
-    <style>
-        /* Additional styles for PDF viewer */
-        .pdf-container {
-            width: 100%;
-            height: 70vh;
-            min-height: 500px;
-            border: 2px solid #808080;
-            background-color: #f0f0f0;
-            margin: 1rem 0;
-            position: relative;
-            border-color: #808080 #ffffff #ffffff #808080;
-            box-shadow: inset 1px 1px 0px #000000, inset -1px -1px 0px #dfdfdf;
-        }
-
-        .pdf-embed {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .pdf-fallback {
-            display: none;
-            padding: 2rem;
-            text-align: center;
-            background-color: #fff7d6;
-            border: 1px solid #ffd700;
-            margin: 1rem;
-        }
-
-        .pdf-fallback.show {
-            display: block;
-        }
-
-        .download-pdf-btn {
-            background-color: #dfdfdf;
-            color: #000000;
-            padding: 0.5rem 1.5rem;
-            border-style: solid;
-            border-width: 3px;
-            border-color: #dfdfdf #000000 #000000 #dfdfdf;
-            box-shadow: 1px 1px 0 0 black;
-            transition: all 0.1s ease-out;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 1rem;
-            font-weight: bold;
-            font-size: 1rem;
-        }
-
-        .download-pdf-btn:hover {
-            background-color: #000080;
-            color: white;
-            border-color: #000080 #000000 #000000 #000080;
-            box-shadow: 2px 2px 0 0 black;
-            transform: translateY(-2px);
-        }
-
-        .download-pdf-btn:active {
-            border-color: #000000 #dfdfdf #dfdfdf #000000;
-            box-shadow: none;
-            transform: translateY(1px);
-        }
-
-        .pdf-info {
-            text-align: center;
-            color: #666;
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Mobile responsive */
-        @media screen and (max-width: 768px) {
-            .pdf-container {
-                height: 60vh;
-                min-height: 400px;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="center-wrapper">
@@ -122,21 +43,23 @@
             <!-- Project Description -->
             <div class="project-description" id="project-description"></div>
 
-            <button class="back-btn" onclick="window.history.back()">&#x2190; Back</button>
+            <button class="back-btn" onclick="window.location.href='../projects.html'">&#x2190; Back</button>
         </div>
     </div>
 
     <script>
         // 1. Metadata for this project
         const project = {
-            title: 'Mental Mapping the University Campus',
-            type: 'Honours Research Project',
-            location: 'TU Delft Campus, NL',
-            year: '2024-2025 (15 months)',
-            description: `<p>Research investigating the <strong>applicability of the Mental Mapping Methodology</strong> to understand and visualize students' collective and individual perceptions of the <strong>learning-scape</strong> and its impact on their sense of place and well-being.</p>`,
+            title: 'The Role of the Architect in Spaces of Contested History',
+            type: 'History Research Project',
+            location: 'Nicosia, CY',
+            year: '2024 (1.5 months)',
+            description: `<p>This thesis traces how playful, sensory-rich environments can soften the quiet weight of loneliness. This is situated in Pendrecht, a post-war landscape shaped by fragmentation and distance. Inspired by Homo Ludens, play is understood not as structured activity but as spontaneous, sensory encounters that invite connection. Through literature, ethnography, interviews, and spatial analysis, the study reveals how different generations feel isolation differently—and how the spaces around them quietly shape these experiences.</p>
+                <p>In response, it proposes a series of design principles and imagines a “playful periphery”: a network of accessible, inclusive, and health-supporting spaces that spark curiosity and draw people into gentle interaction. Ultimately, the thesis frames loneliness as inseparable from environmental conditions, suggesting that when cities weave play, sensory richness, and care into their fabric, they create places where belonging can slowly take root again.
+                </p>`,
             imageFolder: "../assets/projectImages/Project2_MasterThesisPaper/",
-            pdfPath: "../assets/projectImages/Project2_MasterThesisPaper/masterThesisPaper.pdf" // PDF in same folder as images
-        };
+            pdfPath: "../assets/projectImages/Project2_MasterThesisPaper/masterThesisPaper.pdf"
+        }
 
         // 2. Populate metadata
         document.getElementById('project-title-bar').textContent = project.title;
@@ -149,12 +72,10 @@
         const pdfViewer = document.getElementById('pdf-viewer');
         const pdfFallback = document.getElementById('pdf-fallback');
         const pdfDownloadLink = document.getElementById('pdf-download-link');
-        const pdfOpenNewTab = document.getElementById('pdf-open-new-tab');
 
         // Set PDF source
         pdfViewer.src = project.pdfPath;
         pdfDownloadLink.href = project.pdfPath;
-        pdfOpenNewTab.href = project.pdfPath;
 
         // Check if PDF loaded successfully
         pdfViewer.addEventListener('error', () => {

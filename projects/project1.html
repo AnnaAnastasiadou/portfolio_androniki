@@ -5,110 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./projectStyles.css" />
     <title>Project Details - Groups</title>
-    <style>
-        /* Carousel & group styling */
-        .group {
-            margin-bottom: 2rem;
-        }
-
-        .carousel {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            border: 2px solid black;
-            background: white;
-            margin-bottom: 0.5rem;
-        }
-
-        .carousel-track {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
-
-        .carousel-track img {
-            width: 100%;
-            object-fit: cover;
-            display: block;
-            border-bottom: 2px solid black;
-        }
-
-        .carousel-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #c0c0c0;
-            border: 2px solid black;
-            font-size: 1.4em;
-            width: 32px;
-            height: 40px;
-            cursor: pointer;
-            z-index: 10;
-        }
-        .carousel-btn.left { left: 5px; }
-        .carousel-btn.right { right: 5px; }
-        .carousel-btn:hover { background: #e0e0e0; }
-
-        .slide-counter {
-            position: absolute;
-            bottom: 5px;
-            right: 10px;
-            background: rgba(0,0,0,0.6);
-            color: #fff;
-            padding: 2px 6px;
-            font-size: 0.9em;
-            border-radius: 4px;
-            z-index: 5;
-            font-family: monospace;
-        }
-
-        .group-description {
-            margin-top: 0.5rem;
-            background: #f0f0f0;
-            padding: 0.5rem;
-            border: 2px solid #000;
-        }
-    </style>
 </head>
+
 <body>
     <div class="center-wrapper">
         <div class="project-details-window">
-            <div class="project-title-bar">Project Details</div>
+
+            <div class="project-title-bar">Re-scaffolding the American Embassy</div>
 
             <!-- Groups Container -->
             <div id="groups-container"></div>
 
-            <button class="back-btn" onclick="window.history.back()">&#x2190; Back</button>
+            <button class="back-btn" onclick="window.location.href='../projects.html'">&#x2190; Back</button>
         </div>
     </div>
 
     <script>
         const groups = [
-            { title: "Group 1", folder: "../assets/projectImages/Project1_Thesis/Group1/", totalImages: 2, description: "Description for group 1." },
-            { title: "Group 2", folder: "../assets/projectImages/Project1_Thesis/Group2/", totalImages: 1, description: "Description for group 2." },
-            { title: "Group 3", folder: "../assets/projectImages/Project1_Thesis/Group3/", totalImages: 4, description: "Description for group 3." },
-            { title: "Group 4", folder: "../assets/projectImages/Project1_Thesis/Group4/", totalImages: 3, description: "Description for group 4." },
-            { title: "Group 5", folder: "../assets/projectImages/Project1_Thesis/Group5/", totalImages: 5, description: "Description for group 5." },
-            { title: "Group 6", folder: "../assets/projectImages/Project1_Thesis/Group6/", totalImages: 2, description: "Description for group 6." },
-            { title: "Group 7", folder: "../assets/projectImages/Project1_Thesis/Group7/", totalImages: 1, description: "Description for group 7." },
-            { title: "Group 8", folder: "../assets/projectImages/Project1_Thesis/Group8/", totalImages: 1, description: "Description for group 8." },
+            { title: "Group 1", folder: "../assets/projectImages/Project1_Thesis/Group1/", totalImages: 2, description: "The project starts by researching the two notions of ‘loneliness’ and ‘playfulness’ not only through literature but also through ethnographic research, by interviewing all three target groups in Pendrecht for several weeks. The outcomes of both the literature research together with the ethnographic research were translated into tangible design guidelines, divided into the building and neighbourhood scale. The findings are also summarised in the research paper." },
+            // { title: "Group 2", folder: "../assets/projectImages/Project1_Thesis/Group2/", totalImages: 1, description: "" },
+            { title: "Group 3", folder: "../assets/projectImages/Project1_Thesis/Group3/", totalImages: 4, description: "The design on a broader scale, creates opportunities for meaningful interaction through shared activity anchors of both a pragmatic (sharing amenities) and social (creative spaces) nature. These are deliberately placed as nodes along carefully designed circulation to promote their use and interaction." },
+            { title: "Group 4", folder: "../assets/projectImages/Project1_Thesis/Group4/", totalImages: 3, description: "The scheme makes use of growing trees as structure, where the soothing effects of nature’s colours and sounds make a direct impact on the inhabitants battling chronic loneliness. This is inspired by the work of Baubotanik in their investigation of natural structure. The housing units are modular made of douglas fir and the manmade structure of CLT and glulam." },
+            { title: "Group 5", folder: "../assets/projectImages/Project1_Thesis/Group5/", totalImages: 7, description: "The housing units dedicate a large shared space between the single parent with their child and the elderly person. This provides a common entrance with a large kitchen and living room. The idea is that people have direct contact with each other and check up on one another as with cases of chronic loneliness someone might not leave their house for several days. So this direct visibility between people is needed to facilitate an environment where people check up on each other and care. <br> The shared spaces, in turn, provide the valuable nodes of interaction as they create moments of spontaneity where people can unexpectedly connect through activity. This is valuable in terms of social and emotional loneliness, as these can act as small but consistent encounters to bring someone out of the viscous cycle." },
+            { title: "Group 6", folder: "../assets/projectImages/Project1_Thesis/Group6/", totalImages: 2, description: "The two sections cut through the housing unit, showcasing both the two individual units and the shared space in-between. The materiality remains softer, contrasting the more colourful tone of the common spaces. The roof has space for water which also adds to the sensory experience when it rains. There is a small personal garden per small house for growing some vegetables or plants. " },
+            // { title: "Group 8", folder: "../assets/projectImages/Project1_Thesis/Group8/", totalImages: 1, description: "Description for group 8." }
         ];
 
         const groupsContainer = document.getElementById('groups-container');
 
-        groups.forEach(group => {
+        function createVideoBlock(videoId, descriptionText) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'group';
+
+            wrapper.innerHTML = `
+                <div class="video-window">
+                    <div class="video-content">
+                        <div class="video-frame">
+                            <iframe
+                                src="https://www.youtube.com/embed/${videoId}"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group-description">
+                    ${descriptionText}
+                </div>
+            `;
+
+            return wrapper;
+        }
+
+        groups.forEach((group, index) => {
             const groupDiv = document.createElement('div');
             groupDiv.className = 'group';
 
-            // Description
             const description = document.createElement('div');
             description.className = 'group-description';
-            description.innerHTML = `<strong>${group.title}</strong><br>${group.description}`;
+            description.innerHTML = group.description;
 
             groupDiv.appendChild(description);
             groupsContainer.appendChild(groupDiv);
 
             if (group.totalImages === 1) {
-                // Single image, no carousel
                 const img = document.createElement('img');
                 img.src = `${group.folder}1.png`;
                 img.style.width = '100%';
@@ -116,7 +78,6 @@
                 img.style.border = '2px solid black';
                 groupDiv.insertBefore(img, description);
             } else {
-                // Carousel for multiple images
                 const carousel = document.createElement('div');
                 carousel.className = 'carousel';
 
@@ -157,27 +118,18 @@
                 let currentIndex = 1;
 
                 function updateCarousel(animate = true) {
-                    if (animate) track.style.transition = 'transform 0.5s ease';
-                    else track.style.transition = 'none';
+                    track.style.transition = animate ? 'transform 0.5s ease' : 'none';
                     track.style.transform = `translateX(-${currentIndex * 100}%)`;
 
                     let displayIndex = currentIndex;
                     if (displayIndex === 0) displayIndex = group.totalImages;
                     else if (displayIndex === group.totalImages + 1) displayIndex = 1;
+
                     counter.textContent = `${displayIndex} / ${group.totalImages}`;
                 }
 
-                leftBtn.addEventListener('click', () => {
-                    if (currentIndex <= 0) return;
-                    currentIndex--;
-                    updateCarousel();
-                });
-
-                rightBtn.addEventListener('click', () => {
-                    if (currentIndex >= group.totalImages + 1) return;
-                    currentIndex++;
-                    updateCarousel();
-                });
+                leftBtn.onclick = () => { currentIndex--; updateCarousel(); };
+                rightBtn.onclick = () => { currentIndex++; updateCarousel(); };
 
                 track.addEventListener('transitionend', () => {
                     if (currentIndex === 0) currentIndex = group.totalImages;
@@ -185,8 +137,27 @@
                     updateCarousel(false);
                 });
 
-                window.addEventListener('resize', updateCarousel);
                 updateCarousel();
+            }
+
+            /* 🔹 VIDEO AFTER GROUP 1 */
+            if (index === 0) {
+                groupsContainer.appendChild(
+                    createVideoBlock(
+                        "rJDSO-bGSs8",
+                        "The above animation aims to re-tell the stories of the three generations as gathered by the interviews in Pendrecht. They aim to depict the three types of loneliness: social, emotional and existential, leading to people living ‘in parallel’, where they share these third spaces without any real possibility for meaningful interaction. "
+                    )
+                );
+            }
+
+            /* 🔹 VIDEO AFTER GROUP 8 */
+            if (index === groups.length - 1) {
+                groupsContainer.appendChild(
+                    createVideoBlock(
+                        "LCNtoDXVkIg",
+                        "This second animation, re-imagines the three characters from the first, in an arrangement where they live alongside each other. Thus, where their paths cross, and intersect, contrasting the idea of living parallel lives in the first. The community fostered is one where reliance on each other is seen as a positive, as people feel valued to help, and alleviate the pressures from one another. As in the end, it takes a village. Not only to raise a child, but to also take care of each other. "
+                    )
+                );
             }
         });
     </script>
