@@ -31,15 +31,6 @@
                 </div>
             </div>
 
-            <div class="project-layout">
-                <!-- Project Metadata -->
-                <div class="project-meta">
-                    <div><span class="bold">Type:</span> <span id="project-type"></span></div>
-                    <div><span class="bold">Location:</span> <span id="project-location"></span></div>
-                    <div><span class="bold">Year:</span> <span id="project-year"></span></div>
-                </div>
-            </div>
-
             <!-- Project Description -->
             <div class="project-description" id="project-description"></div>
 
@@ -48,7 +39,7 @@
     </div>
 
     <script>
-        // Metadata for this project
+        // 1. Metadata for this project
         const project = {
             description: `<p>This thesis traces how playful, sensory-rich environments can soften the quiet weight of loneliness. This is situated in Pendrecht, a post-war landscape shaped by fragmentation and distance. Inspired by Homo Ludens, play is understood not as structured activity but as spontaneous, sensory encounters that invite connection. Through literature, ethnography, interviews, and spatial analysis, the study reveals how different generations feel isolation differently—and how the spaces around them quietly shape these experiences.</p>
                 <p>In response, it proposes a series of design principles and imagines a “playful periphery”: a network of accessible, inclusive, and health-supporting spaces that spark curiosity and draw people into gentle interaction. Ultimately, the thesis frames loneliness as inseparable from environmental conditions, suggesting that when cities weave play, sensory richness, and care into their fabric, they create places where belonging can slowly take root again.
@@ -57,7 +48,9 @@
             pdfPath: "../assets/projectImages/Project2_MasterThesisPaper/masterThesisPaper.pdf"
         }
 
-        // Load PDF
+        document.getElementById('project-description').innerHTML = project.description;
+
+        // 3. Load PDF
         const pdfViewer = document.getElementById('pdf-viewer');
         const pdfFallback = document.getElementById('pdf-fallback');
         const pdfDownloadLink = document.getElementById('pdf-download-link');
