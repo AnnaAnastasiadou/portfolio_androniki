@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./projectStyles.css" />
+    <title>Project Details - Groups</title>
+</head>
+
+<body>
+    <div class="center-wrapper">
+        <div class="project-details-window">
+
+            <div class="project-title-bar">Hammam as Carrier of Emotions</div>
+
+            <!-- Groups Container -->
+            <div id="groups-container"></div>
+
+            <button class="back-btn" onclick="window.location.href='../projects.html'">&#x2190; Back</button>
+        </div>
+    </div>
+
+    <script>
+        const groups = [
+            { title: "Group 1", folder: "../assets/projectImages/Project3_HammamAsCarrierOfEmotions/Group1/", totalImages: 1, description: "The project is situated in Rabat, Morocco exploring how water in a scientific way might be expressed as simply H2O, however in reality different forms of water bring out different memories and emotions on us. Thus, as a group we explored how we can preserve this specific identity of specific forms of water in the scenario of extreme draught. We focused specifically on the hammam, and how to preserve the functions it serves in communities in this scenario." },
+            { title: "Group 2", folder: "../assets/projectImages/Project3_HammamAsCarrierOfEmotions/Group2/", totalImages: 4, description: "We have gathered stories related to water, which included tea making practices as a form of welcoming and gathering, the hammam and ablutions for physical and spiritual cleansing. We have analysed these emotions by breaking them down to the functions they serve to the community, which in turn allowed us to formulate options that can act as temporary or permanent replacement within the hammam, depending on the severity of the drought." },
+            { title: "Group 3", folder: "../assets/projectImages/Project3_HammamAsCarrierOfEmotions/Group3/", totalImages: 6, description: "These options can be grouped within room to room of a hammam, where as you go in the intensity of these emotions heightens, the same way the temperatures in a hammam rise as you progress. The functions can also be grouped on a neighborhood level, where each hammam building serves a different purpose to its neighborhood." },
+            { title: "Group 4", folder: "../assets/projectImages/Project3_HammamAsCarrierOfEmotions/Group4/", totalImages: 1, description: "The project sums up its findings in a catalogue which is intended as a conversation-started going into each individual neighborhood. Coming into a completely different context, our approach was an explorative one, which engages in conversation and proposes ideas for discussion, instead of laying a blueprint or a hard design. This project was formed in a team with Julia Schasfoort, Floor Schepel, Marieke Russchen and Raneem Musallab." },
+        ];
+
+        const groupsContainer = document.getElementById('groups-container');
+
+        groups.forEach((group, index) => {
+            const groupDiv = document.createElement('div');
+            groupDiv.className = 'group';
+
+            const description = document.createElement('div');
+            description.className = 'group-description';
+            description.innerHTML = group.description;
+
+            groupDiv.appendChild(description);
+            groupsContainer.appendChild(groupDiv);
+
+            if (group.totalImages === 1) {
+                const img = document.createElement('img');
+                img.src = `${group.folder}1.png`;
+                img.style.width = '100%';
+                img.style.objectFit = 'cover';
+                img.style.border = '2px solid black';
+                groupDiv.insertBefore(img, description);
+            } else {
+                const carousel = document.createElement('div');
+                carousel.className = 'carousel';
+
+                const track = document.createElement('div');
+                track.className = 'carousel-track';
+                carousel.appendChild(track);
+
+                const counter = document.createElement('div');
+                counter.className = 'slide-counter';
+                carousel.appendChild(counter);
+
+                const leftBtn = document.createElement('button');
+                leftBtn.className = 'carousel-btn left';
+                leftBtn.innerHTML = '&#10094;';
+                carousel.appendChild(leftBtn);
+
+                const rightBtn = document.createElement('button');
+                rightBtn.className = 'carousel-btn right';
+                rightBtn.innerHTML = '&#10095;';
+                carousel.appendChild(rightBtn);
+
+                groupDiv.insertBefore(carousel, description);
+
+                const images = [];
+                for (let i = 1; i <= group.totalImages; i++) {
+                    const img = document.createElement('img');
+                    img.src = `${group.folder}${i}.png`;
+                    images.push(img);
+                }
+
+                const firstClone = images[0].cloneNode();
+                const lastClone = images[images.length - 1].cloneNode();
+
+                track.appendChild(lastClone);
+                images.forEach(img => track.appendChild(img));
+                track.appendChild(firstClone);
+
+                let currentIndex = 1;
+
+                function updateCarousel(animate = true) {
+                    track.style.transition = animate ? 'transform 0.5s ease' : 'none';
+                    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+                    let displayIndex = currentIndex;
+                    if (displayIndex === 0) displayIndex = group.totalImages;
+                    else if (displayIndex === group.totalImages + 1) displayIndex = 1;
+
+                    counter.textContent = `${displayIndex} / ${group.totalImages}`;
+                }
+
+                leftBtn.onclick = () => { currentIndex--; updateCarousel(); };
+                rightBtn.onclick = () => { currentIndex++; updateCarousel(); };
+
+                track.addEventListener('transitionend', () => {
+                    if (currentIndex === 0) currentIndex = group.totalImages;
+                    if (currentIndex === group.totalImages + 1) currentIndex = 1;
+                    updateCarousel(false);
+                });
+
+                updateCarousel();
+            }
+
+        });
+    </script>
+</body>
+</html>

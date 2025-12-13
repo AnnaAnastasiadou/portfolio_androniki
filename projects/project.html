@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./projectStyles.css" />
+    <title>Project Details</title>
+    
+</head>
+<body>
+    <div class="center-wrapper">
+        <div class="project-details-window">
+            <div class="project-title-bar" id="project-title-bar"></div>
+
+            <div id="groups-container"></div>
+
+            <button class="back-btn" onclick="window.location.href='../projects.html'">&#x2190; Back</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./projectData.js"></script>
+    <script src="./renderProjects.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectId = urlParams.get('id');
+        renderProject(projectId);
+    </script>
+</body>
+</html>
