@@ -33,7 +33,7 @@ const projects = [
             {
                 type: 'carousel',
                 folder: '../assets/projectImages/Project1_Thesis/Group5/',
-                totalImages: 7,
+                totalImages: 6,
                 description:
                     '<p>The housing units dedicate a large shared space between the single parent with their child and the elderly person, This provides a common entrance with a large kitchen and living room. The idea is that people have direct contact with each other and check up on one another as with cases of chronic loneliness someone might not leave their house for several days. So this direct visibility between people is needed to facilitate an environment where people check up on each other and care.</p><p>The shared spaces, in turn, provide the valuable nodes of interaction as they create moments of spontaneity where people can unexpectedly connect through activity. This is valuable in terms of social and emotional loneliness, as these can act as small but consistent encounters to bring someone out of the viscous cycle.</p>',
             },

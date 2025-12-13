@@ -1096,8 +1096,8 @@ footer {
 }
 
 .project-segment:nth-child(3) {
-    background-size: 40%;
-    background-position: 90% 95%;
+    background-size: 120%;
+    background-position: 110% 360%;
 }
 
 .project-segment:nth-child(4) {
