@@ -98,4 +98,66 @@ const projects = [
             },
         ],
     },
+    {
+        title: 'Re-scaffolding the American Embassy',
+        id: 1,
+        groups: [
+            {
+                type: 'image',
+                folder: '../assets/projectImages/Project4_RescaffoldingAmericanEmbassy/Group1/',
+                totalImages: 1,
+                description:
+                    'The scheme investigates the former American Embassy, designed by Marcel Breuer. This building has absorbed a lot of the energy projected onto it, because of the protests happening outside targeting the American Embassy. Red paint, chicken blood, broken windows. The building was initially designed to offer space for passersby to come in and engage in conversation however, because of the protests security measures were placed on and around the building limiting access by people.',
+            },
+            {
+                type: 'carousel',
+                folder: '../assets/projectImages/Project4_RescaffoldingAmericanEmbassy/Group2/',
+                totalImages: 5,
+                description:
+                    'The scheme re-creates an entrance to the basement where this energy thrown onto the building is redirected inwards in the form of a more democratic discussion. This is where democracy and debate become more reachable to everyday people, using art as a prompt for discussion- where art does not soothe but instead becomes political. The two sides of the building are treated differently as the one facade faces the street with the protests and the other is a much quieter one facing the Sunday market. Thus, internally, a lot more space for discussion is created in the section facing Korte Voorhout. In the second section of the building, artists’ studios are housed which retain a more quiet feel.',
+            },
+            {
+                type: 'carousel',
+                folder: '../assets/projectImages/Project4_RescaffoldingAmericanEmbassy/Group3/',
+                totalImages: 3,
+                description:
+                    'The scheme on the outside, creates a more approachable attachment to the main facade, which steps out to the street to the same extent the former protecting barriers overstepped, blocking access to the building. This time this scaffolding structure aims to rebuild people’s impression of the building, and re-allow access to and around the building as originally intended by the architect. On the roof and sides, red scaffolding fabrics create temporary spaces for debate. Spaces which do not house debate in luxurious spaces but in semi-comfortable ones, as the essence of these conversations should be focused on the reality of situations by real people.',
+            },
+        ],
+    },
+    {
+        title: 'The Role of the Architect in Spaces of Contested History',
+        id: 2,
+        groups: [],
+    },
+    {
+        title: 'Rehabilitation Center within Contested History',
+        id: 3,
+        groups: [],
+    },
+    {
+        title: 'Playground Inspired by Local Folk Tales',
+        id: 4,
+        groups: [],
+    },
+    {
+        title: 'Social Housing by the Castle',
+        id: 5,
+        groups: [],
+    },
+    {
+        title: 'Shelter for a Photographer by the River',
+        id: 6,
+        groups: [],
+    },
+    {
+        title: 'Mental Mapping the University Campus',
+        id: 7,
+        groups: [],
+    },
+    {
+        title: 'Non-architecture creative tales in the form of paintings and collages',
+        id: 8,
+        groups: [],
+    },
 ];
