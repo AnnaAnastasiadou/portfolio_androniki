@@ -98,11 +98,14 @@ window.addEventListener('load', () => {
 
     const windows = document.querySelectorAll('.window.draggable');
     const portraitWin = windows[0]; // first window (profile/portrait)
-    const textWin = windows[1]; // second window (about/text)
+    const textWin = windows[2]; // second window (about/text)
+    const musicWin = windows[1];
     let portraitLeft;
     let textLeft;
+    let musicLeft;
     let portraitTop;
     let textTop;
+    let musicTop;
 
     if (!portraitWin || !textWin) return;
 
@@ -110,14 +113,19 @@ window.addEventListener('load', () => {
     if (viewportWidth <= MOBILE_BREAKPOINT) {
         const portraitWidth = Math.min(viewportWidth * 0.7, 350); // Using 90vw for better mobile fill
         const textWidth = Math.min(viewportWidth * 0.9, 600);
+        const musicWidth = Math.min(viewportWidth * 0.7, 350);
 
         portraitWin.style.width = portraitWidth + 'px';
         textWin.style.width = textWidth + 'px';
+        musicWin.style.width = musicWidth + 'px';
 
         portraitLeft = (viewportWidth - portraitWidth) / 2;
         portraitTop = navConstraint + 20;
 
-        textTop = portraitTop + portraitWin.offsetHeight - 100;
+        musicTop = portraitTop + portraitWin.offsetHeight + 20;
+        musicLeft = (viewportWidth - musicWidth) / 2;
+
+        textTop = musicTop + musicWin.offsetHeight + 20;
         textLeft = (viewportWidth - textWidth) / 2;
     }
 
@@ -125,23 +133,34 @@ window.addEventListener('load', () => {
     else {
         const portraitWidth = Math.min(viewportWidth * 0.5, 350); // Using 90vw for better mobile fill
         const textWidth = Math.min(viewportWidth * 0.7, 600);
+        const musicWidth = Math.min(viewportWidth * 0.6, 400);
         const windowsSpace = 50;
-        const bothWindowsWidth = portraitWidth + windowsSpace + textWidth;
+        const allWindowsWidth = musicWidth + windowsSpace + textWidth;
 
         portraitWin.style.width = portraitWidth + 'px';
         textWin.style.width = textWidth + 'px';
+        musicWin.style.width = musicWidth + 'px';
 
-        portraitLeft = (viewportWidth - bothWindowsWidth) / 2;
+        portraitLeft =
+            (viewportWidth - allWindowsWidth) / 2 +
+            (musicWidth - portraitWidth) / 2;
         portraitTop = navConstraint + 30;
 
+        musicLeft = (viewportWidth - allWindowsWidth) / 2;
+        musicTop = portraitTop + portraitWin.offsetHeight + 20;
+
         // Text on right
-        textLeft = portraitLeft + portraitWidth + windowsSpace;
+        textLeft = musicLeft + musicWidth + windowsSpace;
         textTop = navConstraint + 30;
     }
     portraitWin.style.position = 'absolute';
     portraitWin.style.left = portraitLeft + 'px';
     portraitWin.style.top = portraitTop + 'px';
     portraitWin.style.zIndex = '20';
+    musicWin.style.position = 'absolute';
+    musicWin.style.left = musicLeft + 'px';
+    musicWin.style.top = musicTop + 'px';
+    musicWin.style.zIndex = '21';
     textWin.style.position = 'absolute';
     textWin.style.left = textLeft + 'px';
     textWin.style.top = textTop + 'px';

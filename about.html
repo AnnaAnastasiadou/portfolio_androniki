@@ -16,6 +16,7 @@
         />
         <script src="load-header.js" defer></script>
         <script src="load-footer.js" defer></script>
+        <script src="musicPlayer.js" defer></script>
         <script src="about.js" defer></script>
         <title>Androniki Charalambous - About</title>
     </head>
@@ -39,6 +40,25 @@
                             Architect
                         </div>
                     </div>
+                </div>
+            </div>
+            <!-- Music Player Window -->
+            <div class="music-window window draggable">
+                <div class="window-title-bar">
+                    <span>Music Player</span>
+                </div>
+                <div class="window-body">
+                    <div class="player-controls">
+                        <button id="play-pause">&#10074;&#10074;</button>
+                        <span id="time">0:00 / 0:00</span>
+                        <input type="range" id="progress" min="0" max="100" value="0">
+                    </div>
+                    <div class="nav-buttons">
+                        <button id="prev">Previous</button>
+                        <button id="next">Next</button>
+                    </div>
+                    <div id="current-song">Now Playing: Song 1</div>
+                    <audio id="audio-player" src="./assets/music/song1.mp3"></audio>
                 </div>
             </div>
             <!-- Text window -->

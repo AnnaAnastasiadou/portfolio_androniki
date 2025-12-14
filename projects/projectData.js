@@ -53,7 +53,7 @@ const projects = [
         ],
     },
     {
-        title: 'The Role of the Architect in Spaces of Contested History',
+        title: 'The SIlent Epidemic: Redearch Paper',
         id: 10,
         groups: [
             {

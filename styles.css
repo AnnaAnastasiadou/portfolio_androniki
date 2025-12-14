@@ -1144,3 +1144,113 @@ footer {
     background-size: 55%;
     background-position: 100% 30%;
 }
+
+.music-window {
+    /* Use the same styling as other windows */
+    background-color: #ffffff;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #dfdfdf #808080 #808080 #dfdfdf;
+    box-shadow: 4px 4px 0 0 #000000;
+    max-width: 600px; /* similar to .about-container */
+    width: 70%; /* consistent with other draggable windows */
+    animation: windowAppear 0.5s ease-out forwards;
+}
+
+.music-window .window-body {
+    padding: 2rem; /* same as other windows */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.player-controls,
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+#progress {
+    width: 100%;
+}
+
+#play-pause, #prev, #next {
+    padding: 0.5rem;
+    font-weight: 600;
+    border-color: #dfdfdf #808080 #808080 #dfdfdf;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#play-pause:hover, #prev:hover, #next:hover {
+    background-color: #ababab;
+    /* color: white; */
+    /* border-color: #808080 #000000 #000000 #000080; */
+    box-shadow: 2px 2px 0 0 black;
+    transform: translateY(-2px);
+}
+
+#play-pause:active, #prev:active, #next:active {
+    border-color: #000000 #dfdfdf #dfdfdf #000000;
+    box-shadow: none;
+    transform: translateY(1px);
+}
+
+
+/* Style the range slider */
+#progress {
+    -webkit-appearance: none; /* Remove default style */
+    width: 100%;
+    height: 8px; /* Thickness of the bar */
+    
+    /* 💡 NEW: This gradient creates the split fill using the JS variable */
+    --track-progress: 0%; /* Initialize the variable */
+    background: linear-gradient(
+        to right, 
+        #000000 0%,      /* Start Dark at 0% */
+        #000000 var(--track-progress), /* Dark up to the current progress point */
+        #d3d3d3 var(--track-progress), /* Start Light at the current progress point */
+        #d3d3d3 100%     /* Light until 100% */
+    );
+    
+    border-radius: 4px;
+    outline: none;
+    /* Remove 'overflow: hidden;' if you have it, as it interferes with gradient */
+    cursor: pointer;
+}
+
+/* Track for Webkit browsers (Chrome, Safari, Edge) */
+#progress::-webkit-slider-runnable-track {
+    height: 8px;
+    background: transparent; /* Must be transparent so the main #progress background shows */
+    border-radius: 4px;
+}
+
+/* Firefox */
+#progress::-moz-range-track {
+    height: 8px;
+    background: transparent; /* Let the main #progress rule handle the background */
+    border-radius: 4px;
+}
+
+#progress::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #000000;
+    border: 2px solid #000000; 
+    
+    /* 💡 CRITICAL: This is the centering offset for a 14px thumb on an 8px track */
+    margin-top: -3px; 
+    
+    cursor: pointer;
+}
+
+#current-song {
+    font-weight: 600;
+}
