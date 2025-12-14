@@ -133,7 +133,7 @@ window.addEventListener('load', () => {
     else {
         const portraitWidth = Math.min(viewportWidth * 0.5, 350); // Using 90vw for better mobile fill
         const textWidth = Math.min(viewportWidth * 0.7, 600);
-        const musicWidth = Math.min(viewportWidth * 0.6, 400);
+        const musicWidth = Math.min(viewportWidth * 0.5, 350);
         const windowsSpace = 50;
         const allWindowsWidth = musicWidth + windowsSpace + textWidth;
 
