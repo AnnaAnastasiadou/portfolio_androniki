@@ -183,21 +183,114 @@ const projects = [
         id: 4,
         groups: [
             {
-                folder: '../assets/projectImages/Project7_Playground/',
+                type: 'image',
+                folder: '../assets/projectImages/Project7_Playground/Group1/',
+                totalImages: 1,
+                description:
+                    'Inspired by the work of Hieronymous Bosch, ‘The Garden of Earthly Delights’, the project starts by re-imagining  this small town in Wales, as a utopia and dystopia based on it’s context. In it’s utopian form, it builds on its playful nature of being a ‘book town’ and housing fdestivals and markets, to build on this opportunity for public life. In its dystopian form, the scheme considers the ageing population and high prices for rent in Hay on Wye, which make it impossible for young people to live there. It thus, imagines a future where these high prices sky-rocket and are the driving force for reconstruction of private spaces, taking over from the public realm even in the form of the castle.',
+            },
+            {
+                type: 'carousel',
+                folder: '../assets/projectImages/Project7_Playground/Group2/',
+                totalImages: 4,
+                description:
+                    'The project is inspired by the books of the town and the many tales told of how the town and castle were built ‘in a day’ which often involve figures like witches and fairies. Hence, it takes a plot situated next to the school of the town to form a playground inspired by tales and forming a distinctive place for children to play together of all ages and abilities.',
+            },
+            {
+                type: 'carousel',
+                folder: '../assets/projectImages/Project7_Playground/Group3/',
+                totalImages: 3,
+                description:
+                    'The red materiality gives a distinctive look, matching the rammed earth with bricks. Wooden platforms on top of the rammed earth create a topography on which children can play, that go in and out of small pavilions which can be used for play when it is raining.',
+            },
+            {
+                type: 'image',
+                folder: '../assets/projectImages/Project7_Playground/Group4/',
+                totalImages: 1,
+                description:
+                    'The scheme creates an accessible playground for the children of Hay on Wye, which due to the ageing population are often overlooked in terms of public space. These structures have a distinctive character yet are quite flexible on the inside so they can be used for a variety of types of play, from structured to unstructured and can be combined with school activities.',
             },
         ],
     },
     {
         title: 'Social Housing by the Castle',
         id: 5,
-        groups: [],
+        groups: [
+            {
+                type: 'carousel',
+                folder: '../assets/projectImages/Project8_SocialHousingByTheCastle/Group1/',
+                totalImages: 2,
+                description:
+                    'Hay on Wye is a town in Wales with an organic route system, with a reputation as a book town, with book festivals in its castle and food markets in three locations in the center of the town including on the site.',
+            },
+            {
+                type: 'image',
+                folder: '../assets/projectImages/Project8_SocialHousingByTheCastle/Group2/',
+                totalImages: 1,
+                description:
+                    'The project is a self-built project as social housing for a small number of young people to live in the center of the town. They offer their products at the Thursday and Saturday markets in the same location the current market takes place, next to the castle.',
+            },
+            {
+                type: 'image',
+                folder: '../assets/projectImages/Project8_SocialHousingByTheCastle/Group3/',
+                totalImages: 1,
+                description:
+                    "The hierarchy of the scheme grants the ground floor as open market space, and then on the first floor communal functions allow for the residents to work alongside each other. The top two floors house the residents in their individual housing units. The two top floors have a private balcony overlooking the castle, and a spacious communal space at the front where they can sit outside to enjoy each other's company. Small openings allow for some light to reach lower floors.",
+            },
+            {
+                type: 'carousel',
+                folder: '../assets/projectImages/Project8_SocialHousingByTheCastle/Group4/',
+                totalImages: 2,
+                description:
+                    'The materiality of the scheme utilises oak, douglas fir and welsh slate for the roof. Douglas fir turns grey over time, showing ageing and engaging in a conversation with the castle it sits next to. It will weather with rainfall and age to better relate to its ageing surroundings.',
+            },
+            {
+                type: 'image',
+                folder: '../assets/projectImages/Project8_SocialHousingByTheCastle/Group5/',
+                totalImages: 1,
+                description:
+                    'The ground floor remains permeable with a 5m tall space. The hierarchy from public, to communal and then private as you go up creates a bigger feeling of safety. The top units also benefit from sunlight from the roof pouring into their housing units. This project is a small gesture at affordable housing for young people, whilst simultaneously mitigating the ground between a new structure that can be in dialogue with each surroundings.',
+            },
+        ],
     },
     {
         title: 'Shelter for a Photographer by the River',
         id: 6,
         groups: [
             {
-                folder: '../assets/projectImages/Project8_SocialHousingByTheCastle/',
+                type: 'carousel',
+                folder: '../assets/projectImages/Project9_SmallHouseByTheRiver/Group1/',
+                totalImages: 4,
+                description:
+                    'The project starts by investigating precedents through model making, to learn from their materiality and form when dealing with small shelters in nature.',
+            },
+            {
+                type: 'image',
+                folder: '../assets/projectImages/Project9_SmallHouseByTheRiver/Group2/',
+                totalImages: 1,
+                description:
+                    'The scheme focuses on the sounds, and the irrespective atmosphere they create because of this. This was noticed by walking along the paths of River Taff within the Bute Park in Cardiff. Three locations had a more distinct atmosphere in terms of their soundscape, so they were points of interest.',
+            },
+            {
+                type: 'carousel',
+                folder: '../assets/projectImages/Project9_SmallHouseByTheRiver/Group3/',
+                totalImages: 3,
+                description:
+                    'These three areas were mapped on 2D and 3D planes in the form of paintings and macquettes to map these atmospheres. The first, was a layering of constant sounds, water, rustling of leaves, noise from cars that was still noticeable. The second, was a cozy spot closer to the water and deeper into the park, where the soundscape consisted of primarily natural sounds, which created a more engulfing and protective environments from outside stimuli. Lastly, the third soundscape was an area of fast and turbulent water, which cancelled out most other sounds but created this environment of fast movement and fluidity.',
+            },
+            {
+                type: 'image',
+                folder: '../assets/projectImages/Project9_SmallHouseByTheRiver/Group4/',
+                totalImages: 1,
+                description:
+                    'The design creates a shelter for a female photographer to escape in nature. Thus the design considers also safety. Hence, the side of the shelter facing the main path is covered in greenery, and the large window openings are made on the side of the river, where this shelter sits very close to. The deck allows for enjoying the nature outside, but on the top floor there is also space to enjoy this view of nature from an enclosed environment.',
+            },
+            {
+                type: 'carousel',
+                folder: '../assets/projectImages/Project9_SmallHouseByTheRiver/Group5/',
+                totalImages: 2,
+                description:
+                    'The maquette shows the relation of the shelter to its landscape. Views to the inside show that spaces that are more private take place ont he ground floor which has less visibility from the outside, whilst the working space is on the top floor, with a clear access to nature with its views and soundscapes. ',
             },
         ],
     },
@@ -206,7 +299,10 @@ const projects = [
         id: 7,
         groups: [
             {
-                folder: '../assets/projectImages/Project10_HonoursProject/',
+                type: 'pdf',
+                path: '../assets/projectImages/Project10_HonoursProject/Booklet.pdf',
+                description:
+                    'This project focuses on testing and refining mental mapping as a methodological tool for understanding how people perceive and structure spatial experience. Building on foundational theories by Kevin Lynch and Nasar, the research develops and tests an improved, more nuanced mental mapping approach that captures both tangible and intangible dimensions of spatial cognition, including movement, memory, atmosphere, and learning practices. The TU Delft campus is used as a case study and experimental setting, functioning as a condensed version of the city and offering accessible yet complex spatial conditions. Through iterative mental mapping exercises and interviews with students from different faculties and stages of study, the project evaluates the strengths, limitations, and interpretive potential of mental mapping as a research method. The findings demonstrate how methodological adjustments can reveal richer, more human-centered insights into spatial experience, supporting the use of mental mapping as a transferable tool for urban analysis, architectural research, and spatial design beyond the campus context.',
             },
         ],
     },
@@ -215,7 +311,36 @@ const projects = [
         id: 8,
         groups: [
             {
-                folder: '../assets/projectImages/Project11_Other/',
+                type: 'carousel',
+                folder: '../assets/projectImages/Project11_Other/Group1/',
+                totalImages: 4,
+                description:
+                    'Utopian city intercepting a mystical, enchanted forest (acrylics on canvas).',
+            },
+            {
+                type: 'carousel',
+                folder: '../assets/projectImages/Project11_Other/Group2/',
+                totalImages: 3,
+                description: 'Η αυλή της Θάλειας (acrylics on canvas)',
+            },
+            {
+                type: 'image',
+                folder: '../assets/projectImages/Project11_Other/Group3/',
+                totalImages: 1,
+                description:
+                    'Still life (acrylics, pencil, colour pencils, inks, watercolour)',
+            },
+            {
+                type: 'image',
+                folder: '../assets/projectImages/Project11_Other/Group4/',
+                totalImages: 1,
+                description: 'Shell studies (mixed media, lino print, collage)',
+            },
+            {
+                type: 'carousel',
+                folder: '../assets/projectImages/Project11_Other/Group5/',
+                totalImages: 4,
+                description: 'Life drawing (pens, watercolour, inks, markers)',
             },
         ],
     },
