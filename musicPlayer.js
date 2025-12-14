@@ -1,7 +1,7 @@
 const songs = [
-    { name: 'Song 1', path: './assets/music/song1.mp3' },
-    { name: 'Song 2', path: './assets/music/song2.mp3' },
-    { name: 'Song 3', path: './assets/music/song3.mp3' },
+    { name: 'Track 1', path: './assets/music/track1.mp3' },
+    { name: 'Track 2', path: './assets/music/track2.mp3' },
+    { name: 'Track 3', path: './assets/music/track3.mp3' },
 ];
 
 let currentIndex = 0;
