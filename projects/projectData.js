@@ -53,7 +53,7 @@ const projects = [
         ],
     },
     {
-        title: 'The SIlent Epidemic: Redearch Paper',
+        title: 'The SIlent Epidemic: Research Paper',
         id: 10,
         groups: [
             {
